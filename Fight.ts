@@ -1,15 +1,15 @@
-import { Character } from "./Character";
+import Character from "./Character.ts";
 
 export class Fight {
     private fighters: Character[];
     private currentTurnIndex: number = 0;
 
-    constructor(private adventurer: Character[], private ennemis: Character[]) {
+    constructor(private adventurer: Character[], private enemies: Character[]) {
         this.fighters = this.determineTurnOrder();
     }
 
     private determineTurnOrder(): Character[] {
-        const participants: Character[] = [...this.adventurer, ...this.ennemis];
+        const participants: Character[] = [...this.adventurer, ...this.enemies];
         participants.sort((a, b) => {
             if (b.speed > a.speed) {
                 return 1; 
