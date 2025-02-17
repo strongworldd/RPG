@@ -21,4 +21,25 @@ export class Fight {
         });
         return participants;
     }
+
+    private isTeamDefeated(team: Character[]): boolean {
+        for (let character of team) {
+            if (character.isAlive()) {
+                return false; 
+            }
+        }
+        return true; 
+    }
+
+    public start(): void {
+        console.log("⚔️ Le combat commence !");
+        for (;;) { 
+            this.takeTurn();
+    
+            if (this.isTeamDefeated(this.adventurer) || this.isTeamDefeated(this.enemies)) {
+                break; 
+            }
+        }
+        this.endFight();
+    }
 }

@@ -38,4 +38,8 @@ export default class Character {
             return "The character is not dead you can't revive it"
         }
     }
+
+    isAlive(): boolean {
+        return this.current_health > 0;
+    }
 }
