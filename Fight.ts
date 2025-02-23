@@ -8,7 +8,7 @@ export class Fight {
         this.fighters = this.determineTurnOrder();
     }
 
-    private determineTurnOrder(): Character[] {
+    private determineTurnOrder = (): Character[] => {
         const participants: Character[] = [...this.adventurer, ...this.enemies];
         participants.sort((a, b) => {
             if (b.speed > a.speed) {
@@ -21,8 +21,7 @@ export class Fight {
         });
         return participants;
     }
-
-    private isTeamDefeated(team: Character[]): boolean {
+    private isTeamDefeated = (team: Character[]): boolean => {
         for (let character of team) {
             if (character.isAlive()) {
                 return false; 
@@ -31,7 +30,7 @@ export class Fight {
         return true; 
     }
 
-    public start(): void {
+    public start = (): void => {
         console.log("⚔️ Le combat commence !");
         for (;;) { 
             this.takeTurn();
