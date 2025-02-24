@@ -1,10 +1,10 @@
 import Character from "./Character.ts";
 
 export class Fight {
-    private fighters: Character[];
-    private currentTurnIndex: number = 0;
+    private fighters :Character[];
+    private currentTurnIndex :number = 0;
 
-    constructor(private adventurer: Character[], private enemies: Character[]) {
+    constructor(private adventurer :Character[], private enemies :Character[]) {
         this.fighters = this.determineTurnOrder();
     }
 
@@ -22,16 +22,16 @@ export class Fight {
         return participants;
     }
 
-    private isTeamDefeated = (team: Character[]): boolean => {
+    private isTeamDefeated = (team :Character[]) :boolean => {
         for (let character of team) {
             if (character.isAlive()) {
-                return false; 
+                return false;
             }
         }
         return true; 
     }
 
-    public start = (): void => {
+    public start = () :void => {
         console.log("⚔️ Le combat commence !");
         do { 
             this.takeTurn();

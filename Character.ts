@@ -1,45 +1,45 @@
 export default class Character {
-    name="";
-    physical_attack=0;
-    defense_attack=0;
-    speed=0;
-    max_health=0;
-    current_health=0;
+    name = "";
+    physicalAttack = 0;
+    defenseAttack = 0;
+    speed = 0;
+    maxHealth = 0;
+    currentHealth = 0;
 
-    constructor(name:string,physical_attack:number,defense_attack:number,speed:number,max_health:number,current_health:number) {
-        this.name=name;
-        this.physical_attack=physical_attack;
-        this.defense_attack=defense_attack;
-        this.speed=speed;
-        this.max_health=max_health;
-        this.current_health=current_health;
+    constructor(name :string, physicalAttack :number, defenseAttack :number, speed :number, maxHealth :number, currentHealth :number) {
+        this.name = name;
+        this.physicalAttack = physicalAttack;
+        this.defenseAttack = defenseAttack;
+        this.speed = speed;
+        this.maxHealth = maxHealth;
+        this.currentHealth = currentHealth;
     }
 
-    attack=(target: Character):string => {
-        target.current_health-=this.physical_attack-target.defense_attack;
-        return this.name +" deals "+(this.physical_attack-target.defense_attack)+" damage.";
+    attack=(target :Character) :string => {
+        target.currentHealth -= this.physicalAttack - target.defenseAttack;
+        return this.name + " deals " + (this.physicalAttack - target.defenseAttack) + " damage.";
     }
 
-    heal=(healnumber: number):string => {
-        if (this.current_health+healnumber>this.max_health) {
-            this.current_health=this.max_health;
-            return "The character got heal "+healnumber+" HP and has now "+this.current_health+"HP."
+    heal=(healnumber :number) :string => {
+        if (this.currentHealth + healnumber > this.maxHealth) {
+            this.currentHealth = this.maxHealth;
+            return "The character got heal " + healnumber + " HP and has now " + this.currentHealth + "HP."
         } else {
-            this.current_health+=healnumber;
-            return "The character got heal "+healnumber+" HP and has now "+this.current_health+"HP."
+            this.currentHealth += healnumber;
+            return "The character got heal " + healnumber + " HP and has now " + this.currentHealth + "HP."
         }
     }
 
-    revive=(healrevive: number): string=> {
-        if (this.current_health==0){
-            this.current_health=healrevive;
-            return "The character is now alive with "+healrevive+"HP."
+    revive=(healrevive :number) :string=> {
+        if (this.currentHealth == 0){
+            this.currentHealth = healrevive;
+            return "The character is now alive with " + healrevive + "HP."
         } else {
             return "The character is not dead you can't revive it"
         }
     }
 
     isAlive(): boolean {
-        return this.current_health > 0;
+        return this.currentHealth > 0;
     }
 }
