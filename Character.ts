@@ -20,20 +20,20 @@ export default class Character {
         return this.name + " deals " + (this.physicalAttack - target.defenseAttack) + " damage.";
     }
 
-    heal=(healnumber :number) :string => {
-        if (this.currentHealth + healnumber > this.maxHealth) {
+    heal=(healNumber :number) :string => {
+        if (this.currentHealth + healNumber > this.maxHealth) {
             this.currentHealth = this.maxHealth;
-            return "The character got heal " + healnumber + " HP and has now " + this.currentHealth + "HP."
+            return "The character got heal " + healNumber + " HP and has now " + this.currentHealth + "HP."
         } else {
-            this.currentHealth += healnumber;
-            return "The character got heal " + healnumber + " HP and has now " + this.currentHealth + "HP."
+            this.currentHealth += healNumber;
+            return "The character got heal " + healNumber + " HP and has now " + this.currentHealth + "HP."
         }
     }
 
-    revive=(healrevive :number) :string=> {
+    revive=(healRevive :number) :string=> {
         if (this.currentHealth == 0){
-            this.currentHealth = healrevive;
-            return "The character is now alive with " + healrevive + "HP."
+            this.currentHealth = healRevive;
+            return "The character is now alive with " + healRevive + "HP."
         } else {
             return "The character is not dead you can't revive it"
         }
