@@ -21,6 +21,7 @@ export class Fight {
         });
         return participants;
     }
+
     private isTeamDefeated = (team: Character[]): boolean => {
         for (let character of team) {
             if (character.isAlive()) {
@@ -32,13 +33,11 @@ export class Fight {
 
     public start = (): void => {
         console.log("⚔️ Le combat commence !");
-        for (;;) { 
+        do { 
             this.takeTurn();
     
-            if (this.isTeamDefeated(this.adventurer) || this.isTeamDefeated(this.enemies)) {
-                break; 
-            }
-        }
+        } while (this.isTeamDefeated(this.adventurer) || this.isTeamDefeated(this.enemies));
+
         this.endFight();
     }
 }
