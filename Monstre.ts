@@ -5,7 +5,7 @@ export class Monstre extends Character {
         super(nom, attaque, 0, 0, pv, pv);
     }
 
-    agir = (aventuriers: Character[]) : void => {
+    act = (aventuriers: Character[]) : void => {
         const vivantAventuriers = aventuriers.filter(aventurier => aventurier.isAlive());
         if (vivantAventuriers.length === 0) return;
 
