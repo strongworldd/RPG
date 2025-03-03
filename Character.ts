@@ -1,4 +1,5 @@
 export default class Character {
+<<<<<<< HEAD
     name = "";
     physicalAttack = 0;
     defenseAttack = 0;
@@ -34,13 +35,41 @@ export default class Character {
             this.current_health+=healnumber;
             this.currentHealth += healNumber;
             return "The character got heal " + healNumber + " HP and has now " + this.currentHealth + "HP."
+=======
+    name="";
+    physicalAttack=0;
+    defenseAttack=0;
+    speed=0;
+    maxHealth=0;
+    currentHealth=0;
+
+    constructor(name:string,physicalAttack:number,defenseAttack:number,speed:number,maxHealth:number,currentHealth:number) {
+        this.name=name;
+        this.physicalAttack=physicalAttack;
+        this.defenseAttack=defenseAttack;
+        this.speed=speed;
+        this.maxHealth=maxHealth;
+        this.currentHealth=currentHealth;
+    }
+
+    attack=(target: Character):string => {
+        target.currentHealth-=this.physicalAttack-target.defenseAttack;
+        return this.name +" inflige "+(this.physicalAttack-target.defenseAttack)+" points de dégat.";
+    }
+
+    heal=(healnumber: number):string => {
+        if (this.currentHealth+healnumber>this.maxHealth) {
+            this.currentHealth=this.maxHealth;
+        } else {
+            this.currentHealth+=healnumber;
+>>>>>>> origin/Character
         }
-        return "Le personnage se soigne "+healnumber+" points de vie et a maintenant "+this.current_health+"points de vie."
+        return "Le personnage se soigne "+healnumber+" points de vie et a maintenant "+this.currentHealth+"points de vie."
     }
 
     revive=(healrevive: number): string=> {
-        if (this.current_health==0){
-            this.current_health=healrevive;
+        if (this.currentHealth==0){
+            this.currentHealth=healrevive;
             return "Le personnage ressuscite avec "+healrevive+"points de vie."
     revive=(healRevive :number) :string=> {
         if (this.currentHealth == 0){

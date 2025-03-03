@@ -6,11 +6,11 @@ export class Prêtre extends Character {
     }
 
     specialheal= (healnumber: number,target: Character) :string => {
-        if (target.current_health+healnumber>target.max_health){
-            target.current_health=target.max_health
+        if (target.currentHealth+healnumber>target.maxHealth){
+            target.currentHealth=target.maxHealth
         } else {
-            target.current_health+=healnumber
+            target.currentHealth+=healnumber
         }
-        return "Le personnage se soigne "+healnumber+" points de vie et a maintenant "+this.current_health+"points de vie."
+        return "Le personnage se soigne "+healnumber+" points de vie et a maintenant "+this.currentHealth+"points de vie."
     }
 }
