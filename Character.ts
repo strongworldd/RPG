@@ -17,25 +17,24 @@ export default class Character {
 
     attack=(target: Character):string => {
         target.current_health-=this.physical_attack-target.defense_attack;
-        return this.name +" deals "+(this.physical_attack-target.defense_attack)+" damage.";
+        return this.name +" inflige "+(this.physical_attack-target.defense_attack)+" points de dégat.";
     }
 
     heal=(healnumber: number):string => {
         if (this.current_health+healnumber>this.max_health) {
             this.current_health=this.max_health;
-            return "The character got heal "+healnumber+" HP and has now "+this.current_health+"HP."
         } else {
             this.current_health+=healnumber;
-            return "The character got heal "+healnumber+" HP and has now "+this.current_health+"HP."
         }
+        return "Le personnage se soigne "+healnumber+" points de vie et a maintenant "+this.current_health+"points de vie."
     }
 
     revive=(healrevive: number): string=> {
         if (this.current_health==0){
             this.current_health=healrevive;
-            return "The character is now alive with "+healrevive+"HP."
+            return "Le personnage ressuscite avec "+healrevive+"points de vie."
         } else {
-            return "The character is not dead you can't revive it"
+            return "Le personnage est mort et vous ne pouvez pas le ressusciter"
         }
     }
 }
