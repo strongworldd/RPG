@@ -1,4 +1,4 @@
-import Character from "./Character.ts";
+import Character from "./classCharacters/Character.ts";
 
 export class Fight {
     private fighters: Character[];
@@ -23,7 +23,7 @@ export class Fight {
     }
 
     private isTeamDefeated = (team :Character[]) : boolean => {
-        for (let character of team) {
+        for (const character of team) {
             if (character.isAlive()) {
                 return false;
             }
@@ -51,7 +51,7 @@ export class Fight {
         }
     
         let target: Character | null = null;
-        for (let enemy of this.enemies) {
+        for (const enemy of this.enemies) {
             if (enemy.isAlive()) {
                 target = enemy;
                 break;

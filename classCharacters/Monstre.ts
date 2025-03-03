@@ -1,7 +1,7 @@
-import Character from './Character';
+import Character from './Character.ts';
 
 export class Monstre extends Character {
-    constructor(nom: string, pv: number, attaque: number) {
+    constructor(nom :string, pv: number, attaque: number) {
         super(nom, attaque, 0, 0, pv, pv);
     }
 
