@@ -38,14 +38,14 @@ export default class Character {
         }    
     }
 
-    hurt = (deCbm :number) => {
-        if(this.currentHealth - deCbm > 0){
-            this.currentHealth -= deCbm;
-            console.log(this.name + " inflige " + (deCbm) + " points de dégat");
-        }else{
-            console.log(this.died())
-        }
-    }
+    //hurt = (deCbm :number) => {
+    //    if(this.currentHealth - deCbm > 0){
+    //        this.currentHealth -= deCbm;
+    //        console.log(this.name + " inflige " + (deCbm) + " points de dégat");
+    //    }else{
+    //        console.log(this.died())
+    //    }
+    //}
 
     heal = (healNumber :number) :string => {
         if (this.currentHealth + healNumber > this.maxHealth) {
