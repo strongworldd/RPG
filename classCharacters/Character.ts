@@ -1,4 +1,5 @@
 import { Mage } from "./mage.ts";
+import { Paladin } from "./paladin.ts";
 
 export default class Character {
     name = "";
@@ -28,10 +29,19 @@ export default class Character {
             }else{
                 return this.died();
             }
+        }else if(Object.getPrototypeOf(target) === Paladin.prototype){
+            const attacking = (this.physicalAttack - target.defenseAttack)*0.4
+            if (target.currentHealth - attacking > 0) {
+                target.currentHealth -= attacking;
+                return this.name + " inflige " + attacking + " points de dégat.";
+            }else{
+                return `${target.died()} grâçe à ${this.name}!`
+            }
         }else{
-            if (target.currentHealth - (this.physicalAttack - target.defenseAttack) > 0) {
-                target.currentHealth -= this.physicalAttack - target.defenseAttack;
-                return this.name + " inflige " + (this.physicalAttack-target.defenseAttack) + " points de dégat.";
+            const attacking = this.physicalAttack - target.defenseAttack
+            if (target.currentHealth - attacking > 0) {
+                target.currentHealth -= attacking;
+                return this.name + " inflige " + attacking + " points de dégat.";
             }else{
                 return `${target.died()} grâçe à ${this.name}!`
             }

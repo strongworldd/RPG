@@ -50,7 +50,7 @@ export class Fight {
             return;
         }
     
-        let target: Character | null = null;
+        let target :Character | null = null;
         for (const enemy of this.enemies) {
             if (enemy.isAlive()) {
                 target = enemy;
@@ -58,7 +58,7 @@ export class Fight {
             }
         }
     
-        if (target) {
+        if (target != null) {
             console.log(currentFighter.attack(target));
         } else {
             console.log("⚔️ Il n'y a plus d'ennemis à attaquer.");
