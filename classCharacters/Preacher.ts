@@ -1,8 +1,8 @@
 import Character from './Character.ts';
 
 export class Prêtre extends Character {
-    constructor(nom: string, speed :number) {
-        super(nom, 15, 2, speed, 100, 100);
+    constructor(nom: string) {
+        super(nom, 15, 2, 6, 100, 100);
     }
 
     specialHeal= (target: Character) :string => {

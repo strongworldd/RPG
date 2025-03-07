@@ -1,8 +1,8 @@
 import Character from "./Character.ts";
 
 export class Barbare extends Character {
-    constructor(name :string, speed :number) {
-        super(name, 30, 3, speed, 100, 100)
+    constructor(name :string) {
+        super(name, 30, 3, 6, 100, 100)
     }
 
     berserkAttack(target :Character | Character[]){
