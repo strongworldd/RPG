@@ -6,11 +6,12 @@ export class Barbare extends Character {
     }
 
     berserkAttack(target :Character | Character[]){
-        if (target !instanceof Character) {
-            
+        if (Array.isArray(target)) {
+            const cible = Math.floor(Math.random() * (target.length - 0 + 1)) + 0;
+            this.attack(target[cible])
+        }else{
+            this.attack(target)
         }
-        for (const cible of target) {
-            
-        }
+        this.hurt(this.maxHealth*0.2)
     }
 }

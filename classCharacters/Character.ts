@@ -1,6 +1,3 @@
-import { Mage } from "./mage.ts";
-import { Paladin } from "./paladin.ts";
-
 export default class Character {
     name = "";
     physicalAttack = 0;
@@ -22,18 +19,26 @@ export default class Character {
     }
 
     attack = (target :Character) :string => {
-        if (Object.getPrototypeOf(target) === Mage.prototype){
+        if (this.attack.caller.name === "attackMagique"){
             if(this.currentHealth - this.magicAttack > 0){
                 this.currentHealth -= this.magicAttack;
-                return this.name + " inflige " + (this.magicAttack) + " points de dégat magique.";
+                return this.name + " inflige " + (this.magicAttack) + " points de dégat magique à " + target.name + ".";
             }else{
                 return this.died();
             }
-        }else if(Object.getPrototypeOf(target) === Paladin.prototype){
+        }else if(this.attack.caller.name ==="sainteAttack"){
             const attacking = (this.physicalAttack - target.defenseAttack)*0.4
             if (target.currentHealth - attacking > 0) {
                 target.currentHealth -= attacking;
-                return this.name + " inflige " + attacking + " points de dégat.";
+                return this.name + " inflige " + attacking + " points de dégat à " + target.name + ".";
+            }else{
+                return `${target.died()} grâçe à ${this.name}!`
+            }
+        }else if(this.attack.caller.name === "berserkAttack"){
+            const attacking = (this.physicalAttack - target.defenseAttack)*1.3
+            if (target.currentHealth - attacking > 0) {
+                target.currentHealth -= attacking;
+                return this.name + " inflige " + attacking + " points de dégat à " + target.name + ".";
             }else{
                 return `${target.died()} grâçe à ${this.name}!`
             }
@@ -41,21 +46,21 @@ export default class Character {
             const attacking = this.physicalAttack - target.defenseAttack
             if (target.currentHealth - attacking > 0) {
                 target.currentHealth -= attacking;
-                return this.name + " inflige " + attacking + " points de dégat.";
+                return this.name + " inflige " + attacking + " points de dégat à " + target.name + ".";
             }else{
                 return `${target.died()} grâçe à ${this.name}!`
             }
         }    
     }
 
-    //hurt = (deCbm :number) => {
-    //    if(this.currentHealth - deCbm > 0){
-    //        this.currentHealth -= deCbm;
-    //        console.log(this.name + " inflige " + (deCbm) + " points de dégat");
-    //    }else{
-    //        console.log(this.died())
-    //    }
-    //}
+    hurt = (deCbm :number) => {
+        if(this.currentHealth - deCbm > 0){
+            this.currentHealth -= deCbm;
+            return this.name + " s'inflige " + deCbm + " points de dégat.";
+        }else{
+            return this.died()
+        }
+    }
 
     heal = (healNumber :number) :string => {
         if (this.currentHealth + healNumber > this.maxHealth) {

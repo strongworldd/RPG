@@ -2,15 +2,17 @@ import Character from './Character.ts';
 
 export class Prêtre extends Character {
     constructor(nom: string, speed :number) {
-        super(nom, 30, 10, speed, 100, 100);
+        super(nom, 15, 2, speed, 100, 100);
     }
 
-    specialheal= (healnumber: number,target: Character) :string => {
-        if (target.currentHealth+healnumber>target.maxHealth){
-            target.currentHealth=target.maxHealth
+    specialHeal= (target: Character) :string => {
+        let healNumber = target.maxHealth * 0.25
+        if (target.currentHealth + healNumber > target.maxHealth){
+            healNumber = target.maxHealth - target.currentHealth
+            target.currentHealth = target.maxHealth
         } else {
-            target.currentHealth+=healnumber
+            target.currentHealth += healNumber
         }
-        return "Le personnage se soigne "+healnumber+" points de vie et a maintenant "+this.currentHealth+"points de vie."
+        return `${this.name} soigne ${target.name} de ${healNumber}, ${target.name} à désormais ${target.currentHealth} point de vie.`
     }
 }
