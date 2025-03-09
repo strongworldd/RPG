@@ -18,15 +18,15 @@ export default class Character {
         this.currentHealth = currentHealth;
     }
 
-    attack = (target :Character) :string => {
-        if (this.attack.caller.name === "attackMagique"){
+    public attack = (target :Character) :string => {
+        if (this.attack.caller.name === "sorcererAttack"){
             if(this.currentHealth - this.magicAttack > 0){
                 this.currentHealth -= this.magicAttack;
                 return this.name + " inflige " + (this.magicAttack) + " points de dégat magique à " + target.name + ".";
             }else{
                 return this.died();
             }
-        }else if(this.attack.caller.name ==="sainteAttack"){
+        }else if(this.attack.caller.name ==="divinAttack"){
             const attacking = (this.physicalAttack - target.defenseAttack)*0.4
             if (target.currentHealth - attacking > 0) {
                 target.currentHealth -= attacking;
@@ -53,7 +53,7 @@ export default class Character {
         }    
     }
 
-    hurt = (deCbm :number) => {
+    protected hurt = (deCbm :number) => {
         if(this.currentHealth - deCbm > 0){
             this.currentHealth -= deCbm;
             return this.name + " s'inflige " + deCbm + " points de dégat.";
@@ -62,7 +62,7 @@ export default class Character {
         }
     }
 
-    heal = (healNumber :number) :string => {
+    protected heal = (healNumber :number) :string => {
         if (this.currentHealth + healNumber > this.maxHealth) {
             this.currentHealth = this.maxHealth;
         } else {
@@ -71,18 +71,18 @@ export default class Character {
         return "Le personnage se soigne " + healNumber + " points de vie et a maintenant " + this.currentHealth + "points de vie."
     }
 
-    died(){
+    private died(){
         return `${this.name} est mort !`
     }
 
-    revive = (healRevive :number) :string => {
+    public revive = (healRevive :number) :string => {
         if (this.currentHealth == 0){
             this.currentHealth = healRevive;  
         }
         return "Le personnage ressuscite avec " + healRevive + "points de vie."
     }
 
-    isAlive() :boolean {
+    public isAlive() :boolean {
         return this.currentHealth > 0;
     }
 }
