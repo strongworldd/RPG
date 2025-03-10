@@ -7,7 +7,7 @@ export class Mage extends Character{
     override magicAttack = 25
     
     constructor(name :string) {
-        super(name, 10, 2, 4, 100, 100)
+        super(name, 10, 2, 8, 100, 100)
     }
 
     sorcererAttack(target :Character){

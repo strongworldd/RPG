@@ -1,3 +1,4 @@
+import { Spectre } from './Spectre.ts';
 export default class Character {
     name = "";
     physicalAttack = 0;
@@ -19,6 +20,10 @@ export default class Character {
     }
 
     public attack = (target :Character) :string => {
+        if (target instanceof Spectre && target.esquive()) {
+            return `${target.name} esquive l'attaque de ${this.name} !`;
+        }
+
         if (this.attack.caller.name === "sorcererAttack"){
             if(this.currentHealth - this.magicAttack > 0){
                 this.currentHealth -= this.magicAttack;
