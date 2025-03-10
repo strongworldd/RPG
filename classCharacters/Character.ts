@@ -1,4 +1,4 @@
-export default class Character {
+export default abstract class Character {
     name = "";
     physicalAttack = 0;
     defenseAttack = 0;
@@ -9,7 +9,7 @@ export default class Character {
     currentMana = 0
     magicAttack = 0
 
-    protected constructor(name :string, physicalAttack :number, defenseAttack :number, speed :number, maxHealth :number, currentHealth :number) {
+    constructor(name :string, physicalAttack :number, defenseAttack :number, speed :number, maxHealth :number, currentHealth :number) {
         this.name = name;
         this.physicalAttack = physicalAttack;
         this.defenseAttack = defenseAttack;
