@@ -1,3 +1,4 @@
 import { GameManager } from "./GameManager.ts";
 
-GameManager.mainLoop()
+export const gameManager = new GameManager()
+gameManager.mainLoop()

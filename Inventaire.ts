@@ -4,7 +4,7 @@ import { HealPotion } from "./classConsommables/HealPotion.ts";
 import { StarShard } from "./classConsommables/StarShard.ts";
 
 export class Inventaire{
-    inventaire :Consommable[] = [new HealPotion(),new HealPotion(),new Ether(), new StarShard()]
+    inventaire :Consommable[] = [new HealPotion(), new HealPotion(), new Ether(), new StarShard()]
 
     add(item :Consommable){
         this.inventaire.push(item)
