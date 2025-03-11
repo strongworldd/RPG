@@ -1,16 +1,17 @@
-import Character from "./classCharacters/Character.ts";
-import Guerrier from "./classCharacters/Guerrier.ts";
-import Prêtre from "./classCharacters/Pretre.ts";
-import Paladin from "./classCharacters/Paladin.ts";
-import Mage from "./classCharacters/Mage.ts";
-import Barbare from "./classCharacters/Barbare.ts";
+import { Character } from "./classCharacters/Character.ts";
+import { Guerrier } from "./classCharacters/Guerrier.ts";
+import { Pretre } from "./classCharacters/Pretre.ts";
+import { Paladin } from "./classCharacters/Paladin.ts";
+import { Mage } from "./classCharacters/Mage.ts";
+import { Barbare } from "./classCharacters/Barbare.ts";
 import { Monstre } from "./classCharacters/classMonstres/Monstre.ts";
-// import Voleur from "./classCharacters/Voleur.ts"
+import { Voleur } from "./classCharacters/Voleur.ts";
+
 
 
 export class Menu{
-        static startMenu(): Character[] {
-            const options = [Guerrier, Mage, Paladin, Barbare, Prêtre/*, Voleur*/];
+        startMenu(): Character[] {
+            const options = [Guerrier, Mage, Paladin, Barbare, Pretre, Voleur];
             const choices = prompt("Choisissez 3 aventuriers parmi les 6 disponibles \n Guerrier: 1 \n Mage: 2 \n Paladin: 3 \n Barbare: 4 \n Prêtre: 5 \n Voleur: 6\n Entrez trois numéros séparés par des virgules (ex : 1,2,3)");
     
             if (!choices) return this.startMenu();
@@ -22,14 +23,14 @@ export class Menu{
                 return this.startMenu();
             }
     
-            const selectedAdventurers: Character[] = adventurerIndex.map(index => new options[index - 1](options[index - 1].name));
+            const selectedAdventurers :Character[] = adventurerIndex.map(index => new options[index - 1](options[index - 1].name));
 
             console.log("Aventuriers sélectionnés :", selectedAdventurers.map(character => character.name));
     
             return selectedAdventurers;
         }
     
-    static action = (currentFighter: Character, enemies: Monstre[]): void => {
+    action = (currentFighter: Character, enemies: Monstre[]): void => {
         const action = prompt("Quelle action voulez vous effectuer? \n Attaquer: 1 \n Action Spéciale: 2 \n Utiliser un object: 3 \n ");
         if (!action || !["1", "2", "3"].includes(action)) {
             alert("Choix invalide. Veuillez choisir entre 1, 2 ou 3.");

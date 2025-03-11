@@ -1,4 +1,4 @@
-import Character from "../classCharacters/Character.ts";
+import {Character} from "../classCharacters/Character.ts";
 import { Consommable } from "./Consommable.ts";
 
 export class HalfStar extends Consommable{

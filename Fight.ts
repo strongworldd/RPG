@@ -1,6 +1,6 @@
-import Character from "./classCharacters/Character.ts";
+import {Character} from "./classCharacters/Character.ts";
 import { Monstre } from "./classCharacters/classMonstres/Monstre.ts";
-import { Menu } from "./Menu.ts";
+import { menu } from "./MenuTest.ts";
 
 export class Fight {
     private fighters: Character[];
@@ -52,7 +52,7 @@ export class Fight {
             return;
         }
         
-        Menu.action(currentFighter, this.enemies);
+        menu.action(currentFighter, this.enemies);
     
         this.nextTurn();
     }

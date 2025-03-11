@@ -1,4 +1,4 @@
-export default abstract class Character {
+export abstract class Character {
     name = "";
     physicalAttack = 0;
     defenseAttack = 0;

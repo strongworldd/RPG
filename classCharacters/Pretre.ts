@@ -1,6 +1,6 @@
-import Character from './Character.ts';
+import {Character} from './Character.ts';
 
-export default class Pretre extends Character {
+export class Pretre extends Character {
     constructor(nom: string) {
         super(nom, 15, 2, 6, 100, 100);
     }
