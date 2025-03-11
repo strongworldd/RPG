@@ -1,10 +1,12 @@
 import Character from "./classCharacters/Character.ts";
+import { Monstre } from "./classCharacters/classMonstres/Monstre.ts";
+import { Menu } from "./Menu.ts";
 
 export class Fight {
     private fighters: Character[];
     private currentTurnIndex: number = 0;
 
-    constructor(private adventurer :Character[], private enemies :Character[]) {
+    constructor(private adventurer :Character[], private enemies :Monstre[]) {
         this.fighters = this.determineTurnOrder();
     }
 
@@ -31,7 +33,7 @@ export class Fight {
         return true; 
     }
 
-    private start = () : void => {
+    public start = () : void => {
         console.log("⚔️ Le combat commence !");
         do { 
             this.takeTurn();
@@ -41,7 +43,7 @@ export class Fight {
         this.endFight();
     }
 
-    private takeTurn = () : void => {
+    public takeTurn = () : void => {
         const currentFighter = this.fighters[this.currentTurnIndex];
     
         if (!currentFighter.isAlive()) {
@@ -49,20 +51,8 @@ export class Fight {
             this.nextTurn();
             return;
         }
-    
-        let target :Character | null = null;
-        for (const enemy of this.enemies) {
-            if (enemy.isAlive()) {
-                target = enemy;
-                break;
-            }
-        }
-    
-        if (target != null) {
-            console.log(currentFighter.attack(target));
-        } else {
-            console.log("⚔️ Il n'y a plus d'ennemis à attaquer.");
-        }
+        
+        Menu.action(currentFighter, this.enemies);
     
         this.nextTurn();
     }
@@ -81,11 +71,14 @@ export class Fight {
         } while (!this.fighters[this.currentTurnIndex].isAlive());
     }
 
-    private endFight = (): void => {
+    public endFight = (): boolean => {
         if (this.isTeamDefeated(this.adventurer)) {
             console.log("💀 Tous les aventuriers sont K.O. ! GAME OVER.");
+            return true
         } else if (this.isTeamDefeated(this.enemies)) {
             console.log("🏆 Victoire ! Les aventuriers ont triomphé du combat ! Youpiiiiiii");
+            return true
         }
+        return false
     }    
 }

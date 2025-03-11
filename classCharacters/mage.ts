@@ -1,6 +1,6 @@
 import Character from "./Character.ts";
 
-export class Mage extends Character{
+export default class Mage extends Character{
 
     override maxMana = 100
     override currentMana = 100

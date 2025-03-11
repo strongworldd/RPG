@@ -1,6 +1,6 @@
 import Character from "./Character.ts";
 
-export class Barbare extends Character {
+export default class Barbare extends Character {
     constructor(name :string) {
         super(name, 30, 3, 6, 100, 100)
     }

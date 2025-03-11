@@ -1,5 +1,5 @@
-import { Inventaire } from "./Inventaire.ts";
-import { Menu } from "./Menu.ts";
+// import { Inventaire } from "./Inventaire.ts";
+// import { Menu } from "./Menu.ts";
 
-export const bagage = new Inventaire();
-Menu.startMenu()
+// export const bagage = new Inventaire();
+// Menu.startMenu()
