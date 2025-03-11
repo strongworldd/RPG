@@ -7,12 +7,12 @@ export class Mage extends Character{
     override magicAttack = 25
     
     constructor(name :string) {
-        super(name, 10, 2, 8, 100, 100)
+        super(name, 10, 2, 4, 100, 100)
     }
 
     sorcererAttack(target :Character){
         this.attack(target)
         this.currentMana -= 25
-        return `${this.name} à fait ${this.magicAttack} dégats à ${target.name}. ${this.name} n'as plus que ${this.currentMana} mana, ${target.name} n'as plus que ${target.currentHealth} point de vie.`
+        return `${this.name} à fait ${this.magicAttack} dégats à ${target.name}. ${this.name} n'as plus que ${this.currentMana} mana, ${target.name} n'as plus que ${target.currentHealth} points de vie.`
     }
 }

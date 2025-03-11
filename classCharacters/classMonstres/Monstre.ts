@@ -1,6 +1,6 @@
-import Character from './Character.ts';
+import Character from '../Character.ts';
 
-export class Monstre extends Character {
+export abstract class Monstre extends Character {
 
     constructor(name: string, pv: number, attack: number) {
         super(name, attack, 0, 0, pv, pv);

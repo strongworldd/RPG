@@ -1,4 +1,4 @@
-import { Spectre } from './Spectre.ts';
+import { Spectre } from './classMonstres/Spectre.ts';
 
 export default abstract class Character {
     name = "";
@@ -26,11 +26,11 @@ export default abstract class Character {
         }
 
         if (this.attack.caller.name === "sorcererAttack"){
-            if(this.currentHealth - this.magicAttack > 0){
-                this.currentHealth -= this.magicAttack;
-                return this.name + " inflige " + (this.magicAttack) + " points de dégat magique à " + target.name + ".";
+            if(target.currentHealth - target.magicAttack > 0){
+                target.currentHealth -= target.magicAttack;
+                return this.name + " inflige " + this.magicAttack + " points de dégat magique à " + target.name + ".";
             }else{
-                return this.died();
+                return `${target.died()} grâçe à ${this.name}!`;
             }
         }else if(this.attack.caller.name ==="divinAttack"){
             const attacking = (this.physicalAttack - target.defenseAttack)*0.4
@@ -59,7 +59,7 @@ export default abstract class Character {
         }    
     }
 
-    protected hurt = (deCbm :number) => {
+    protected hurt = (deCbm :number) :string => {
         if(this.currentHealth - deCbm > 0){
             this.currentHealth -= deCbm;
             return this.name + " s'inflige " + deCbm + " points de dégat.";
@@ -68,27 +68,36 @@ export default abstract class Character {
         }
     }
 
-    protected heal = (healNumber :number) :string => {
+    heal = (healNumber :number) :string => {
         if (this.currentHealth + healNumber > this.maxHealth) {
+            healNumber = this.maxHealth - this.currentHealth
             this.currentHealth = this.maxHealth;
         } else {
             this.currentHealth += healNumber;
         }
-        return "Le personnage se soigne " + healNumber + " points de vie et a maintenant " + this.currentHealth + "points de vie."
+        return "Le personnage se soigne de " + healNumber + " points de vie et est maintenant à" + this.currentHealth + "points de vie."
     }
 
-    private died(){
-        return `${this.name} est mort !`
-    }
-
-    public revive = (healRevive :number) :string => {
-        if (this.currentHealth == 0){
-            this.currentHealth = healRevive;  
+    regenMana(regenNumber :number) :string{
+        if (this.currentMana + regenNumber > this.maxMana) {
+            regenNumber = this.maxMana - this.currentMana
+            this.currentMana = this.maxMana
+        }else{
+            this.currentMana += regenNumber
         }
+        return `${this.name} à récupéré ${regenNumber} et est désormais à ${this.currentMana}`
+    }
+
+    private died() :string{
+        return (`${this.name} est mort !`)
+    }
+
+    revive = (healRevive :number) :string => {
+        this.currentHealth = healRevive;  
         return "Le personnage ressuscite avec " + healRevive + "points de vie."
     }
 
-    public isAlive() :boolean {
+    isAlive() :boolean {
         return this.currentHealth > 0;
     }
 }
