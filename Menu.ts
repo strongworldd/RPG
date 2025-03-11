@@ -7,8 +7,6 @@ import { Barbare } from "./classCharacters/Barbare.ts";
 import { Monstre } from "./classCharacters/classMonstres/Monstre.ts";
 import { Voleur } from "./classCharacters/Voleur.ts";
 
-
-
 export class Menu{
         startMenu(): Character[] {
             const options = [Guerrier, Mage, Paladin, Barbare, Pretre, Voleur];
