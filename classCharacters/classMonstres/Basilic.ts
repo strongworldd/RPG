@@ -1,5 +1,5 @@
 import { Monstre } from "./Monstre.ts";
-import {Character} from "../Character.ts";
+import { Character } from "../Character.ts";
 
 export class Basilic extends Monstre {
     lastAttacker: Character | null = null;
