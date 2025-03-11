@@ -1,12 +1,20 @@
 import { Monstre } from "../classMonstres/Monstre.ts";
 import { Character } from "../Character.ts";
-
 export class DragonAncien extends Monstre {
     constructor() {
         super("Dragon Ancien", 500, 50);
     }
 
     agir(aventuriers: Character[]): void {
+        const random = Math.random();
+        if (random < 0.7) {
+            // 70% chance
+            const cible = super.act(aventuriers);
+            if (cible) {
+                console.log(`${this.name} attaque ${cible.name} !`);
+            }
+        } else {
+            // 30% chance
         console.log(`${this.name} rugit, intimidant ses ennemis et réduisant leur attaque !`);
         aventuriers.forEach(aventurier => {
             if (aventurier.isAlive()) {
@@ -25,4 +33,5 @@ export class DragonAncien extends Monstre {
             }
         });
     }
+}
 }
