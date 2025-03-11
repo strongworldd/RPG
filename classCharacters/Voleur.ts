@@ -3,7 +3,7 @@ import { HalfStar } from "../classConsommables/HalfStar.ts";
 import { HealPotion } from "../classConsommables/HealPotion.ts";
 import { StarShard } from "../classConsommables/StarShard.ts";
 import { bagage } from "../GameManagerTest.ts";
-import {Character} from "./Character.ts";
+import { Character } from "./Character.ts";
 
 export class Voleur extends Character{
 

@@ -1,4 +1,4 @@
-import { Monstre } from "./Monstre.ts";
+import { Monstre } from "../Monstre.ts";
 import {Character} from "../Character.ts";
 
 export class Chimère extends Monstre {

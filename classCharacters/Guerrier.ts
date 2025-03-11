@@ -1,4 +1,4 @@
-import {Character} from './Character.ts';
+import { Character } from './Character.ts';
 
 export class Guerrier extends Character {
     
