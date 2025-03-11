@@ -8,9 +8,9 @@ export class Barbare extends Character {
     berserkAttack(target :Character | Character[]){
         if (Array.isArray(target)) {
             const cible = Math.floor(Math.random() * (target.length - 0 + 1)) + 0;
-            this.attack(target[cible])
+            this.attack(target[cible], "berserkAttack")
         }else{
-            this.attack(target)
+            this.attack(target, "berserkAttack")
         }
         this.hurt(this.maxHealth*0.2)
     }

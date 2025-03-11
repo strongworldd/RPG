@@ -31,6 +31,7 @@ export class Menu{
         }
     
     action = (currentFighter: Character, enemies: Monstre[]): void => {
+        console.log(`C'est à ${currentFighter.name} de jouer.`)
         const action = prompt("Quelle action voulez vous effectuer? \n Attaquer: 1 \n Action Spéciale: 2 \n Utiliser un object: 3 \n ");
         if (!action || !["1", "2", "3"].includes(action)) {
             alert("Choix invalide. Veuillez choisir entre 1, 2 ou 3.");
@@ -38,9 +39,6 @@ export class Menu{
         }
 
         let target: Monstre | null = null;
-
-        const methodNames = Object.getOwnPropertyNames(Object.getPrototypeOf(currentFighter));
-        console.log(methodNames)
 
         if (action === "1"){
             const livingEnemies = enemies.filter(enemy => enemy.isAlive());
@@ -59,10 +57,13 @@ export class Menu{
 
             target = livingEnemies[parseInt(targetIndex) - 1];
             console.log(`Vous avez choisi d'attaquer ${target.name}.`);
+            console.log(currentFighter.attack(target))
 
         } else if (action === "2") {
             
             const specialattack = prompt("Choisissez une action spéciale");
+            const methodNames = Object.getOwnPropertyNames(Object.getPrototypeOf(currentFighter));
+            console.log(methodNames[1])
             console.log("Action spéciale choisie :", specialattack);
 
         } else {

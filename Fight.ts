@@ -1,6 +1,6 @@
-import {Character} from "./classCharacters/Character.ts";
+import { Character } from "./classCharacters/Character.ts";
 import { Monstre } from "./classCharacters/classMonstres/Monstre.ts";
-import { menu } from "./MenuTest.ts";
+import { menu } from "./GameManagerTest.ts";
 
 export class Fight {
     private fighters: Character[];

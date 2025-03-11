@@ -1,5 +1,5 @@
 import { Fight } from "./Fight.ts";
-import { menu } from "./MenuTest.ts";
+import { menu } from "./GameManagerTest.ts";
 import { Character } from "./classCharacters/Character.ts";
 import { Basilic } from "./classCharacters/classMonstres/Basilic.ts";
 import { Chimère } from "./classCharacters/classMonstres/Chimère.ts";

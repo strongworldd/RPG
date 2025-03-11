@@ -11,7 +11,7 @@ export class Mage extends Character{
     }
 
     sorcererAttack(target :Character){
-        this.attack(target)
+        this.attack(target, "sorcererAttack")
         this.currentMana -= 25
         return `${this.name} à fait ${this.magicAttack} dégats à ${target.name}. ${this.name} n'as plus que ${this.currentMana} mana, ${target.name} n'as plus que ${target.currentHealth} points de vie.`
     }

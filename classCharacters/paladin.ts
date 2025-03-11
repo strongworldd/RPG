@@ -8,10 +8,10 @@ export class Paladin extends Character {
     divinAttack(target :Character | Character[]){
         if (Array.isArray(target)) {
             target.forEach(cible => {
-                this.attack(cible)
+                this.attack(cible, "divinAttack")
             });
         }else{
-            this.attack(target)
+            this.attack(target, "divinAttack")
         }
         
     }

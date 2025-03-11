@@ -18,40 +18,39 @@ export abstract class Character {
         this.currentHealth = currentHealth;
     }
 
-    public attack = (target :Character) :string => {
-        if (this.attack.caller.name === "sorcererAttack"){
-            if(target.currentHealth - target.magicAttack > 0){
-                target.currentHealth -= target.magicAttack;
-                return this.name + " inflige " + this.magicAttack + " points de dégat magique à " + target.name + ".";
-            }else{
-                return `${target.died()} grâçe à ${this.name}!`;
-            }
-        }else if(this.attack.caller.name ==="divinAttack"){
-            const attacking = (this.physicalAttack - target.defenseAttack)*0.4
-            if (target.currentHealth - attacking > 0) {
-                target.currentHealth -= attacking;
-                return this.name + " inflige " + attacking + " points de dégat à " + target.name + ".";
-            }else{
-                return `${target.died()} grâçe à ${this.name}!`
-            }
-        }else if(this.attack.caller.name === "berserkAttack"){
-            const attacking = (this.physicalAttack - target.defenseAttack)*1.3
-            if (target.currentHealth - attacking > 0) {
-                target.currentHealth -= attacking;
-                return this.name + " inflige " + attacking + " points de dégat à " + target.name + ".";
-            }else{
-                return `${target.died()} grâçe à ${this.name}!`
-            }
-        }else{
-            const attacking = this.physicalAttack - target.defenseAttack
-            if (target.currentHealth - attacking > 0) {
-                target.currentHealth -= attacking;
-                return this.name + " inflige " + attacking + " points de dégat à " + target.name + ".";
-            }else{
-                return `${target.died()} grâçe à ${this.name}!`
-            }
-        }    
-    }
+    public attack = (target: Character, attackType: string = ""): string => {
+        let attacking: number;
+    
+        switch (attackType) {
+            case "sorcererAttack":
+                if (target.currentHealth - target.magicAttack > 0) {
+                    target.currentHealth -= target.magicAttack;
+                    return `${this.name} inflige ${this.magicAttack} points de dégât magique à ${target.name}. Il ne lui reste plus que ${target.currentHealth}/${target.maxHealth}`;
+                } else {
+                    return `${target.died()} grâce à ${this.name}!`;
+                }
+    
+            case "divinAttack":
+                attacking = (this.physicalAttack - target.defenseAttack) * 0.4;
+                break;
+    
+            case "berserkAttack":
+                attacking = (this.physicalAttack - target.defenseAttack) * 1.3;
+                break;
+    
+            default:
+                attacking = this.physicalAttack - target.defenseAttack;
+                break;
+        }
+    
+        if (target.currentHealth - attacking > 0) {
+            target.currentHealth -= attacking;
+            return `${this.name} inflige ${attacking} points de dégât à ${target.name}. Il ne lui reste plus que ${target.currentHealth}/${target.maxHealth}`;
+        } else {
+            return `${target.died()} grâce à ${this.name}!`;
+        }
+    };
+    
 
     protected hurt = (deCbm :number) :string => {
         if(this.currentHealth - deCbm > 0){
