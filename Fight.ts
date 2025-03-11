@@ -52,7 +52,7 @@ export class Fight {
             return;
         }
         
-        menu.action(currentFighter, this.enemies);
+        menu.action(currentFighter, this.enemies,this.fighters);
     
         this.nextTurn();
     }
