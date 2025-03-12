@@ -7,6 +7,15 @@ export class LicheSombre extends Monstre {
     }
 
     agir(aventuriers: Character[]): void {
+        const random = Math.random();
+        if (random < 0.7) {
+            // 70% chance
+            const cible = super.act(aventuriers);
+            if (cible) {
+                console.log(`${this.name} attaque ${cible.name} !`);
+            }
+        } else {
+            // 30% chance
         console.log(`${this.name} invoque une aura de terreur, drainant la vitalité de ses ennemis !`);
         aventuriers.forEach(aventurier => {
             if (aventurier.isAlive()) {
@@ -26,4 +35,5 @@ export class LicheSombre extends Monstre {
             }
         }
     }
+}
 }
