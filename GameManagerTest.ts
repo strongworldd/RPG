@@ -3,6 +3,6 @@ import { Inventaire } from "./Inventaire.ts";
 import { Menu } from "./Menu.ts";
 
 export const menu = new Menu();
-export const bagage = new Inventaire();
+export const bagage = new Inventaire().inventaire;
 export const gameManager = new GameManager()
 gameManager.mainLoop()

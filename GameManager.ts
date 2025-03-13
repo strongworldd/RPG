@@ -1,3 +1,4 @@
+import { Color, Style } from "./Color.ts";
 import { Fight } from "./Fight.ts";
 import { menu } from "./GameManagerTest.ts";
 import { Character } from "./classCharacters/Character.ts";
@@ -19,7 +20,7 @@ export class GameManager extends Character{
         const shuffledMonsters = classmonsters.sort(() => 0.5 - Math.random()).slice(0, 3);
         const monsters = shuffledMonsters.map(MonsterClass => new MonsterClass());
         const fight = new Fight(characters, monsters);
-        console.log("Vous rencontrez les monstres",monsters.map(enemy => enemy.name))
+        console.log(Style.ClearTerminal,"Vous rencontrez les monstres",monsters.map(enemy => enemy.name),"\n") //la couleur marche pas et c'est tout vert
         fight.start();
         while (fight.endFight){
             fight.takeTurn();
