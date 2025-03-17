@@ -5,7 +5,7 @@ export class Basilic extends Monstre {
     lastAttacker: Character | null = null;
 
     constructor() {
-        super("Basilic Venimeux", 180, 28);
+        super("Basilic Venimeux", 80, 28);
     }
 
     subirAttaque(attacker: Character): void {

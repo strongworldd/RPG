@@ -3,7 +3,7 @@ import {Character} from "../Character.ts";
 
 export class Chimère extends Monstre {
     constructor() {
-        super("Chimère Mutante", 200, 20);
+        super("Chimère Mutante", 100, 20);
     }
 
     actChimère(aventuriers: Character[]): void {

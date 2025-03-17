@@ -2,7 +2,7 @@ import { Monstre } from "../classMonstres/Monstre.ts";
 import { Character } from "../Character.ts";
 export class DragonAncien extends Monstre {
     constructor() {
-        super("Dragon Ancien", 500, 50);
+        super("Dragon Ancien", 200, 50);
     }
 
     agir(aventuriers: Character[]): void {
