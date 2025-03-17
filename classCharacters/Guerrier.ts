@@ -6,5 +6,5 @@ export class Guerrier extends Character {
         super(name, 25, 10, 5, 100, 100);
     }
 
-    override specialAttack(){}
+    override specialAttack(target :Character){}
 }

@@ -12,11 +12,13 @@ import { TitanCorrompu } from "./classCharacters/Boss/TitanCorrompu.ts";
 import { Coffre } from "./Coffre.ts";
 import { Inventaire } from "./Inventaire.ts";
 import { Monstre } from "./classCharacters/classMonstres/Monstre.ts";
+import { bagage, Characters } from "./GameManagerTest.ts";
 export class GameManager{
     
     mainLoop(): void {
-        const characters = Menu.startMenu();
-        const inventaire = new Inventaire();
+        
+        const characters = Characters
+        const inventaire = bagage
         const classMonsters: (new () => Monstre)[] = [Basilic, Chimere, Golem, Spectre, Vampire];
 
         console.log("Salle 1 : Combat aléatoire");
