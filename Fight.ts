@@ -1,6 +1,7 @@
 import { Character } from "./classCharacters/Character.ts";
 import { Monstre } from "./classCharacters/classMonstres/Monstre.ts";
-import { menu } from "./GameManagerTest.ts";
+import { Menu } from "./Menu.ts";
+
 
 export class Fight {
     private fighters: Character[];
@@ -45,14 +46,15 @@ export class Fight {
 
     public takeTurn = () : void => {
         const currentFighter = this.fighters[this.currentTurnIndex];
-    
-        if (!currentFighter.isAlive()) {
-            console.log(`❌ ${currentFighter.name} est K.O.`);
-            this.nextTurn();
-            return;
+        const typedejoueur = Object.getPrototypeOf(currentFighter)
+        if (typedejoueur === Character) {
+            if (!currentFighter.isAlive()) {
+                console.log(`❌ ${currentFighter.name} est K.O.`);
+                this.nextTurn();
+                return;
+            }
         }
-        
-        menu.action(currentFighter, this.enemies,this.fighters);
+        Menu.action(currentFighter, this.enemies,this.fighters);
     
         this.nextTurn();
     }

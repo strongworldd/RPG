@@ -10,7 +10,7 @@ export class Inventaire{
         this.inventaire.push(item)
     }
 
-     remove(item :Consommable){
+    remove(item :Consommable){
         const indexOfElementToRemove = this.inventaire.findIndex(i => i === item)
         if (indexOfElementToRemove !== -1) {
             this.inventaire.splice(indexOfElementToRemove, 1)

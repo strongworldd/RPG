@@ -8,6 +8,7 @@ export abstract class Character {
     maxMana = 0
     currentMana = 0
     magicAttack = 0
+    specialAttackName = ""
 
     constructor(name :string, physicalAttack :number, defenseAttack :number, speed :number, maxHealth :number, currentHealth :number) {
         this.name = name;
@@ -18,9 +19,10 @@ export abstract class Character {
         this.currentHealth = currentHealth;
     }
 
-    public attack = (target: Character, attackType: string = ""): string => {
+    specialAttack(target: Character | Character[]){}
+
+    attack = (target: Character, attackType: string = ""): string => {
         let attacking: number;
-    
         switch (attackType) {
             case "sorcererAttack":
                 if (target.currentHealth - target.magicAttack > 0) {
@@ -29,20 +31,16 @@ export abstract class Character {
                 } else {
                     return `${target.died()} grâce à ${this.name}!`;
                 }
-    
             case "divinAttack":
                 attacking = (this.physicalAttack - target.defenseAttack) * 0.4;
                 break;
-    
             case "berserkAttack":
                 attacking = (this.physicalAttack - target.defenseAttack) * 1.3;
                 break;
-    
             default:
                 attacking = this.physicalAttack - target.defenseAttack;
                 break;
         }
-    
         if (target.currentHealth - attacking > 0) {
             target.currentHealth -= attacking;
             return `${this.name} inflige ${attacking} points de dégât à ${target.name}. Il ne lui reste plus que ${target.currentHealth}/${target.maxHealth}`;
@@ -51,7 +49,6 @@ export abstract class Character {
         }
     };
     
-
     protected hurt = (deCbm :number) :string => {
         if(this.currentHealth - deCbm > 0){
             this.currentHealth -= deCbm;

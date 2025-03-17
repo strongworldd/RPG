@@ -7,11 +7,13 @@ import { Character } from "./Character.ts";
 
 export class Voleur extends Character{
 
+    override specialAttackName = "robbery"
+
     constructor(name :string) {
         super(name, 20, 5, 8, 100, 100)
     }
 
-    robbery(target :Character){
+    override specialAttack(target :Character){
         const chance = Math.random()*100
         if (chance < 40) {
             return `${this.name} n'a rien voler à ${target.name}`;

@@ -2,11 +2,14 @@ import { Color, Style } from '../Color.ts';
 import { Character } from './Character.ts';
 
 export class Pretre extends Character {
+
+    override specialAttackName = "specialHeal"
+
     constructor(nom: string) {
         super(nom, 15, 2, 6, 100, 100);
     }
 
-    specialHeal= (target: Character) :string => {
+    override specialAttack(target: Character){
         let healNumber = target.maxHealth * 0.25
         if (target.currentHealth + healNumber > target.maxHealth){
             healNumber = target.maxHealth - target.currentHealth

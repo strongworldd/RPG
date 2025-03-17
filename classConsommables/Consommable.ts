@@ -14,5 +14,4 @@ export abstract class Consommable{
         this.boostDamage = boostDamage
         this.boostDefence = boostDefence
     }
-
 }
