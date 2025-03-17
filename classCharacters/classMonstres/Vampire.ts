@@ -3,7 +3,7 @@ import { Character } from "../Character.ts";
 
 export class Vampire extends Monstre {
     constructor() {
-        super("Vampire Sanguinaire", 150, 25);
+        super("Vampire Sanguinaire", 100, 25);
     }
 
     actVampire(aventuriers: Character[]): void {

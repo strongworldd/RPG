@@ -113,7 +113,7 @@ export class Menu{
                 while(confirm !== "y" && confirm !== "n" && confirm !== "yes" && confirm !== "non");
 
                 if (confirm === "y" || confirm === "yes") {
-                    currentFighter.divinAttack(livingEnemies);
+                    currentFighter.specialAttack(livingEnemies);
                 } else{
                     return this.action(currentFighter, livingEnemies, livingCharacters);
                 }
