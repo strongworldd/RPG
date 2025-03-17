@@ -7,7 +7,7 @@ export class HealPotion extends Consommable{
         super("Potion de soin", 50, 0, 0, 0, 0)
     }
 
-    use(target :Character){
+    override use(target :Character){
         target.heal(this.regenLife)
     }
 }

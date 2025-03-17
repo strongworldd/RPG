@@ -6,7 +6,7 @@ export class Ether extends Consommable{
         super("Ether", 0, 30, 0, 0, 0)
     }
 
-    use(target :Character){
+    override use(target :Character){
         target.regenMana(this.regenMana)
     }
 }

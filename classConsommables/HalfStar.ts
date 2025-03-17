@@ -6,7 +6,7 @@ export class HalfStar extends Consommable{
         super("Demi-étoile", 100, 0, 0, 0, 0)
     }
 
-    use(target :Character){
+    override use(target :Character){
         if (target.isAlive()) {
             target.heal(this.regenLife)
         }else{

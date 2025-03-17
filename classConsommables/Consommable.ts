@@ -1,3 +1,5 @@
+import { Character } from "../classCharacters/Character.ts";
+
 export abstract class Consommable{
     name = ""
     regenLife = 0
@@ -14,4 +16,6 @@ export abstract class Consommable{
         this.boostDamage = boostDamage
         this.boostDefence = boostDefence
     }
+
+    use(target :Character){}
 }

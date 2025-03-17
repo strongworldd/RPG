@@ -145,28 +145,45 @@ export class Menu{
                 }
             }
         } else{ // action === "3" utiliser l'inventaire
-            if (bagage.length === 0) {
+            if (bagage.inventaire.length === 0) {
                 console.log("Vous n'avez plus d'objets, essayer d'en voler ou d'en collecter dans des coffres.");
             } else {
-                let itemIndex: number;
-                let itemNames: string;
-                let choice: string | null;
-                do{
-                    itemNames = bagage.map((item, index) => `${index + 1}. ${Color.Yellow}${item.name}${Style.Reset}`).join("\n");
-                    choice = prompt(`Choisissez l'objet à utiliser : \n${itemNames}\n ${Color.Red}retour${Style.Reset} : -1`);
-                    itemIndex = parseInt(choice ?? "", 10) - 1;  // ?? vérifie que la valeur ne sois pas falsy sinon return "" et parsint le transforme en nombre de base 10
+                const itemNames = bagage.inventaire.map((item, index) => `${index + 1}. ${Color.Yellow}${item.name}${Style.Reset}`).join("\n");
+                const choice = prompt(`Choisissez l'objet à utiliser : \n${itemNames}\n ${Color.Red}retour${Style.Reset} : -1`);
+                const itemIndex = parseInt(choice ?? "", 10) - 1;  // ?? vérifie que la valeur ne sois pas falsy sinon return "" et parsint le transforme en nombre de base 10
+                
+                if (choice === "-1") {
+                    return this.action(currentFighter, enemies, characters);
+                } else if (!isNaN(itemIndex) && itemIndex >= 0 && itemIndex < bagage.inventaire.length) {
+                    const selectedItem = bagage.inventaire[itemIndex];
+                    prompt(`Objet choisi : ${selectedItem.name}`);
+                    let potionList = `Choisissez sur qui vous voulez utiliser ${Color.Green}${selectedItem}${Style.Reset} :\n`;
+                    livingCharacters.forEach((character, index) => {
+                        potionList += `${index + 1}. ${Color.Blue}${character.name}${Style.Reset}\n`;
+                    });
                     
-                    if (choice === "-1") {
-                        return this.action(currentFighter, enemies, characters);
-                    } else if (!isNaN(itemIndex) && itemIndex >= 0 && itemIndex < bagage.length) {
-                        const selectedItem = bagage[itemIndex];
-                        console.log(`Objet choisi : ${selectedItem.name}`);
-                        Object.getPrototypeOf(selectedItem).use(currentFighter);
-                        bagage.splice(itemIndex, 1);
-                    } else {
-                        console.log("Choix invalide. Veuillez entrer un numéro valide.");
+                    let targetIndex = prompt(`${potionList}${Color.Red}retour${Style.Reset} : -1`);
+                    let index = parseInt(targetIndex ?? "", 10) - 1;
+                    while (index !>= 0 && index !<= livingCharacters.length && targetIndex !== "-1") {
+                        if (targetIndex === "-1") {
+                            return this.action(currentFighter, livingEnemies, livingCharacters);
+                        }
+                        console.log(this.alert);
+                        targetIndex = prompt(`${potionList}${Color.Red}retour${Style.Reset} : -1`);
+                        index = parseInt(targetIndex ?? "", 10) - 1;
                     }
-                }while(!isNaN(itemIndex) && itemIndex >= 0 && itemIndex < bagage.length)
+                    const target = livingCharacters[index]
+                    let confirm: string|null = null;
+                    do{confirm = prompt(`Veux-tu utiliser la potion ${Color.Magenta}${selectedItem}${Style.Reset} sur ${target.name}? [y,n]`);}
+                    while(confirm !== "y" && confirm !== "n" && confirm !== "yes" && confirm !== "non");
+                    if (confirm === "y" || confirm === "yes") {
+                        bagage.inventaire[itemIndex].use(target)
+                        bagage.inventaire.splice(itemIndex, 1);
+                    } else{
+                        return this.action(currentFighter, livingEnemies, livingCharacters);
+                    }
+                    
+                }
             }                
         }
     }

@@ -7,7 +7,7 @@ export class StarShard extends Consommable{
         super("Morceau d'étoiles", 0, 0, 0, 0, 0)
     }
 
-    use(target :Character){
+    override use(target :Character){
         if (target.isAlive()) {
             target.heal(50)
         }else{
