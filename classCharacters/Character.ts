@@ -19,7 +19,7 @@ export abstract class Character {
         this.currentHealth = currentHealth;
     }
 
-    specialAttack(target: Character | Character[]){}
+    abstract specialAttack(target: Character | Character[]) :void;
 
     attack = (target: Character, attackType: string = ""): string => {
         let attacking: number;

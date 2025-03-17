@@ -2,7 +2,7 @@ import { Fight } from "./Fight.ts";
 import { Menu } from "./Menu.ts";
 import { Character } from "./classCharacters/Character.ts";
 import { Basilic } from "./classCharacters/classMonstres/Basilic.ts";
-import { Chimère } from "./classCharacters/classMonstres/Chimère.ts";
+import { Chimere } from "./classCharacters/classMonstres/Chimere.ts";
 import { Golem } from "./classCharacters/classMonstres/Golem.ts";
 import { Spectre } from "./classCharacters/classMonstres/Spectre.ts";
 import { Vampire } from "./classCharacters/classMonstres/Vampire.ts";
@@ -12,15 +12,12 @@ import { TitanCorrompu } from "./classCharacters/Boss/TitanCorrompu.ts";
 import { Coffre } from "./Coffre.ts";
 import { Inventaire } from "./Inventaire.ts";
 import { Monstre } from "./classCharacters/classMonstres/Monstre.ts";
-export class GameManager extends Character {
-    constructor() {
-        super("name", 0, 0, 0, 0, 0);
-    }
-
+export class GameManager{
+    
     mainLoop(): void {
         const characters = Menu.startMenu();
         const inventaire = new Inventaire();
-        const classMonsters: (new () => Monstre)[] = [Basilic, Chimère, Golem, Spectre, Vampire];
+        const classMonsters: (new () => Monstre)[] = [Basilic, Chimere, Golem, Spectre, Vampire];
 
         console.log("Salle 1 : Combat aléatoire");
         this.combatAleatoire(characters, classMonsters);

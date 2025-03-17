@@ -23,4 +23,6 @@ export abstract class Monstre extends Character {
         console.log(this.attack(cible));
         return cible;
     }
+
+    override specialAttack(): void {}
 }

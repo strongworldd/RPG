@@ -1,7 +1,7 @@
 import { Character } from "./classCharacters/Character.ts";
 import { Monstre } from "./classCharacters/classMonstres/Monstre.ts";
 import { Basilic } from "./classCharacters/classMonstres/Basilic.ts";
-import { Chimère } from "./classCharacters/classMonstres/Chimère.ts";
+import { Chimere } from "./classCharacters/classMonstres/Chimere.ts";
 import { Golem } from "./classCharacters/classMonstres/Golem.ts";
 import { Spectre } from "./classCharacters/classMonstres/Spectre.ts";
 import { Vampire } from "./classCharacters/classMonstres/Vampire.ts";
@@ -64,8 +64,8 @@ export class Fight {
             (enemy as Spectre).actSpectre(this.adventurer);
         } else if (enemy instanceof Basilic) {
             (enemy as Basilic).agir(this.adventurer);
-        } else if (enemy instanceof Chimère) {
-            (enemy as Chimère).actChimère(this.adventurer);
+        } else if (enemy instanceof Chimere) {
+            (enemy as Chimere).actChimere(this.adventurer);
         } else if (enemy instanceof Golem) {
             (enemy as Golem).actGolem(this.adventurer);
         } else if (enemy instanceof Vampire) {
