@@ -10,8 +10,8 @@ import { bagage } from "./GameManagerTest.ts";
 import { Color, Style } from "./Color.ts";
 
 export class Menu{
-    private alert :string =  `${Style.Erreur}Choix invalide. Veuillez choisir entre ${Style.Bold}1${Style.AfterNumberErreur}, ${Style.Bold}2${Style.AfterNumberErreur} ou ${Style.Bold}3${Style.AfterNumberErreur}.${Style.Reset}\n`;
-    startMenu(): Character[] {
+    static alert :string =  `${Style.Erreur}Choix invalide. Veuillez choisir entre ${Style.Bold}1${Style.AfterNumberErreur}, ${Style.Bold}2${Style.AfterNumberErreur} ou ${Style.Bold}3${Style.AfterNumberErreur}.${Style.Reset}\n`;
+    static startMenu(): Character[] {
         const options = [Guerrier, Mage, Paladin, Barbare, Pretre, Voleur];
         const choices = prompt(`Choisissez 3 aventuriers parmi les 6 disponibles \n ${Color.Green}Guerrier${Style.Reset}: 1 \n ${Color.Green}Mage${Style.Reset}: 2 \n ${Color.Green}Paladin${Style.Reset}: 3 \n ${Color.Green}Barbare${Style.Reset}: 4 \n ${Color.Green}Prêtre${Style.Reset}: 5 \n ${Color.Green}Voleur${Style.Reset}: 6\nEntrez trois numéros séparés par des virgules (ex : 1,2,3) \n`);
 
@@ -31,7 +31,7 @@ export class Menu{
         return selectedAdventurers;
     }
 
-    action = (currentFighter: Character, enemies: Monstre[], characters: Character[]): void => {
+    static action = (currentFighter: Character, enemies: Monstre[], characters: Character[]): void => {
         const methodCount = Object.getOwnPropertyNames(Object.getPrototypeOf(currentFighter));
         let action: string | null;
         prompt(`\nC'est à ${Color.Blue}${currentFighter.name}${Style.Reset} de jouer.`); // on voit pas le nom zeubi

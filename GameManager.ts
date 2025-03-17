@@ -1,6 +1,6 @@
 import { Color, Style } from "./Color.ts";
 import { Fight } from "./Fight.ts";
-import { menu } from "./GameManagerTest.ts";
+import { Menu } from "./Menu.ts";
 import { Character } from "./classCharacters/Character.ts";
 import { Basilic } from "./classCharacters/classMonstres/Basilic.ts";
 import { Chimère } from "./classCharacters/classMonstres/Chimère.ts";
@@ -15,7 +15,7 @@ export class GameManager extends Character{
     }
 
     mainLoop(): void{
-        const characters = menu.startMenu()
+        const characters = Menu.startMenu()
         const classmonsters = [Basilic, Chimère, Golem, Spectre, Vampire]
         const shuffledMonsters = classmonsters.sort(() => 0.5 - Math.random()).slice(0, 3);
         const monsters = shuffledMonsters.map(MonsterClass => new MonsterClass());
