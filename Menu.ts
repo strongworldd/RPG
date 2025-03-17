@@ -1,9 +1,9 @@
 import { Character } from "./classCharacters/Character.ts";
 import { Guerrier } from "./classCharacters/Guerrier.ts";
 import { Pretre } from "./classCharacters/Pretre.ts";
-import { Paladin } from "./classCharacters/Paladin.ts";
-import { Mage } from "./classCharacters/Mage.ts";
-import { Barbare } from "./classCharacters/Barbare.ts";
+import { Paladin } from "./classCharacters/paladin.ts";
+import { Mage } from "./classCharacters/mage.ts";
+import { Barbare } from "./classCharacters/barbare.ts";
 import { Monstre } from "./classCharacters/classMonstres/Monstre.ts";
 import { Voleur } from "./classCharacters/Voleur.ts";
 
