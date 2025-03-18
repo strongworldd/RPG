@@ -9,13 +9,15 @@ export class Paladin extends Character {
     }
 
     override specialAttack(target :Character | Character[]){
+        let res = ""
+        console.log("Attaque divine du paladin !")
         if (Array.isArray(target)) {
             target.forEach(cible => {
-                this.attack(cible, "divinAttack")
+                res += `${this.attack(cible, "divinAttack")}\n`
             });
         }else{
-            this.attack(target, "divinAttack")
+            res = this.attack(target, "divinAttack")
         }
-        
+        return res
     }
 }

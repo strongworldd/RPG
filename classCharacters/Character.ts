@@ -24,22 +24,22 @@ export abstract class Character {
     attack = (target: Character, attackType: string = ""): string => {
         let attacking: number;
         switch (attackType) {
-            case "sorcererAttack":
-                if (target.currentHealth - target.magicAttack > 0) {
-                    target.currentHealth -= target.magicAttack;
-                    return `${this.name} inflige ${this.magicAttack} points de dégât magique à ${target.name}. Il ne lui reste plus que ${target.currentHealth}/${target.maxHealth}`;
-                } else {
-                    return `${target.died()} grâce à ${this.name}!`;
-                }
-            case "divinAttack":
-                attacking = (this.physicalAttack - target.defenseAttack) * 0.4;
-                break;
-            case "berserkAttack":
-                attacking = (this.physicalAttack - target.defenseAttack) * 1.3;
-                break;
-            default:
-                attacking = this.physicalAttack - target.defenseAttack;
-                break;
+        case "sorcererAttack":
+            if (target.currentHealth - target.magicAttack > 0) {
+                target.currentHealth -= target.magicAttack;
+                return `${this.name} inflige ${this.magicAttack} points de dégât magique à ${target.name}. Il ne lui reste plus que ${target.currentHealth}/${target.maxHealth}`;
+            } else {
+                return `${target.died()} grâce à ${this.name}!`;
+            }
+        case "divinAttack":
+            attacking = (this.physicalAttack - target.defenseAttack) * 0.4;
+            break;
+        case "berserkAttack":
+            attacking = (this.physicalAttack - target.defenseAttack) * 1.3;
+            break;
+        default:
+            attacking = this.physicalAttack - target.defenseAttack;
+            break;
         }
         if (target.currentHealth - attacking > 0) {
             target.currentHealth -= attacking;

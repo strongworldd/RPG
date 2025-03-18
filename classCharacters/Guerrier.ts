@@ -3,8 +3,8 @@ import { Character } from './Character.ts';
 export class Guerrier extends Character {
 
     constructor(name :string) {
-        super(name, 25, 10, 5, 100, 100);
+        super(name, 30, 10, 5, 100, 100);
     }
 
-    override specialAttack(target :Character){}
+    override specialAttack():void{}
 }
