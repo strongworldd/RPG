@@ -1,5 +1,6 @@
 import { Monstre } from "./Monstre.ts";
 import { Character } from "../Character.ts";
+import { Color, Style } from "../../Color.ts";
 
 export class Spectre extends Monstre {
 
@@ -10,7 +11,7 @@ export class Spectre extends Monstre {
 
     actSpectre(aventuriers: Character[]): void {
         super.act(aventuriers);
-        console.log(`${this.name} devient éthéré et esquive la prochaine attaque !`);
+        console.log(`${Color.Red}${this.name}${Style.Reset} devient éthéré et esquive la prochaine attaque !`);
     }
 
     esquive(): boolean {

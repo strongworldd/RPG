@@ -1,4 +1,5 @@
 import { Character } from "./Character.ts";
+import { Color, Style } from "../Color.ts";
 
 export class Mage extends Character{
 
@@ -14,6 +15,6 @@ export class Mage extends Character{
     override specialAttack(target :Character){
         this.attack(target, "sorcererAttack")
         this.currentMana -= 25
-        return `${this.name} à fait ${this.magicAttack} dégats à ${target.name}. ${this.name} n'as plus que ${this.currentMana} mana, ${target.name} n'as plus que ${target.currentHealth} points de vie.`
+        return `${Color.Blue}${this.name}${Style.Reset} à fait ${this.magicAttack} dégats à ${Color.Red}${target.name}${Style.Reset}. ${Color.Blue}${this.name}${Style.Reset} n'as plus que ${this.currentMana} mana, ${Color.Red}${target.name}${Style.Reset} n'as plus que ${target.currentHealth} points de vie.`
     }
 }

@@ -9,6 +9,7 @@ import { DragonAncien } from "./classCharacters/Boss/DragonAncien.ts";
 import { LicheSombre } from "./classCharacters/Boss/LicheSombre.ts";
 import { TitanCorrompu } from "./classCharacters/Boss/TitanCorrompu.ts";
 import { Menu } from "./Menu.ts";
+import { Color, Style } from "./Color.ts";
 export class Fight {
     private fighters: Character[];
     private currentTurnIndex: number = 0;
@@ -56,7 +57,7 @@ export class Fight {
 
     private enemyAction = (enemy: Monstre): void => {
         const target = this.adventurer[Math.floor(Math.random() * this.adventurer.length)];
-        console.log(`${enemy.name} attaque ${target.name} !`);
+        console.log(`${Color.Red}${enemy.name}${Style.Reset} attaque ${Color.Blue}${target.name}${Style.Reset} !`);
         enemy.attack(target);
 
         // Appel des méthodes spécifiques des monstres

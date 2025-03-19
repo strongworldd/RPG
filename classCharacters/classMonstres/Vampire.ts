@@ -1,5 +1,6 @@
 import { Monstre } from "./Monstre.ts";
 import { Character } from "../Character.ts";
+import { Color, Style } from "../../Color.ts";
 
 export class Vampire extends Monstre {
     constructor() {
@@ -8,7 +9,7 @@ export class Vampire extends Monstre {
 
     actVampire(aventuriers: Character[]): void {
         super.act(aventuriers);
-        console.log(`${this.name} se régénère grâce à son attaque !`);
+        console.log(`${Color.Red}${this.name}${Style.Reset} se régénère grâce à son attaque !`);
         this.currentHealth = Math.min(this.maxHealth, this.currentHealth + 10);
     }
 }

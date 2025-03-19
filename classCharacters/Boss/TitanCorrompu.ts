@@ -1,5 +1,6 @@
 import { Monstre } from "../classMonstres/Monstre.ts";
 import { Character } from "../Character.ts";
+import { Color, Style } from "../../Color.ts";
 
 export class TitanCorrompu extends Monstre {
     constructor() {
@@ -12,24 +13,24 @@ export class TitanCorrompu extends Monstre {
             // 70% chance
             const cible = super.act(aventuriers);
             if (cible) {
-                console.log(`${this.name} attaque ${cible.name} !`);
+                console.log(`${Color.Red}${this.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !`);
             }
         } else {
-        console.log(`${this.name} frappe le sol, créant une onde de choc qui déséquilibre ses ennemis !`);
+        console.log(`${Color.Red}${this.name}${Style.Reset} frappe le sol, créant une onde de choc qui déséquilibre ses ennemis !`);
         aventuriers.forEach(aventurier => {
             if (aventurier.isAlive()) {
                 aventurier.speed = Math.max(1, aventurier.speed - 3);
-                console.log(`${aventurier.name} est déséquilibré et perd 3 points de vitesse ! Nouvelle vitesse : ${aventurier.speed}`);
+                console.log(`${Color.Blue}${aventurier.name}${Style.Reset} est déséquilibré et perd 3 points de vitesse ! Nouvelle vitesse : ${aventurier.speed}`);
             }
         });
 
-        console.log(`${this.name} concentre son énergie sombre et libère un coup titanesque sur le plus fort !`);
+        console.log(`${Color.Red}${this.name}${Style.Reset} concentre son énergie sombre et libère un coup titanesque sur le plus fort !`);
         const cible = aventuriers.reduce((prev, curr) => (prev.physicalAttack > curr.physicalAttack ? prev : curr));
         if (cible.isAlive()) {
             cible.currentHealth -= 60;
-            console.log(`${cible.name} subit un coup titanesque de 60 dégâts ! Il lui reste ${cible.currentHealth} HP.`);
+            console.log(`${Color.Blue}${cible.name}${Style.Reset} subit un coup titanesque de 60 dégâts ! Il lui reste ${cible.currentHealth} HP.`);
             if (cible.currentHealth <= 0) {
-                console.log(`${cible.name} est écrasé sous la force du Titan Corrompu !`);
+                console.log(`${Color.Blue}${cible.name}${Style.Reset} est écrasé sous la force du Titan Corrompu !`);
             }
         }
     }

@@ -1,3 +1,5 @@
+import { Color, Style } from "../Color.ts";
+
 export abstract class Character {
     name = "";
     physicalAttack = 0;
@@ -27,9 +29,9 @@ export abstract class Character {
         case "sorcererAttack":
             if (target.currentHealth - target.magicAttack > 0) {
                 target.currentHealth -= target.magicAttack;
-                return `${this.name} inflige ${this.magicAttack} points de dégât magique à ${target.name}. Il ne lui reste plus que ${target.currentHealth}/${target.maxHealth}`;
+                return `${Color.Blue}${this.name}${Style.Reset} inflige ${this.magicAttack} points de dégât magique à ${Color.Red}${target.name}${Style.Reset}. Il ne lui reste plus que ${Color.BrightCyan}$${target.currentHealth}/${target.maxHealth} PV${Style.Reset}`;
             } else {
-                return `${target.died()} grâce à ${this.name}!`;
+                return `${target.died()} grâce à ${Color.Blue}${this.name}${Style.Reset}!`;
             }
         case "divinAttack":
             attacking = (this.physicalAttack - target.defenseAttack) * 0.4;
@@ -43,16 +45,16 @@ export abstract class Character {
         }
         if (target.currentHealth - attacking > 0) {
             target.currentHealth -= attacking;
-            return `${this.name} inflige ${attacking} points de dégât à ${target.name}. Il ne lui reste plus que ${target.currentHealth}/${target.maxHealth}`;
+            return `${Color.Blue}${this.name}${Style.Reset} inflige ${attacking} points de dégât à ${Color.Red}${target.name}${Style.Reset}. Il ne lui reste plus que ${Color.BrightCyan}${target.currentHealth}/${target.maxHealth} PV${Style.Reset}`;
         } else {
-            return `${target.died()} grâce à ${this.name}!`;
+            return `${target.died()} grâce à ${Color.Blue}${this.name}${Style.Reset}!`;
         }
     };
     
     protected hurt = (deCbm :number) :string => {
         if(this.currentHealth - deCbm > 0){
             this.currentHealth -= deCbm;
-            return this.name + " s'inflige " + deCbm + " points de dégat.";
+            return `${Color.Blue}${this.name}${Style.Reset} s'inflige ${deCbm} points de dégat.`;
         }else{
             return this.died()
         }
@@ -75,11 +77,11 @@ export abstract class Character {
         }else{
             this.currentMana += regenNumber
         }
-        return `${this.name} à récupéré ${regenNumber} et est désormais à ${this.currentMana}`
+        return `${Color.Blue}${this.name}${Style.Reset} à récupéré ${regenNumber} et est désormais à ${this.currentMana}`
     }
 
     private died() :string{
-        return (`${this.name} est mort !`)
+        return (`${Color.Blue}${this.name}${Style.Reset} est mort !`)
     }
 
     revive = (healRevive :number) :string => {
