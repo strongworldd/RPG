@@ -81,7 +81,7 @@ export class Menu{
             } else{
                 return this.action(currentFighter, livingEnemies, livingCharacters);
             }
-        } else if (action === "2" && !(currentFighter instanceof Guerrier)) { // attack spécial
+        } else if (action === "3" && !(currentFighter instanceof Guerrier)) { // attack spécial
             if (currentFighter instanceof Pretre) {
                 let characterList = `Choisissez un allié à ${Color.Green}soigner${Style.Reset} :\n`;
                 livingCharacters.forEach((character, index) => {
@@ -145,7 +145,7 @@ export class Menu{
                     return this.action(currentFighter, livingEnemies, livingCharacters);
                 }
             }
-        } else if (action === "3"){ //  utiliser l'inventaire
+        } else if (action === "2"){ //  utiliser l'inventaire
             if (bagage.inventaire.length === 0) {
                 console.log("Vous n'avez plus d'objets, essayer d'en voler ou d'en collecter dans des coffres.");
             } else {
