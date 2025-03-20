@@ -1,5 +1,6 @@
 import { Monstre } from "./Monstre.ts";
 import { Character } from "../Character.ts";
+import { Color, Style } from "../../Color.ts";
 
 export class Basilic extends Monstre {
     lastAttacker: Character | null = null;
@@ -28,6 +29,6 @@ export class Basilic extends Monstre {
     private applyDebuff(aventurier: Character): void {
         const reduction = Math.min(3, aventurier.speed - 1);
         aventurier.speed -= reduction;
-        console.log(`${aventurier.name} est ralenti de ${reduction} points ! Nouvelle vitesse : ${aventurier.speed}`);
+        console.log(`${Color.Blue}${aventurier.name}${Style.Reset} est ralenti de ${reduction} points ! Nouvelle vitesse : ${aventurier.speed}`);
     }
 }

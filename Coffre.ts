@@ -5,6 +5,7 @@ import { StarShard } from "./classConsommables/StarShard.ts";
 import { HalfStar } from "./classConsommables/HalfStar.ts";
 import { Inventaire } from "./Inventaire.ts";
 import { Character } from "./classCharacters/Character.ts";
+import { Color, Style } from "./Color.ts";
 
 export class Coffre {
     items: Consommable[];
@@ -34,7 +35,7 @@ export class Coffre {
         } else { 
             const damage = 20; 
             joueur.currentHealth -= damage;
-            console.log(`Le coffre était piégé ! ${joueur.name} subit ${damage} dégâts. Il lui reste ${joueur.currentHealth} HP.`);
+            console.log(`Le coffre était piégé ! ${Color.Blue}${joueur.name}${Style.Reset} subit ${damage} dégâts. Il lui reste ${joueur.currentHealth} HP.`);
             return [];
         }
     }

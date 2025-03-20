@@ -4,6 +4,7 @@ import { HealPotion } from "../classConsommables/HealPotion.ts";
 import { StarShard } from "../classConsommables/StarShard.ts";
 import { bagage } from "../GameManagerTest.ts";
 import { Character } from "./Character.ts";
+import { Color, Style } from "../Color.ts";
 
 export class Voleur extends Character{
 
@@ -16,19 +17,19 @@ export class Voleur extends Character{
     override specialAttack(target :Character){
         const chance = Math.random()*100
         if (chance < 40) {
-            return `${this.name} n'a rien voler à ${target.name}`;
+            return `${Color.Blue}${this.name}${Style.Reset} n'a rien voler à ${Color.Red}${target.name}${Style.Reset}`;
         } else if (chance < 70) {
             bagage.add(new HealPotion())
-            return `${this.name} a voler une potion de soin à ${target.name}`;
+            return `${Color.Blue}${this.name}${Style.Reset} a voler une potion de soin à ${Color.Red}${target.name}${Style.Reset}`;
         } else if (chance < 85) {
             bagage.add(new StarShard())
-            return `${this.name} a voler un fragement d'étoile à ${target.name}`;
+            return `${Color.Blue}${this.name}${Style.Reset} a voler un fragement d'étoile à ${Color.Red}${target.name}${Style.Reset}`;
         } else if (chance < 95) {
             bagage.add(new Ether())
-            return `${this.name} a voler un ether à ${target.name}`;
+            return `${Color.Blue}${this.name}${Style.Reset} a voler un ether à ${Color.Red}${target.name}${Style.Reset}`;
         } else {
             bagage.add(new HalfStar())
-            return `${this.name} a voler une demi-étoile à ${target.name}`;
+            return `${Color.Blue}${this.name}${Style.Reset} a voler une demi-étoile à ${Color.Red}${target.name}${Style.Reset}`;
         }
     }
 }
