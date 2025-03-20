@@ -67,7 +67,7 @@ export abstract class Character {
         } else {
             this.currentHealth += healNumber;
         }
-        return "Le personnage se soigne de " + healNumber + " points de vie et est maintenant à" + this.currentHealth + "points de vie."
+        return "Le personnage se soigne de " + healNumber + " points de vie et est maintenant à " + this.currentHealth + " points de vie."
     }
 
     regenMana(regenNumber :number) :string{

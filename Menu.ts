@@ -26,34 +26,42 @@ export class Menu{
 
         const selectedAdventurers :Character[] = adventurerIndex.map(index => new options[index - 1](options[index - 1].name));
 
-        prompt(`Aventuriers sélectionnés : ${selectedAdventurers.map(character => Color.Blue+character.name+Style.Reset).join(", ")} \nAppuyez sur Entrée`);
+        prompt(`Aventuriers sélectionnés : ${selectedAdventurers.map(character => Color.Blue+character.name+Style.Reset).join(", ")} \nAppuyez sur Entrée\n`);
 
         return selectedAdventurers;
     }
 
     static action = (currentFighter: Character, enemies: Monstre[], characters: Character[]): void => {
         let action: string | null;
-        prompt(`\nC'est à ${Color.Blue}${currentFighter.name}${Style.Reset} de jouer. \nAppuyez sur Entrée`);
+        prompt(`\nC'est à ${Color.Blue}${currentFighter.name}${Style.Reset} de jouer. ${currentFighter.currentHealth}/${currentFighter.maxHealth} PV\nAppuyez sur Entrée\n`);
     
         // Vérifie si l'attaquant a une attaque spéciale
         if (currentFighter instanceof Guerrier) {
             action = prompt(`Quelle action voulez vous effectuer? Choisissez un numéro\n1: ${Color.BrightRed}Attaquer${Style.Reset} \n2: ${Color.Yellow}Utiliser un objet${Style.Reset} \n`);
-            if (!action || !["1", "2"].includes(action)) {
-                console.log(`${Style.Erreur}Choix invalide. Veuillez choisir entre ${Style.Bold}1${Style.AfterNumberErreur} ou ${Style.Bold}2${Style.AfterNumberErreur}.${Style.Reset}\n`);
-                return this.action(currentFighter, enemies, characters);
+            if (!action || !["1", "2", ""].includes(action)) {
+                if (action === "") {
+                    //console.log("nothing")
+                }else{
+                    console.log(`${Style.Erreur}Choix invalide. Veuillez choisir entre ${Style.Bold}1${Style.AfterNumberErreur} ou ${Style.Bold}2${Style.AfterNumberErreur}.${Style.Reset}\n`);
+                    return this.action(currentFighter, enemies, characters);
+                }
             }
         } else {
             action = prompt(`Quelle action voulez vous effectuer? \n1: ${Color.BrightRed}Attaquer${Style.Reset} \n2: ${Color.Yellow}Utiliser un objet${Style.Reset} \n3: ${Color.Magenta}Action Spéciale${Style.Reset} \n`);
-            if (!action || !["1", "2", "3"].includes(action)) {
+            if (!action || !["1", "2", "3", ""].includes(action)) {
+                if (action === "") {
+                    //console.log("nothing")
+                }else{
                 console.log(this.alert);
                 return this.action(currentFighter, enemies, characters);
+                }
             }
         }
     
         const livingEnemies = enemies.filter(enemy => enemy.isAlive());
         const livingCharacters = characters.filter(character => character.isAlive());
     
-        if (action === "1") { // attaque classique
+        if (action === "1" || action === "") { // attaque classique
             let enemyList = `Choisissez l'ennemi à attaquer :\n`;
             livingEnemies.forEach((enemy, index) => {
                 enemyList += ` ${index + 1}. ${Color.Red}${enemy.name}${Style.Reset}\n`;
@@ -69,14 +77,16 @@ export class Menu{
                 }else if (index < 0 || index >= livingEnemies.length) {
                     console.log(this.alert);
                 }
-            }while (index < 0 || index >= livingEnemies.length && targetIndex !== "-1");
-            
+            }while(index < 0 || index >= livingEnemies.length && targetIndex !== "-1" && targetIndex !== "");
+            if (targetIndex === "") {
+                index = 0;
+            }
             let confirm: string|null = null;
             do{confirm = prompt(`Veux-tu attaquer ${Color.Red}${livingEnemies[index].name}${Style.Reset}? [y,n]`);}
             while(confirm !== "y" && confirm !== "n" && confirm !== "yes" && confirm !== "non" && confirm !== "");
             if (confirm === "y" || confirm === "yes" || confirm === "") {
                 const target = livingEnemies[index];
-                prompt(`Vous avez choisi d'attaquer ${Color.Red}${target.name}${Style.Reset}. \nAppuyez sur Entrée`);
+                prompt(`Vous avez choisi d'attaquer ${Color.Red}${target.name}${Style.Reset}. \nAppuyez sur Entrée\n`);
                 prompt(`${currentFighter.attack(target)}`);
             } else{
                 return this.action(currentFighter, livingEnemies, livingCharacters);
@@ -113,7 +123,7 @@ export class Menu{
                 do{confirm = prompt(`Veux-tu utiliser l'attaque spéciale ${Color.Yellow}${currentFighter.specialAttackName}${Style.Reset}? [y,n]\n`);}
                 while(confirm !== "y" && confirm !== "n" && confirm !== "yes" && confirm !== "non" && confirm !== "");
                 if (confirm === "y" || confirm === "yes" || confirm === "") {
-                    prompt(`${currentFighter.specialAttack(livingEnemies)}\nAppuyez sur Entrée`);
+                    prompt(`${currentFighter.specialAttack(livingEnemies)}\nAppuyez sur Entrée\n`);
                 } else{
                     return this.action(currentFighter, livingEnemies, livingCharacters);
                 }
@@ -148,6 +158,7 @@ export class Menu{
         } else if (action === "2"){ //  utiliser l'inventaire
             if (bagage.inventaire.length === 0) {
                 console.log("Vous n'avez plus d'objets, essayer d'en voler ou d'en collecter dans des coffres.");
+                return this.action(currentFighter, livingEnemies, livingCharacters);
             } else {
                 const itemNames = bagage.inventaire.map((item, index) => `${index + 1}. ${Color.Yellow}${item.name}${Style.Reset}`).join("\n");
                 const choice = prompt(`Choisissez l'objet à utiliser : \n${itemNames}\n -1. ${Color.Red}retour${Style.Reset} `);
@@ -155,8 +166,8 @@ export class Menu{
                 
                 if (choice === "-1") {
                     return this.action(currentFighter, enemies, characters);
-                } else if (!isNaN(itemIndex) && itemIndex >= 0 && itemIndex < bagage.inventaire.length) {
-                    const selectedItem = bagage.inventaire[itemIndex];
+                } else if (!isNaN(itemIndex) && itemIndex >= 0 && itemIndex < bagage.inventaire.length || choice === "") {
+                    const selectedItem = bagage.inventaire[itemIndex] ?? bagage.inventaire[0];
                     prompt(`Objet choisi : ${selectedItem.name}`);
                     
                     let potionList = `Choisissez sur qui vous voulez utiliser ${Color.Green}${selectedItem.name}${Style.Reset} :\n`;
@@ -175,9 +186,9 @@ export class Menu{
                             targetIndex = prompt(`${potionList}-1. ${Color.Red}retour${Style.Reset} `);
                             index = parseInt(targetIndex ?? "", 10) - 1;
                         }
-                    } while ((index < 0 || index >= livingCharacters.length) && targetIndex !== "-1");
+                    } while ((index < 0 || index >= livingCharacters.length) && targetIndex !== "-1" || targetIndex === "");
                 
-                    const target = livingCharacters[index];
+                    const target = livingCharacters[index] ?? livingCharacters[0];
                     let confirm: string | null = null;
                 
                     do {
