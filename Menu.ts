@@ -37,7 +37,7 @@ export class Menu{
     
         // Vérifie si l'attaquant a une attaque spéciale
         if (currentFighter instanceof Guerrier) {
-            action = prompt(`Quelle action voulez vous effectuer? Choisissez un numéro\n1: ${Color.BrightRed}Attaquer${Style.Reset} \n2: ${Color.Yellow}Utiliser un objet${Style.Reset} \n`);
+            action = prompt(`Quelle action voulez vous effectuer?\n1: ${Color.BrightRed}Attaquer ${Style.Reset}(${currentFighter.physicalAttack} dégats) \n2: ${Color.Yellow}Utiliser un objet${Style.Reset} \n`);
             if (!action || !["1", "2", ""].includes(action)) {
                 if (action === "") {
                     //console.log("nothing")
@@ -47,7 +47,7 @@ export class Menu{
                 }
             }
         } else {
-            action = prompt(`Quelle action voulez vous effectuer? \n1: ${Color.BrightRed}Attaquer${Style.Reset} \n2: ${Color.Yellow}Utiliser un objet${Style.Reset} \n3: ${Color.Magenta}Action Spéciale${Style.Reset} \n`);
+            action = prompt(`Quelle action voulez vous effectuer? \n1: ${Color.BrightRed}Attaquer ${Style.Reset}(${currentFighter.physicalAttack} dégats) \n2: ${Color.Yellow}Utiliser un objet${Style.Reset} \n3: ${Color.Magenta}Action Spéciale${Style.Reset} \n`);
             if (!action || !["1", "2", "3", ""].includes(action)) {
                 if (action === "") {
                     //console.log("nothing")
@@ -184,29 +184,24 @@ export class Menu{
                             userList += `${index + 1}. ${Color.Blue}${character.name} ${character.currentHealth} PV${Style.Reset}\n`;
                         });
                         possiblechoices=livingCharacters.filter(character => character.currentHealth != character.maxHealth)
-                    }
-                    else if (selectedItem.name === "Demi-étoile" || selectedItem.name === "Morceau d'étoiles") {
-                    livingCharacters.filter(character => character.currentHealth != character.maxHealth).forEach((character, index) => {
-                        userList += `${index + 1}. ${Color.Blue}${character.name} ${character.currentHealth} PV${Style.Reset}\n`;
-                    });
-                    deadCharacters.forEach((character, index) => {
-                        userList += `${livingCharacters.filter(character => character.currentHealth != character.maxHealth).length + index + 1}. ${Color.Magenta}${character.name}${Style.Reset}\n`;
-                    }); 
-                    possiblechoices=livingCharacters.filter(character => character.currentHealth != character.maxHealth),deadCharacters
-                }  
-
-                else if (selectedItem.name === "Ether") {
+                    }else if (selectedItem.name === "Demi-étoile" || selectedItem.name === "Morceau d'étoiles") {
+                        livingCharacters.filter(character => character.currentHealth != character.maxHealth).forEach((character, index) => {
+                            userList += `${index + 1}. ${Color.Blue}${character.name} ${character.currentHealth} PV${Style.Reset}\n`;
+                        });
+                        deadCharacters.forEach((character, index) => {
+                            userList += `${livingCharacters.filter(character => character.currentHealth != character.maxHealth).length + index + 1}. ${Color.Magenta}${character.name}${Style.Reset}\n`;
+                        }); 
+                        possiblechoices=livingCharacters.filter(character => character.currentHealth != character.maxHealth),deadCharacters
+                    }else if (selectedItem.name === "Ether") {
                     livingCharacters.filter(character => character.currentMana != character.maxMana).forEach((character, index) => {
                         userList += `${index + 1}. ${Color.Blue}${character.name} ${character.currentMana} PV${Style.Reset}\n`;
                     });
                     possiblechoices=livingCharacters.filter(character => character.currentMana != character.maxMana)
-                }  
-
-                if (possiblechoices.length==0){
-                    console.log("Vous ne pouvez soignez personne car personne n'a été blessé.");
-                    return this.action(currentFighter, livingEnemies, characters);
-                }    
-                
+                    }  
+                    if (possiblechoices.length==0){
+                        console.log("Vous ne pouvez soignez personne car personne n'a été blessé.");
+                        return this.action(currentFighter, livingEnemies, characters);
+                    }    
                     let targetIndex = prompt(`${userList}-1. ${Color.Red}retour${Style.Reset}\n `);
                     let index = parseInt(targetIndex ?? "", 10) - 1;
                 
