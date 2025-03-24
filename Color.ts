@@ -14,6 +14,7 @@ export enum Color {
     BrightMagenta = "\x1b[95m",  //attack spécial
     BrightCyan = "\x1b[96m",
     BrightWhite = "\x1b[97m",
+    Reset = "Reset",
 }
 
 export enum Style {
