@@ -26,23 +26,20 @@ export abstract class Character {
 
     attack = (target :Monstre | Character, attackType :string = ""): string => {
         let attacking: number;
+    
         switch (attackType) {
-        case "sorcererAttack":
-            if (target.currentHealth - target.magicAttack > 0) {
-                target.currentHealth -= target.magicAttack;
-                return `${Color.Blue}${this.name}${Style.Reset} inflige ${this.magicAttack} points de dégât magique à ${Color.Red}${target.name}${Style.Reset}. Il ne lui reste plus que ${Color.BrightCyan}$${target.currentHealth}/${target.maxHealth} PV${Style.Reset}`;
-            } else {
-                return `${target.died()} grâce à ${Color.Blue}${this.name}${Style.Reset}!`;
-            }
-        case "divinAttack":
-            attacking = (this.physicalAttack - target.defenseAttack) * 0.4;
-            break;
-        case "berserkAttack":
-            attacking = (this.physicalAttack - target.defenseAttack) * 1.3;
-            break;
-        default:
-            attacking = this.physicalAttack - target.defenseAttack;
-            break;
+            case "sorcererAttack":
+                attacking = this.magicAttack;
+                break;
+            case "divinAttack":
+                attacking = Math.max(0, (this.physicalAttack - target.defenseAttack) * 0.4);
+                break;
+            case "berserkAttack":
+                attacking = Math.max(0, (this.physicalAttack - target.defenseAttack) * 1.3);
+                break;
+            default:
+                attacking = Math.max(0, this.physicalAttack - target.defenseAttack);
+                break;
         }
         if (target instanceof Monstre){
             if (target.currentHealth - attacking > 0) {
@@ -91,6 +88,7 @@ export abstract class Character {
     }
 
     private died() :string{
+        this.currentHealth = 0;
         return (`${Color.Blue}${this.name}${Style.Reset} est mort !`)
     }
 

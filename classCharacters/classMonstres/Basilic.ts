@@ -14,18 +14,19 @@ export class Basilic extends Monstre {
     }
 
     agir(aventuriers: Character[]): void {
-        const cible = super.act(aventuriers);
-
-        if (this.lastAttacker) {
-            this.applyDebuff(this.lastAttacker);
-            this.lastAttacker = null; 
-        }
-
+        const cible = super.act(aventuriers); 
+    
         if (cible) {
-            this.applyDebuff(cible);
+            this.applyDebuff(cible); 
         }
+    
+        aventuriers
+            .filter(aventurier => aventurier.isAlive() && aventurier !== cible)
+            .forEach(aventurier => {
+                this.applyDebuff(aventurier);
+            });
     }
-
+    
     private applyDebuff(aventurier: Character): void {
         const reduction = Math.min(3, aventurier.speed - 1);
         aventurier.speed -= reduction;
