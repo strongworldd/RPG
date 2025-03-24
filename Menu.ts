@@ -8,9 +8,6 @@ import { Monstre } from "./classCharacters/classMonstres/Monstre.ts";
 import { Voleur } from "./classCharacters/Voleur.ts";
 import { bagage } from "./GameManagerTest.ts";
 import { Color, Style } from "./Color.ts";
-import { HealPotion } from "./classConsommables/HealPotion.ts";
-import { HalfStar } from "./classConsommables/HalfStar.ts";
-import { StarShard } from "./classConsommables/StarShard.ts";
 
 export class Menu{
     static alert :string =  `${Style.Erreur}Choix invalide. Veuillez choisir entre ${Style.Bold}1${Style.AfterNumberErreur}, ${Style.Bold}2${Style.AfterNumberErreur} ou ${Style.Bold}3${Style.AfterNumberErreur}.${Style.Reset}\n`;
@@ -63,7 +60,7 @@ export class Menu{
     
         const livingEnemies = enemies.filter(enemy => enemy.isAlive());
         const livingCharacters = characters.filter(character => character.isAlive());
-        const deadCharacters = characters.filter(character => character.isAlive() == false);
+        const deadCharacters = characters.filter(character => !character.isAlive());
     
         if (action === "1" || action === "") { // attaque classique
             let enemyList = `Choisissez l'ennemi à attaquer :\n`;
@@ -197,6 +194,14 @@ export class Menu{
                     }); 
                     possiblechoices=livingCharacters.filter(character => character.currentHealth != character.maxHealth),deadCharacters
                 }  
+
+                else if (selectedItem.name === "Ether") {
+                    livingCharacters.filter(character => character.currentMana != character.maxMana).forEach((character, index) => {
+                        userList += `${index + 1}. ${Color.Blue}${character.name} ${character.currentMana} PV${Style.Reset}\n`;
+                    });
+                    possiblechoices=livingCharacters.filter(character => character.currentMana != character.maxMana)
+                }  
+
                 if (possiblechoices.length==0){
                     console.log("Vous ne pouvez soignez personne car personne n'a été blessé.");
                     return this.action(currentFighter, livingEnemies, characters);
