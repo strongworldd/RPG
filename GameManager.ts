@@ -30,8 +30,13 @@ export class GameManager{
                 console.log("Félicitations ! Vous avez terminé 5 salles avec au moins un aventurier vivant !");
                 prompt(`Pour vous récompenser voici une demi-étoile !`)
                 Bagage.add(new HalfStar());
-                this.nextSalle(characters,classMonsters,Bagage);
-                this.salle = 1;
+                const continuer = prompt("Voulez vous continuer à jouer ? [y,n]");
+                if (continuer === "y" || continuer === "yes" || continuer === "") {
+                    this.nextSalle(characters, classMonsters, Bagage);
+                    this.salle = 1;
+                } else {
+                    return;
+                }
             } else {
                 console.log("Félicitations ! Vous avez terminé une salle avec au moins un aventurier vivant !");
                 this.nextSalle(characters,classMonsters,Bagage);
