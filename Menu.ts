@@ -60,7 +60,7 @@ export class Menu{
     
         const livingEnemies = enemies.filter(enemy => enemy.isAlive());
         const livingCharacters = characters.filter(character => character.isAlive());
-        const deadCharacters = characters.filter(character => !(character.isAlive()));
+        const deadCharacters = characters.filter(character => character.isAlive() == false);
     
         if (action === "1" || action === "") { // attaque classique
             let enemyList = `Choisissez l'ennemi à attaquer :\n`;
@@ -103,7 +103,7 @@ export class Menu{
                 do{ 
                     if (targetIndex === "-1") {
                         return this.action(currentFighter, livingEnemies, livingCharacters,deadCharacters);
-                    }else if (index !>= 0 && index !<= livingCharacters.length) {
+                    }else if (index <= 0 && index > livingCharacters.length) {
                         console.log(this.alert);
                         console.log("index = ", index);
                         targetIndex = prompt(`${characterList}-1. ${Color.Red}retour${Style.Reset}\n `);
@@ -138,8 +138,8 @@ export class Menu{
                 let index = parseInt(targetIndex ?? "", 10) - 1;
                 while (index < 0 && index >= livingEnemies.length && targetIndex !== "-1" && targetIndex !== "") {
                     if (targetIndex === "-1") {
-                        return this.action(currentFighter, livingEnemies, livingCharacters,deadCharacters);
-                    }else if (index !>= 0 && index !<= livingEnemies.length) {
+                        return this.action(currentFighter, livingEnemies, livingCharacters, deadCharacters);
+                    }else if (index < 0 && index >= livingEnemies.length) {
                         console.log(this.alert);
                         targetIndex = prompt(`${ennemieslist}-1. ${Color.Red}retour${Style.Reset}\n `);
                         index = parseInt(targetIndex ?? "", 10) - 1;
@@ -173,49 +173,53 @@ export class Menu{
                 if (choice === "-1") {
                     return this.action(currentFighter, enemies, characters,deadCharacters);
                 } else if (itemIndex >= 0 && itemIndex < bagage.inventaire.length) {
-                    const selectedItem = bagage.inventaire[itemIndex] ?? bagage.inventaire[0];
+                    const selectedItem = bagage.inventaire[itemIndex];
                     prompt(`Objet choisi : ${Color.Green}${selectedItem.name}${Style.Reset}`);
-                    
-                    let userList = `Choisissez sur qui vous voulez utiliser ${Color.Green}${selectedItem.name}${Style.Reset} :\n`;
-                    livingCharacters.forEach((character, index) => {
-                        userList += `${index + 1}. ${Color.Blue}${character.name}${Style.Reset} ${character.currentHealth}/${character.maxHealth}\n`;
-                    });
-                    deadCharacters.forEach((character, index) => {
-                        userList += `${index + 1}. ${Color.BrightRed}${character.name}${Style.Reset}\n`;
-                    });        
 
+                    let userList = `Choisissez sur qui vous voulez utiliser ${Color.Green}${selectedItem.name}${Style.Reset} :\n`;
+                    let possiblechoices: Character[] = []
+
+                    if (selectedItem.name === "Potion de soin" ) {
+                        livingCharacters.filter(character => character.currentHealth != character.maxHealth).forEach((character, index) => {
+                            userList += `${index + 1}. ${Color.Blue}${character.name} ${character.currentHealth} PV${Style.Reset}\n`;
+                        });
+                        possiblechoices=livingCharacters.filter(character => character.currentHealth != character.maxHealth)
+                    }else if (selectedItem.name === "Demi-étoile" || selectedItem.name === "Morceau d'étoiles") {
+                        livingCharacters.filter(character => character.currentHealth != character.maxHealth).forEach((character, index) => {
+                            userList += `${index + 1}. ${Color.Blue}${character.name} ${character.currentHealth} PV${Style.Reset}\n`;
+                        });
+                        deadCharacters.forEach((character, index) => {
+                            userList += `${livingCharacters.filter(character => character.currentHealth != character.maxHealth).length + index + 1}. ${Color.Magenta}${character.name}${Style.Reset}\n`;
+                        }); 
+                        possiblechoices=livingCharacters.filter(character => character.currentHealth != character.maxHealth),deadCharacters
+                    }       
+                
                     let targetIndex = prompt(`${userList}-1. ${Color.Red}retour${Style.Reset}\n `);
                     let index = parseInt(targetIndex ?? "", 10) - 1;
                 
                     do {
                         if (targetIndex === "-1") {
                             return this.action(currentFighter, livingEnemies, livingCharacters,deadCharacters);
-                        } else if (index < 0 || index >= livingCharacters.length) {
+                        } else if (index < 0 || index >= possiblechoices.length) {
                             console.log(this.alert);
                             targetIndex = prompt(`${userList}-1. ${Color.Red}retour${Style.Reset}\n `);
                             index = parseInt(targetIndex ?? "", 10) - 1;
                         }
-                    } while ((index < 0 || index >= livingCharacters.length) && targetIndex !== "-1" && targetIndex !== "");
-                    if (targetIndex === "") {
-                        index = 0;
-                    }
-                
-                    const target = livingCharacters[index] ?? deadCharacters[index] ?? livingCharacters[0];
+                    } while ((index < 0 || index >= livingCharacters.length) && targetIndex !== "-1" || targetIndex === "");
+                    const target = possiblechoices[index] ?? livingCharacters[0];
                     let confirm: string | null = null;
                 
                     do {
                         confirm = prompt(`Veux-tu utiliser la potion ${Color.Magenta}${selectedItem.name}${Style.Reset} sur ${target.name}? [y,n]\n`);
-                    } while (confirm !== "y" && confirm !== "n" && confirm !== "yes" && confirm !== "non" && confirm !== "");
-                    
+                    }while (confirm !== "y" && confirm !== "n" && confirm !== "yes" && confirm !== "non" && confirm !== "");
                     if (confirm === "y" || confirm === "yes" || confirm === "") {
                         prompt(`${bagage.inventaire[itemIndex].use(target)}`);
                         bagage.inventaire.splice(itemIndex, 1);
                     } else {
-                        return this.action(currentFighter, livingEnemies, livingCharacters,deadCharacters);
-                    }
-                }
-                
-            }                
+                        return this.action(currentFighter, livingEnemies, livingCharacters, deadCharacters);
+                    }                
+                } 
+            }               
         }else{
             console.log("CACA");
         }
