@@ -7,6 +7,6 @@ export class Ether extends Consommable{
     }
 
     override use(target :Character){
-        target.regenMana(this.regenMana)
+        return target.regenMana(this.regenMana)
     }
 }

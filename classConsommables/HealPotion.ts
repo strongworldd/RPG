@@ -8,6 +8,6 @@ export class HealPotion extends Consommable{
     }
 
     override use(target :Character){
-        target.heal(this.regenLife)
+        return target.heal(this.regenLife)
     }
 }

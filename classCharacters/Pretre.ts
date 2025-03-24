@@ -17,6 +17,6 @@ export class Pretre extends Character {
         } else {
             target.currentHealth += healNumber
         }
-        return `${Color.Blue,this.name,Style.Reset} soigne ${Color.Green,target.name,Style.Reset} de ${Color.Yellow,healNumber,Style.Reset}, ${Color.Blue,target.name,Style.Reset} à désormais ${Color.Green,target.currentHealth,Style.Reset} point de vie.`
+        return `${Color.Blue}${this.name}${Style.Reset} soigne ${Color.Green}${target.name}${Style.Reset} de ${Color.Yellow}${healNumber}${Style.Reset}, ${Color.Blue}${target.name}${Style.Reset} à désormais ${Color.Green}${target.currentHealth}${Style.Reset} point de vie.`
     }
 }

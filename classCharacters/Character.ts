@@ -24,7 +24,7 @@ export abstract class Character {
 
     abstract specialAttack(target: Character | Character[]) :void;
 
-    attack = (target: Character, attackType: string = ""): string => {
+    attack = (target :Monstre | Character, attackType :string = ""): string => {
         let attacking: number;
         switch (attackType) {
         case "sorcererAttack":
@@ -77,7 +77,7 @@ export abstract class Character {
         } else {
             this.currentHealth += healNumber;
         }
-        return "Le personnage se soigne de " + healNumber + " points de vie et est maintenant à" + this.currentHealth + "points de vie."
+        return `${Color.Blue}${this.name}${Style.Reset} se soigne de ${Color.Green}${healNumber}${Style.Reset} points de vie et est maintenant à ${this.currentHealth} points de vie`
     }
 
     regenMana(regenNumber :number) :string{
@@ -87,16 +87,17 @@ export abstract class Character {
         }else{
             this.currentMana += regenNumber
         }
-        return `${Color.Blue}${this.name}${Style.Reset} à récupéré ${regenNumber} et est désormais à ${this.currentMana}`
+        return `${Color.Blue}${this.name}${Style.Reset} à récupéré ${regenNumber} mana et est désormais à ${this.currentMana} mana.`
     }
 
     private died() :string{
+        this.currentHealth = 0;
         return (`${Color.Blue}${this.name}${Style.Reset} est mort !`)
     }
 
     revive = (healRevive :number) :string => {
         this.currentHealth = healRevive;  
-        return "Le personnage ressuscite avec " + healRevive + "points de vie."
+        return `${this.name} ressuscite avec ${healRevive} points de vie.`
     }
 
     isAlive() :boolean {

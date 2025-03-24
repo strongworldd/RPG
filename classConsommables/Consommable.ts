@@ -17,5 +17,5 @@ export abstract class Consommable{
         this.boostDefence = boostDefence
     }
 
-    abstract use(target :Character):void;
+    abstract use(target :Character):string;
 }

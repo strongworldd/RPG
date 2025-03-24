@@ -9,9 +9,9 @@ export class StarShard extends Consommable{
 
     override use(target :Character){
         if (target.isAlive()) {
-            target.heal(50)
+            return target.heal(50)
         }else{
-            target.revive(20)
+            return target.revive(20)
         }
     }
 }

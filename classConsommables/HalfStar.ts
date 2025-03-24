@@ -8,9 +8,9 @@ export class HalfStar extends Consommable{
 
     override use(target :Character){
         if (target.isAlive()) {
-            target.heal(this.regenLife)
+            return target.heal(this.regenLife)
         }else{
-            target.revive(this.regenLife)
+            return target.revive(this.regenLife)
         }
     }
 }
