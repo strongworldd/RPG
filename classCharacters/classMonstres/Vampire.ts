@@ -4,7 +4,7 @@ import { Color, Style } from "../../Color.ts";
 
 export class Vampire extends Monstre {
     constructor() {
-        super("Vampire Sanguinaire", 100, 25);
+        super("Vampire Sanguinaire", 100, 25, 7);
     }
 
     actVampire(aventuriers: Character[]): void {

@@ -20,7 +20,7 @@ export class Fight {
 
     private determineTurnOrder = (): Character[] => {
         const participants: Character[] = [...this.adventurer, ...this.enemies];
-        participants.sort((a, b) => b.speed - a.speed);
+        participants.sort((a, b) => b.speed - a.speed); // Trie par vitesse décroissante
         return participants;
     }
 

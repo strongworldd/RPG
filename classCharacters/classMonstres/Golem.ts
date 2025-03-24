@@ -4,7 +4,7 @@ import { Color, Style } from "../../Color.ts";
 
 export class Golem extends Monstre {
     constructor() {
-        super("Golem de Pierre", 125, 15);
+        super("Golem de Pierre", 125, 15, 0);
     }
 
     actGolem(aventuriers: Character[]): void {

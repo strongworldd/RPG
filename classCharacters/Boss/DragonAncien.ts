@@ -3,7 +3,7 @@ import { Character } from "../Character.ts";
 import { Color, Style } from "../../Color.ts";
 export class DragonAncien extends Monstre {
     constructor() {
-        super("Dragon Ancien", 200, 50);
+        super("Dragon Ancien", 200, 50, 10);
     }
 
     agir(aventuriers: Character[]): void {

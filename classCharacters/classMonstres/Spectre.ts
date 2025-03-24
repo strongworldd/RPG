@@ -6,7 +6,7 @@ export class Spectre extends Monstre {
 
     override name: string = "Spectre Hanté";
     constructor() {
-        super("Spectre Hanté", 80, 20);
+        super("Spectre Hanté", 80, 20, 5);
     }
 
     actSpectre(aventuriers: Character[]): void {

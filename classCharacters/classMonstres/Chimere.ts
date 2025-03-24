@@ -4,7 +4,7 @@ import { Color, Style } from "../../Color.ts";
 
 export class Chimere extends Monstre {
     constructor() {
-        super("Chimère Mutante", 100, 20);
+        super("Chimère Mutante", 100, 20, 5);
     }
 
     actChimere(aventuriers: Character[]): void {

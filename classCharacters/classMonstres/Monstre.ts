@@ -2,8 +2,8 @@ import { Character } from '../Character.ts';
 
 export abstract class Monstre extends Character {
 
-    constructor(name: string, pv: number, attack: number) {
-        super(name, attack, 0, 0, pv, pv);
+    constructor(name: string, pv: number, attack: number, speed: number) {
+        super(name, attack, 0, speed, pv, pv);
     }
 
     act(aventuriers: Character[]): Character | null {
