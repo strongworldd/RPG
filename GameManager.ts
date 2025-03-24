@@ -12,37 +12,52 @@ import { Coffre } from "./Coffre.ts";
 import { Inventaire } from "./Inventaire.ts";
 import { Monstre } from "./classCharacters/classMonstres/Monstre.ts";
 import { bagage, Characters } from "./GameManagerTest.ts";
+import { HalfStar } from "./classConsommables/HalfStar.ts";
 export class GameManager{
     
+    salle = 1;
+
     mainLoop(): void {
         
         const characters = Characters
-        const inventaire = bagage
+        const Bagage = bagage
         const classMonsters: (new () => Monstre)[] = [Basilic, Chimere, Golem, Spectre, Vampire];
 
-        console.log("Salle 1 : Combat aléatoire");
-        this.combatAleatoire(characters, classMonsters);
+        this.nextSalle(characters, classMonsters, Bagage);
 
-        console.log("Salle 2 : Coffre");
-        this.ouvrirCoffre(characters, inventaire);
+        do{
+            if (this.salle === 5) { //characters.some(character => character.isAlive()) && 
+                console.log("Félicitations ! Vous avez terminé 5 salles avec au moins un aventurier vivant !");
+                prompt(`Pour vous récompenser voici une demi-étoile !`)
+                Bagage.add(new HalfStar());
+                const continuer = prompt("Voulez vous continuer à jouer ? [y,n]");
+                if (continuer === "y" || continuer === "yes" || continuer === "") {
+                    this.nextSalle(characters, classMonsters, Bagage);
+                    this.salle = 1;
+                } else {
+                    return;
+                }
+            } else {
+                console.log("Félicitations ! Vous avez terminé une salle avec au moins un aventurier vivant !");
+                this.nextSalle(characters,classMonsters,Bagage);
+            }
+        }while(true)
+    }
 
-        console.log("Salle 3 : Combat aléatoire");
-        this.combatAleatoire(characters, classMonsters);
-
-        console.log("Salle 4 : Coffre");
-        this.ouvrirCoffre(characters, inventaire);
-
-        console.log("Salle 5 : Boss");
-        this.combatBoss(characters);
-
-        if (characters.some(character => character.isAlive())) {
-            console.log("Félicitations ! Vous avez terminé le donjon avec au moins un aventurier vivant !");
-        } else {
-            console.log("Tous les aventuriers sont morts. GAME OVER.");
+    nextSalle(characters :Character[], Monsters :(new () => Monstre)[], Bagage :Inventaire): void {
+        console.log(`Salle ${this.salle}`);
+        if (this.salle === 1 || this.salle === 3) {
+            this.combatAleatoire(characters, Monsters);
+        } else if (this.salle === 2 || this.salle === 4) {
+            this.ouvrirCoffre(characters, Bagage);
+        } else if (this.salle === 5) {
+            this.combatBoss(characters);
         }
+        this.salle++;
     }
 
     combatAleatoire(characters: Character[], classMonsters: (new () => Monstre)[]): void {
+        prompt("Combat aléatoire !")
         const shuffledMonsters = classMonsters.sort(() => 0.5 - Math.random()).slice(0, 3);
         const monsters = shuffledMonsters.map(MonsterClass => new MonsterClass());
         const fight = new Fight(characters, monsters);
@@ -54,12 +69,14 @@ export class GameManager{
     }
 
     ouvrirCoffre(characters: Character[], inventaire: Inventaire): void {
+        prompt("Salle de coffre !")
         const coffre = new Coffre();
         const randomCharacter = characters[Math.floor(Math.random() * characters.length)];
         coffre.open(inventaire, randomCharacter);
     }
 
     combatBoss(characters: Character[]): void {
+        prompt("Combat de boss !")
         const bosses: (new () => Monstre)[] = [DragonAncien, LicheSombre, TitanCorrompu];
         const randomIndex = Math.floor(Math.random() * bosses.length);
         const BossClass = bosses[randomIndex];
