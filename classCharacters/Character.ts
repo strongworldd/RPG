@@ -6,23 +6,25 @@ export abstract class Character {
     physicalAttack = 0;
     defenseAttack = 0;
     speed = 10;
+    baseSpeed = 10; 
     maxHealth = 100;
     currentHealth = 100;
-    maxMana = 0
-    currentMana = 0
-    magicAttack = 0
-    specialAttackName = ""
+    maxMana = 0;
+    currentMana = 0;
+    magicAttack = 0;
+    specialAttackName = "";
 
-    constructor(name :string, physicalAttack :number, defenseAttack :number, speed :number, maxHealth :number, currentHealth :number) {
+    constructor(name: string, physicalAttack: number, defenseAttack: number, speed: number, maxHealth: number, currentHealth: number) {
         this.name = name;
         this.physicalAttack = physicalAttack;
         this.defenseAttack = defenseAttack;
         this.speed = speed;
+        this.baseSpeed = speed; 
         this.maxHealth = maxHealth;
         this.currentHealth = currentHealth;
     }
 
-    abstract specialAttack(target: Character | Character[]) :void;
+    abstract specialAttack(target: Character | Character[]): void;
 
     attack = (target :Monstre | Character, attackType :string = ""): string => {
         let attacking: number;
