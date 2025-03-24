@@ -25,29 +25,30 @@ export abstract class Character {
 
     attack = (target: Character, attackType: string = ""): string => {
         let attacking: number;
+    
+        // Calcul des dégâts en fonction du type d'attaque
         switch (attackType) {
-        case "sorcererAttack":
-            if (target.currentHealth - target.magicAttack > 0) {
-                target.currentHealth -= target.magicAttack;
-                return `${Color.Blue}${this.name}${Style.Reset} inflige ${this.magicAttack} points de dégât magique à ${Color.Red}${target.name}${Style.Reset}. Il ne lui reste plus que ${Color.BrightCyan}$${target.currentHealth}/${target.maxHealth} PV${Style.Reset}`;
-            } else {
-                return `${target.died()} grâce à ${Color.Blue}${this.name}${Style.Reset}!`;
-            }
-        case "divinAttack":
-            attacking = (this.physicalAttack - target.defenseAttack) * 0.4;
-            break;
-        case "berserkAttack":
-            attacking = (this.physicalAttack - target.defenseAttack) * 1.3;
-            break;
-        default:
-            attacking = this.physicalAttack - target.defenseAttack;
-            break;
+            case "sorcererAttack":
+                attacking = this.magicAttack;
+                break;
+            case "divinAttack":
+                attacking = Math.max(0, (this.physicalAttack - target.defenseAttack) * 0.4);
+                break;
+            case "berserkAttack":
+                attacking = Math.max(0, (this.physicalAttack - target.defenseAttack) * 1.3);
+                break;
+            default:
+                attacking = Math.max(0, this.physicalAttack - target.defenseAttack);
+                break;
         }
+    
+        // Réduction des points de vie de la cible
         if (target.currentHealth - attacking > 0) {
             target.currentHealth -= attacking;
-            return `${Color.Blue}${this.name}${Style.Reset} inflige ${attacking} points de dégât à ${Color.Red}${target.name}${Style.Reset}. Il ne lui reste plus que ${Color.BrightCyan}${target.currentHealth}/${target.maxHealth} PV${Style.Reset}`;
+            return `${Color.Blue}${this.name}${Style.Reset} inflige ${attacking} points de dégât à ${Color.Red}${target.name}${Style.Reset}. Il ne lui reste plus que ${Color.BrightCyan}${target.currentHealth}/${target.maxHealth} PV${Style.Reset}.`;
         } else {
-            return `${target.died()} grâce à ${Color.Blue}${this.name}${Style.Reset}!`;
+            target.currentHealth = 0;
+            return `${Color.Blue}${this.name}${Style.Reset} inflige ${attacking} points de dégât à ${Color.Red}${target.name}${Style.Reset}. ${target.name} est K.O. !`;
         }
     };
     

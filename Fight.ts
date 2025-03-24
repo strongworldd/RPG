@@ -56,28 +56,35 @@ export class Fight {
     }
 
     private enemyAction = (enemy: Monstre): void => {
-        const target = this.adventurer[Math.floor(Math.random() * this.adventurer.length)];
-        console.log(`${Color.Red}${enemy.name}${Style.Reset} attaque ${Color.Blue}${target.name}${Style.Reset} !`);
-        enemy.attack(target);
+    // Sélectionne une cible aléatoire parmi les aventuriers vivants
+    const vivantAventuriers = this.adventurer.filter(aventurier => aventurier.isAlive());
+    const cible = vivantAventuriers[Math.floor(Math.random() * vivantAventuriers.length)];
 
-        // Appel des méthodes spécifiques des monstres
-        if (enemy instanceof Spectre) {
-            (enemy as Spectre).actSpectre(this.adventurer);
-        } else if (enemy instanceof Basilic) {
-            (enemy as Basilic).agir(this.adventurer);
-        } else if (enemy instanceof Chimere) {
-            (enemy as Chimere).actChimere(this.adventurer);
-        } else if (enemy instanceof Golem) {
-            (enemy as Golem).actGolem(this.adventurer);
-        } else if (enemy instanceof Vampire) {
-            (enemy as Vampire).actVampire(this.adventurer);
-        } else if (enemy instanceof DragonAncien) {
-            (enemy as DragonAncien).agir(this.adventurer);
-        } else if (enemy instanceof LicheSombre) {
-            (enemy as LicheSombre).agir(this.adventurer);
-        } else if (enemy instanceof TitanCorrompu) {
-            (enemy as TitanCorrompu).agir(this.adventurer);
-        }
+    // Affiche le message principal d'attaque
+    if (cible) {
+        console.log(`${Color.Red}${enemy.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !`);
+        const attackMessage = enemy.attack(cible); // Effectue l'attaque et récupère le message
+        console.log(attackMessage); // Affiche le message des dégâts infligés
+    }
+    
+        // Appelle les actions spécifiques des monstres
+    if (enemy instanceof Basilic) {
+        (enemy as Basilic).agir(this.adventurer);
+    } else if (enemy instanceof Chimere) {
+        (enemy as Chimere).actChimere(this.adventurer);
+    } else if (enemy instanceof Spectre) {
+        (enemy as Spectre).actSpectre(this.adventurer);
+    } else if (enemy instanceof Golem) {
+        (enemy as Golem).actGolem(this.adventurer);
+    } else if (enemy instanceof Vampire) {
+        (enemy as Vampire).actVampire(this.adventurer);
+    } else if (enemy instanceof DragonAncien) {
+        (enemy as DragonAncien).agir(this.adventurer);
+    } else if (enemy instanceof LicheSombre) {
+        (enemy as LicheSombre).agir(this.adventurer);
+    } else if (enemy instanceof TitanCorrompu) {
+        (enemy as TitanCorrompu).agir(this.adventurer);
+    }
     }
 
     private nextTurn = (): void => {
