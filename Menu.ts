@@ -33,11 +33,11 @@ export class Menu{
 
     static action = (currentFighter: Character, enemies: Monstre[], characters: Character[]): void => {
         let action: string | null;
-        prompt(`\nC'est à ${Color.Blue}${currentFighter.name}${Style.Reset} de jouer. ${currentFighter.currentHealth}/${currentFighter.maxHealth} PV\nAppuyez sur Entrée\n`);
+        prompt(`\nC'est à ${Color.Blue}${currentFighter.name}${Style.Reset} de jouer. ${Color.BrightCyan}${currentFighter.currentHealth}/${currentFighter.maxHealth} PV${Style.Reset}\nAppuyez sur Entrée\n`);
     
         // Vérifie si l'attaquant a une attaque spéciale
         if (currentFighter instanceof Guerrier) {
-            action = prompt(`Quelle action voulez vous effectuer? Choisissez un numéro\n1: ${Color.BrightRed}Attaquer${Style.Reset} \n2: ${Color.Yellow}Utiliser un objet${Style.Reset} \n`);
+            action = prompt(`Quelle action voulez vous effectuer?\n1: ${Color.BrightRed}Attaquer${Style.Reset} \n2: ${Color.Yellow}Utiliser un objet${Style.Reset} \n`);
             if (!action || !["1", "2", ""].includes(action)) {
                 if (action === "") {
                     //console.log("nothing")
@@ -181,13 +181,13 @@ export class Menu{
 
                     if (selectedItem.name === "Potion de soin" ) {
                         livingCharacters.filter(character => character.currentHealth != character.maxHealth).forEach((character, index) => {
-                            userList += `${index + 1}. ${Color.Blue}${character.name} ${character.currentHealth} PV${Style.Reset}\n`;
+                            userList += `${index + 1}. ${Color.Blue}${character.name}${Style.Reset} ${Color.BrightCyan}${character.currentHealth}/${character.maxHealth} PV${Style.Reset}\n`;
                         });
                         possiblechoices=livingCharacters.filter(character => character.currentHealth != character.maxHealth)
                     }
                     else if (selectedItem.name === "Demi-étoile" || selectedItem.name === "Morceau d'étoiles") {
                     livingCharacters.filter(character => character.currentHealth != character.maxHealth).forEach((character, index) => {
-                        userList += `${index + 1}. ${Color.Blue}${character.name} ${character.currentHealth} PV${Style.Reset}\n`;
+                        userList += `${index + 1}. ${Color.Blue}${character.name}${Style.Reset} ${Color.BrightCyan}${character.currentHealth}/${character.maxHealth} PV${Style.Reset}\n`;
                     });
                     deadCharacters.forEach((character, index) => {
                         userList += `${livingCharacters.filter(character => character.currentHealth != character.maxHealth).length + index + 1}. ${Color.Magenta}${character.name}${Style.Reset}\n`;
@@ -197,7 +197,7 @@ export class Menu{
 
                 else if (selectedItem.name === "Ether") {
                     livingCharacters.filter(character => character.currentMana != character.maxMana).forEach((character, index) => {
-                        userList += `${index + 1}. ${Color.Blue}${character.name} ${character.currentMana} PV${Style.Reset}\n`;
+                        userList += `${index + 1}. ${Color.Blue}${character.name} ${character.name}${Style.Reset} ${Color.BrightCyan}${character.currentHealth}/${character.maxHealth} PV${Style.Reset}\n`;
                     });
                     possiblechoices=livingCharacters.filter(character => character.currentMana != character.maxMana)
                 }  
