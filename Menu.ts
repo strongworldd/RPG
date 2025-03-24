@@ -8,9 +8,6 @@ import { Monstre } from "./classCharacters/classMonstres/Monstre.ts";
 import { Voleur } from "./classCharacters/Voleur.ts";
 import { bagage } from "./GameManagerTest.ts";
 import { Color, Style } from "./Color.ts";
-import { HealPotion } from "./classConsommables/HealPotion.ts";
-import { HalfStar } from "./classConsommables/HalfStar.ts";
-import { StarShard } from "./classConsommables/StarShard.ts";
 
 export class Menu{
     static alert :string =  `${Style.Erreur}Choix invalide. Veuillez choisir entre ${Style.Bold}1${Style.AfterNumberErreur}, ${Style.Bold}2${Style.AfterNumberErreur} ou ${Style.Bold}3${Style.AfterNumberErreur}.${Style.Reset}\n`;
@@ -68,7 +65,7 @@ export class Menu{
         if (action === "1" || action === "") { // attaque classique
             let enemyList = `Choisissez l'ennemi à attaquer :\n`;
             livingEnemies.forEach((enemy, index) => {
-                enemyList += ` ${index + 1}. ${Color.Red}${enemy.name}${Style.Reset}\n`;
+                enemyList += ` ${index + 1}. ${Color.Red}${enemy.name}${Style.Reset} ${enemy.currentHealth}/${enemy.maxHealth} \n`;
             });
             let index: number;
             let targetIndex: string|null = null;
@@ -92,7 +89,7 @@ export class Menu{
                 prompt(`Vous avez choisi d'attaquer ${Color.Red}${target.name}${Style.Reset}. \nAppuyez sur Entrée\n`);
                 prompt(`${currentFighter.attack(target)}`);
             } else{
-                return this.action(currentFighter, livingEnemies, livingCharacters,deadCharacters);
+                return this.action(currentFighter, livingEnemies, livingCharacters, deadCharacters);
             }
         } else if (action === "3" && !(currentFighter instanceof Guerrier)) { // attack spécial
             if (currentFighter instanceof Pretre) {
@@ -178,11 +175,7 @@ export class Menu{
                 } else if (itemIndex >= 0 && itemIndex < bagage.inventaire.length) {
                     const selectedItem = bagage.inventaire[itemIndex] ?? bagage.inventaire[0];
                     prompt(`Objet choisi : ${Color.Green}${selectedItem.name}${Style.Reset}`);
-                    if(selectedItem instanceof HealPotion){
-                        const possibleCharacter = livingCharacters.filter(character => character.isAlive() && character.currentHealth < character.maxHealth);
-                    }else if(selectedItem instanceof HalfStar || selectedItem instanceof StarShard){
-                        possibleCharacter = livingCharacters.filter(character => character.isAlive() && character.currentHealth < character.maxHealth);
-                    }
+                    
                     let userList = `Choisissez sur qui vous voulez utiliser ${Color.Green}${selectedItem.name}${Style.Reset} :\n`;
                     livingCharacters.forEach((character, index) => {
                         userList += `${index + 1}. ${Color.Blue}${character.name}${Style.Reset} ${character.currentHealth}/${character.maxHealth}\n`;
