@@ -8,6 +8,9 @@ import { Monstre } from "./classCharacters/classMonstres/Monstre.ts";
 import { Voleur } from "./classCharacters/Voleur.ts";
 import { bagage } from "./GameManagerTest.ts";
 import { Color, Style } from "./Color.ts";
+import { HealPotion } from "./classConsommables/HealPotion.ts";
+import { HalfStar } from "./classConsommables/HalfStar.ts";
+import { StarShard } from "./classConsommables/StarShard.ts";
 
 export class Menu{
     static alert :string =  `${Style.Erreur}Choix invalide. Veuillez choisir entre ${Style.Bold}1${Style.AfterNumberErreur}, ${Style.Bold}2${Style.AfterNumberErreur} ou ${Style.Bold}3${Style.AfterNumberErreur}.${Style.Reset}\n`;
@@ -31,7 +34,7 @@ export class Menu{
         return selectedAdventurers;
     }
 
-    static action = (currentFighter: Character, enemies: Monstre[], characters: Character[], deadcharacters :Character[]): void => {
+    static action = (currentFighter: Character, enemies: Monstre[], characters: Character[]): void => {
         let action: string | null;
         prompt(`\nC'est à ${Color.Blue}${currentFighter.name}${Style.Reset} de jouer. ${currentFighter.currentHealth}/${currentFighter.maxHealth} PV\nAppuyez sur Entrée\n`);
     
@@ -43,7 +46,7 @@ export class Menu{
                     //console.log("nothing")
                 }else{
                     console.log(`${Style.Erreur}Choix invalide. Veuillez choisir entre ${Style.Bold}1${Style.AfterNumberErreur} ou ${Style.Bold}2${Style.AfterNumberErreur}.${Style.Reset}\n`);
-                    return this.action(currentFighter, enemies, characters, deadcharacters);
+                    return this.action(currentFighter, enemies, characters);
                 }
             }
         } else {
@@ -53,7 +56,7 @@ export class Menu{
                     //console.log("nothing")
                 }else{
                 console.log(this.alert);
-                return this.action(currentFighter, enemies, characters, deadcharacters);
+                return this.action(currentFighter, enemies, characters);
                 }
             }
         }
@@ -73,7 +76,7 @@ export class Menu{
                 targetIndex = prompt(`${enemyList}-1. ${Color.Red}retour${Style.Reset} \n`);
                 index = parseInt(targetIndex ?? "", 10) - 1;
                 if (targetIndex === "-1") {
-                    return this.action(currentFighter, livingEnemies, livingCharacters, deadCharacters);
+                    return this.action(currentFighter, livingEnemies, characters);
                 }else if (index < 0 || index >= livingEnemies.length) {
                     console.log(this.alert);
                 }
@@ -89,7 +92,7 @@ export class Menu{
                 prompt(`Vous avez choisi d'attaquer ${Color.Red}${target.name}${Style.Reset}. \nAppuyez sur Entrée\n`);
                 prompt(`${currentFighter.attack(target)}`);
             } else{
-                return this.action(currentFighter, livingEnemies, livingCharacters,deadCharacters);
+                return this.action(currentFighter, livingEnemies, characters);
             }
         } else if (action === "3" && !(currentFighter instanceof Guerrier)) { // attack spécial
             if (currentFighter instanceof Pretre) {
@@ -102,7 +105,7 @@ export class Menu{
                 let index = parseInt(targetIndex ?? "", 10);
                 do{ 
                     if (targetIndex === "-1") {
-                        return this.action(currentFighter, livingEnemies, livingCharacters,deadCharacters);
+                        return this.action(currentFighter, livingEnemies, characters);
                     }else if (index <= 0 && index > livingCharacters.length) {
                         console.log(this.alert);
                         console.log("index = ", index);
@@ -117,7 +120,7 @@ export class Menu{
                 if (confirm === "y" || confirm === "yes" || confirm === "") {
                     prompt(`${currentFighter.specialAttack(livingCharacters[index-1])}`);
                 } else{
-                    return this.action(currentFighter, livingEnemies, livingCharacters,deadCharacters);
+                    return this.action(currentFighter, livingEnemies, characters);
                 }
             } else if(currentFighter instanceof Paladin || currentFighter instanceof Barbare){
                 let confirm: string|null = null;
@@ -126,7 +129,7 @@ export class Menu{
                 if (confirm === "y" || confirm === "yes" || confirm === "") {
                     prompt(`${currentFighter.specialAttack(livingEnemies)}\nAppuyez sur Entrée\n`);
                 } else{
-                    return this.action(currentFighter, livingEnemies, livingCharacters,deadCharacters);
+                    return this.action(currentFighter, livingEnemies, characters);
                 }
             }else{
                 let ennemieslist = `Choisissez un ennemi à ${Color.BrightRed}attaquer${Style.Reset} :\n`;
@@ -138,7 +141,7 @@ export class Menu{
                 let index = parseInt(targetIndex ?? "", 10) - 1;
                 while (index < 0 && index >= livingEnemies.length && targetIndex !== "-1" && targetIndex !== "") {
                     if (targetIndex === "-1") {
-                        return this.action(currentFighter, livingEnemies, livingCharacters,deadCharacters);
+                        return this.action(currentFighter, livingEnemies, characters);
                     }else if (index < 0 && index >= livingEnemies.length) {
                         console.log(this.alert);
                         targetIndex = prompt(`${ennemieslist}-1. ${Color.Red}retour${Style.Reset}\n `);
@@ -156,13 +159,13 @@ export class Menu{
                 if (confirm === "y" || confirm === "yes" || confirm === "") {
                     prompt(`${currentFighter.specialAttack(livingEnemies[index])}`);
                 } else{
-                    return this.action(currentFighter, livingEnemies, livingCharacters,deadCharacters);
+                    return this.action(currentFighter, livingEnemies, characters);
                 }
             }
         } else if (action === "2"){ //  utiliser l'inventaire
             if (bagage.inventaire.length === 0) {
                 console.log("Vous n'avez plus d'objets, essayer d'en voler ou d'en collecter dans des coffres.");
-                return this.action(currentFighter, livingEnemies, livingCharacters,deadCharacters);
+                return this.action(currentFighter, livingEnemies, characters);
             } else {
                 const itemNames = bagage.inventaire.map((item, index) => `${index + 1}. ${Color.Yellow}${item.name}${Style.Reset}`).join("\n");
                 const choice = prompt(`Choisissez l'objet à utiliser : \n${itemNames}\n -1. ${Color.Red}retour${Style.Reset}\n `);
@@ -171,7 +174,7 @@ export class Menu{
                     itemIndex = 0;
                 }
                 if (choice === "-1") {
-                    return this.action(currentFighter, enemies, characters, deadCharacters);
+                    return this.action(currentFighter, enemies, characters);
                 } else if (itemIndex >= 0 && itemIndex < bagage.inventaire.length) {
                     const selectedItem = bagage.inventaire[itemIndex];
                     prompt(`Objet choisi : ${Color.Green}${selectedItem.name}${Style.Reset}`);
@@ -193,14 +196,18 @@ export class Menu{
                         userList += `${livingCharacters.filter(character => character.currentHealth != character.maxHealth).length + index + 1}. ${Color.Magenta}${character.name}${Style.Reset}\n`;
                     }); 
                     possiblechoices=livingCharacters.filter(character => character.currentHealth != character.maxHealth),deadCharacters
-                }       
+                }  
+                if (possiblechoices.length==0){
+                    console.log("Vous ne pouvez soignez personne car personne n'a été blessé.");
+                    return this.action(currentFighter, livingEnemies, characters);
+                }    
                 
                     let targetIndex = prompt(`${userList}-1. ${Color.Red}retour${Style.Reset}\n `);
                     let index = parseInt(targetIndex ?? "", 10) - 1;
                 
                     do {
                         if (targetIndex === "-1") {
-                            return this.action(currentFighter, livingEnemies, livingCharacters,deadCharacters);
+                            return this.action(currentFighter, livingEnemies, characters);
                         } else if (index < 0 || index >= possiblechoices.length) {
                             console.log(this.alert);
                             targetIndex = prompt(`${userList}-1. ${Color.Red}retour${Style.Reset}\n `);
@@ -208,7 +215,7 @@ export class Menu{
                         }
                     } while ((index < 0 || index >= possiblechoices.length) && targetIndex !== "-1" || targetIndex === "");
                 
-                    const target = possiblechoices[index] ?? livingCharacters[0];
+                    const target = possiblechoices[index] ?? possiblechoices[0];
                     let confirm: string | null = null;
                 
                     do {
@@ -219,7 +226,7 @@ export class Menu{
                         prompt(`${bagage.inventaire[itemIndex].use(target)}`);
                         bagage.inventaire.splice(itemIndex, 1);
                     } else {
-                        return this.action(currentFighter, livingEnemies, livingCharacters,deadCharacters);
+                        return this.action(currentFighter, livingEnemies, characters);
                     }                
             } 
         }               

@@ -47,7 +47,7 @@ export class Fight {
         }
 
         if (this.adventurer.includes(currentFighter)) {
-            Menu.action(currentFighter, this.enemies, this.adventurer,[]);
+            Menu.action(currentFighter, this.enemies, this.adventurer);
         } else {
             this.enemyAction(currentFighter as Monstre);
         }
