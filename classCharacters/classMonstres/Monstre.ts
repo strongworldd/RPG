@@ -13,16 +13,13 @@ export abstract class Monstre extends Character {
         const random = Math.random();
         let cible: Character;
     
-        // Sélectionne la cible avec la santé la plus basse (20% de chance)
         if (random < 0.2) {
             cible = vivantAventuriers.reduce((prev, curr) => (prev.currentHealth < curr.currentHealth ? prev : curr));
         } else {
-            // Sélectionne une cible aléatoire (80% de chance)
             const index = Math.floor(Math.random() * vivantAventuriers.length);
             cible = vivantAventuriers[index];
         }
     
-        // Effectue l'attaque sur la cible sélectionnée
         this.attack(cible);
         return cible;
     }

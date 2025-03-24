@@ -26,7 +26,6 @@ export abstract class Character {
     attack = (target: Character, attackType: string = ""): string => {
         let attacking: number;
     
-        // Calcul des dégâts en fonction du type d'attaque
         switch (attackType) {
             case "sorcererAttack":
                 attacking = this.magicAttack;
@@ -42,7 +41,6 @@ export abstract class Character {
                 break;
         }
     
-        // Réduction des points de vie de la cible
         if (target.currentHealth - attacking > 0) {
             target.currentHealth -= attacking;
             return `${Color.Blue}${this.name}${Style.Reset} inflige ${attacking} points de dégât à ${Color.Red}${target.name}${Style.Reset}. Il ne lui reste plus que ${Color.BrightCyan}${target.currentHealth}/${target.maxHealth} PV${Style.Reset}.`;

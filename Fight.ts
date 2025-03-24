@@ -56,18 +56,15 @@ export class Fight {
     }
 
     private enemyAction = (enemy: Monstre): void => {
-    // Sélectionne une cible aléatoire parmi les aventuriers vivants
     const vivantAventuriers = this.adventurer.filter(aventurier => aventurier.isAlive());
     const cible = vivantAventuriers[Math.floor(Math.random() * vivantAventuriers.length)];
 
-    // Affiche le message principal d'attaque
     if (cible) {
         console.log(`${Color.Red}${enemy.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !`);
-        const attackMessage = enemy.attack(cible); // Effectue l'attaque et récupère le message
-        console.log(attackMessage); // Affiche le message des dégâts infligés
+        const attackMessage = enemy.attack(cible); 
+        console.log(attackMessage); 
     }
-    
-        // Appelle les actions spécifiques des monstres
+
     if (enemy instanceof Basilic) {
         (enemy as Basilic).agir(this.adventurer);
     } else if (enemy instanceof Chimere) {

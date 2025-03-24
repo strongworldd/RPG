@@ -14,13 +14,12 @@ export class Basilic extends Monstre {
     }
 
     agir(aventuriers: Character[]): void {
-        const cible = super.act(aventuriers); // La cible principale de l'attaque
+        const cible = super.act(aventuriers); 
     
         if (cible) {
-            this.applyDebuff(cible); // Applique le ralentissement à la cible principale
+            this.applyDebuff(cible); 
         }
     
-        // Applique un effet secondaire à tous les aventuriers vivants
         aventuriers
             .filter(aventurier => aventurier.isAlive() && aventurier !== cible)
             .forEach(aventurier => {
