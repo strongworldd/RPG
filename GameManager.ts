@@ -37,10 +37,10 @@ export class GameManager{
                 } else {
                     return;
                 }
-            } else {
-                console.log("Félicitations ! Vous avez terminé une salle avec au moins un aventurier vivant !");
+            } else if (characters.length > 0){
+                console.log("Félicitations ! Vous avez terminé une salle avec au moins 1 aventurier vivant !");
                 this.nextSalle(characters,classMonsters,Bagage);
-            }
+            }else{return}
         }while(true)
     }
 
@@ -63,16 +63,13 @@ export class GameManager{
         const fight = new Fight(characters, monsters);
         console.log("Vous rencontrez les monstres", monsters.map(enemy => enemy.name));
         fight.start();
-        while (!fight.endFight()) {
-            fight.takeTurn();
-        }
     }
 
-    ouvrirCoffre(characters: Character[], inventaire: Inventaire): void {
+    ouvrirCoffre(characters: Character[], bagage: Inventaire): void {
         prompt("Salle de coffre !")
         const coffre = new Coffre();
         const randomCharacter = characters[Math.floor(Math.random() * characters.length)];
-        coffre.open(inventaire, randomCharacter);
+        coffre.open(bagage, randomCharacter);
     }
 
     combatBoss(characters: Character[]): void {
@@ -84,8 +81,5 @@ export class GameManager{
         const fight = new Fight(characters, [boss]);
         console.log(`Vous affrontez le boss ${boss.name}`);
         fight.start();
-        while (!fight.endFight()) {
-            fight.takeTurn();
-        }
     }
 }

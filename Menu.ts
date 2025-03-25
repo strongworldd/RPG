@@ -37,7 +37,7 @@ export class Menu{
     
         // Vérifie si l'attaquant a une attaque spéciale
         if (currentFighter instanceof Guerrier) {
-            action = prompt(`Quelle action voulez vous effectuer?\n1: ${Color.BrightRed}Attaquer ${Style.Reset}(${currentFighter.physicalAttack} dégats) \n2: ${Color.Yellow}Utiliser un objet${Style.Reset} \n`);
+            action = prompt(`Quelle action voulez vous effectuer?\n1: ${Color.BrightRed}Attaquer ${Style.Reset}${currentFighter.physicalAttack} dégats \n2: ${Color.Yellow}Utiliser un objet${Style.Reset} \n`);
             if (!action || !["1", "2", ""].includes(action)) {
                 if (action === "") {
                     //console.log("nothing")
@@ -47,7 +47,7 @@ export class Menu{
                 }
             }
         } else {
-            action = prompt(`Quelle action voulez vous effectuer? \n1: ${Color.BrightRed}Attaquer ${Style.Reset}(${currentFighter.physicalAttack} dégats) \n2: ${Color.Yellow}Utiliser un objet${Style.Reset} \n3: ${Color.Magenta}Action Spéciale${Style.Reset} \n`);
+            action = prompt(`Quelle action voulez vous effectuer? \n1: ${Color.BrightRed}Attaquer ${Style.Reset}${currentFighter.physicalAttack} dégats \n2: ${Color.Yellow}Utiliser un objet${Style.Reset} \n3: ${Color.Magenta}Action Spéciale${Style.Reset} \n`);
             if (!action || !["1", "2", "3", ""].includes(action)) {
                 if (action === "") {
                     //console.log("nothing")
@@ -65,7 +65,7 @@ export class Menu{
         if (action === "1" || action === "") { // attaque classique
             let enemyList = `Choisissez l'ennemi à attaquer :\n`;
             livingEnemies.forEach((enemy, index) => {
-                enemyList += ` ${index + 1}. ${Color.Red}${enemy.name}${Style.Reset} ${enemy.currentHealth}/${enemy.maxHealth} \n`;
+                enemyList += ` ${index + 1}. ${Color.Red}${enemy.name}${Color.Cyan} ${enemy.currentHealth}/${enemy.maxHealth} PV${Style.Reset} \n`;
             });
             let index: number;
             let targetIndex: string|null = null;
@@ -219,7 +219,7 @@ export class Menu{
                     let confirm: string | null = null;
                 
                     do {
-                        confirm = prompt(`Veux-tu utiliser la potion ${Color.Magenta}${selectedItem.name}${Style.Reset} sur ${target.name}? [y,n]\n`);
+                        confirm = prompt(`Veux-tu utiliser la potion ${Color.Yellow}${selectedItem.name}${Style.Reset} sur ${Color.Blue}${target.name}${Style.Reset} ? [y,n]\n`);
                     }while (confirm !== "y" && confirm !== "n" && confirm !== "yes" && confirm !== "non" && confirm !== "");
                     if (confirm === "y" || confirm === "yes" || confirm === "") {
                         prompt(`${bagage.inventaire[itemIndex].use(target)}`);

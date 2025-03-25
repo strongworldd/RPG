@@ -74,7 +74,7 @@ export abstract class Character {
         } else {
             this.currentHealth += healNumber;
         }
-        return `${Color.Blue}${this.name}${Style.Reset} se soigne de ${Color.Green}${healNumber}${Style.Reset} points de vie et est maintenant à ${this.currentHealth} points de vie`
+        return `${Color.Blue}${this.name}${Style.Reset} se soigne de ${Color.Green}${healNumber}${Style.Reset} points de vie et est maintenant à ${Color.Green}${this.currentHealth}/${this.maxHealth}${Style.Reset} points de vie`
     }
 
     regenMana(regenNumber :number) :string{

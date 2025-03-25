@@ -30,12 +30,12 @@ export class Coffre {
                 inventaire.add(item);
             }
             console.log("Vous avez ouvert le coffre et trouvé les objets suivants :");
-            droppedItems.forEach(item => console.log(item.name));
+            droppedItems.forEach(item => prompt(item.name));
             return droppedItems;
         } else { 
             const damage = 20; 
             joueur.currentHealth -= damage;
-            console.log(`Le coffre était piégé ! ${Color.Blue}${joueur.name}${Style.Reset} subit ${damage} dégâts. Il lui reste ${joueur.currentHealth} HP.`);
+            prompt(`Le coffre était piégé ! ${Color.Blue}${joueur.name}${Style.Reset} subit ${damage} dégâts. Il lui reste ${joueur.currentHealth} HP.`);
             return [];
         }
     }

@@ -42,8 +42,7 @@ export class Fight {
 
         if (!currentFighter.isAlive()) {
             console.log(`❌ ${currentFighter.name} est K.O.`);
-            this.nextTurn();
-            return;
+            return this.nextTurn();
         }
 
         if (this.adventurer.includes(currentFighter)) {
