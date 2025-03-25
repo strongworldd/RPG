@@ -3,7 +3,7 @@ export enum Color {
     Green = "\x1b[32m", //soigner
     Blue = "\x1b[34m", //nom des joueurs
     Yellow = "\x1b[33m", //inventaire
-    Magenta = "\x1b[35m",
+    Magenta = "\x1b[35m", //attack spécial
     Cyan = "\x1b[36m",
     White = "\x1b[37m",
     Black = "\x1b[30m",
@@ -11,7 +11,7 @@ export enum Color {
     BrightGreen = "\x1b[92m",
     BrightYellow = "\x1b[93m",
     BrightBlue = "\x1b[94m",
-    BrightMagenta = "\x1b[95m",  //attack spécial
+    BrightMagenta = "\x1b[95m",  
     BrightCyan = "\x1b[96m",
     BrightWhite = "\x1b[97m",
     Reset = "Reset",
