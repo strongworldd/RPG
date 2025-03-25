@@ -6,7 +6,7 @@ export class Basilic extends Monstre {
     lastAttacker: Character | null = null;
 
     constructor() {
-        super("Basilic Venimeux", 80, 28);
+        super("Basilic Venimeux", 80, 28, 6); 
     }
 
     subirAttaque(attacker: Character): void {
@@ -14,21 +14,16 @@ export class Basilic extends Monstre {
     }
 
     agir(aventuriers: Character[]): void {
-        const cible = super.act(aventuriers);
-
-        if (this.lastAttacker) {
-            this.applyDebuff(this.lastAttacker);
-            this.lastAttacker = null; 
-        }
-
+        const cible = super.act(aventuriers); 
+    
         if (cible) {
-            this.applyDebuff(cible);
+            this.applyDebuff(cible); 
         }
     }
-
-    private applyDebuff(aventurier: Character): void {
-        const reduction = Math.min(3, aventurier.speed - 1);
-        aventurier.speed -= reduction;
-        console.log(`${Color.Blue}${aventurier.name}${Style.Reset} est ralenti de ${reduction} points ! Nouvelle vitesse : ${aventurier.speed}`);
+    
+     private applyDebuff(aventurier: Character): void {
+        const reduction = 1; 
+        aventurier.speed = Math.max(0, aventurier.speed - reduction); 
+        console.log(`${Color.Blue}${aventurier.name}${Style.Reset} est ralenti de ${reduction} point ! Nouvelle vitesse : ${aventurier.speed}`);
     }
 }

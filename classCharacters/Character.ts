@@ -4,7 +4,7 @@ import { Monstre } from "./classMonstres/Monstre.ts";
 export abstract class Character {
     name = "";
     physicalAttack = 0;
-    defenseAttack = 0;
+    defense = 0;
     speed = 10;
     maxHealth = 100;
     currentHealth = 100;
@@ -13,36 +13,37 @@ export abstract class Character {
     magicAttack = 0
     specialAttackName = ""
 
-    constructor(name :string, physicalAttack :number, defenseAttack :number, speed :number, maxHealth :number, currentHealth :number) {
+    constructor(name :string, physicalAttack :number, defense :number, speed :number, maxHealth :number, currentHealth :number) {
         this.name = name;
         this.physicalAttack = physicalAttack;
-        this.defenseAttack = defenseAttack;
+        this.defense = defense;
         this.speed = speed;
         this.maxHealth = maxHealth;
         this.currentHealth = currentHealth;
+    }
+
+    static displayInfo(): string {
+        return "Nom: [Nom par défaut] - Attaque Physique: 0 - Défense: 0 - Vitesse: 10 - PV Max: 100";
     }
 
     abstract specialAttack(target: Character | Character[]) :void;
 
     attack = (target :Monstre | Character, attackType :string = ""): string => {
         let attacking: number;
+    
         switch (attackType) {
-        case "sorcererAttack":
-            if (target.currentHealth - target.magicAttack > 0) {
-                target.currentHealth -= target.magicAttack;
-                return `${Color.Blue}${this.name}${Style.Reset} inflige ${this.magicAttack} points de dégât magique à ${Color.Red}${target.name}${Style.Reset}. Il ne lui reste plus que ${Color.BrightCyan}$${target.currentHealth}/${target.maxHealth} PV${Style.Reset}`;
-            } else {
-                return `${target.died()} grâce à ${Color.Blue}${this.name}${Style.Reset}!`;
-            }
-        case "divinAttack":
-            attacking = (this.physicalAttack - target.defenseAttack) * 0.4;
-            break;
-        case "berserkAttack":
-            attacking = (this.physicalAttack - target.defenseAttack) * 1.3;
-            break;
-        default:
-            attacking = this.physicalAttack - target.defenseAttack;
-            break;
+            case "sorcererAttack":
+                attacking = this.magicAttack;
+                break;
+            case "divinAttack":
+                attacking = Math.max(0, (this.physicalAttack - target.defense) * 0.4);
+                break;
+            case "berserkAttack":
+                attacking = Math.max(0, (this.physicalAttack - target.defense) * 1.3);
+                break;
+            default:
+                attacking = Math.max(0, this.physicalAttack - target.defense);
+                break;
         }
         if (target instanceof Monstre){
             if (target.currentHealth - attacking > 0) {
@@ -56,7 +57,7 @@ export abstract class Character {
             target.currentHealth -= attacking;
             return `${Color.Red}${this.name}${Style.Reset} inflige ${attacking} points de dégât à ${Color.Blue}${target.name}${Style.Reset}. Il ne lui reste plus que ${Color.BrightCyan}${target.currentHealth}/${target.maxHealth} PV${Style.Reset}`;
         } else {
-            return `${target.died()} grâce à ${Color.Blue}${this.name}${Style.Reset}!`;
+            return `${target.died()} grâce à ${Color.Red}${this.name}${Style.Reset}!`;
         }
     }
     };

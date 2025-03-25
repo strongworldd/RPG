@@ -10,6 +10,10 @@ export class Barbare extends Character {
         super(name, 30, 3, 6, 100, 100)
     }
 
+    static override displayInfo(): string {
+        return "Barbare - Attaque Physique: 30 - Défense: 3 - Vitesse: 6 - PV Max: 100";
+}
+
     override specialAttack(target :Monstre | Monstre[]){
         if (Array.isArray(target)) {
             const cible = Math.floor(Math.random() * (target.length - 0 + 1)) + 0;

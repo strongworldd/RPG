@@ -9,6 +9,10 @@ export class Pretre extends Character {
         super(nom, 15, 2, 6, 100, 100);
     }
 
+    static override displayInfo(): string {
+        return "Pretre - Attaque Physique: 15 - Défense: 2 - Vitesse: 6 - PV Max: 100";
+}
+
     override specialAttack(target: Character){
         let healNumber = target.maxHealth * 0.25
         if (target.currentHealth + healNumber > target.maxHealth){

@@ -4,7 +4,7 @@ import { Color, Style } from "../../Color.ts";
 
 export class LicheSombre extends Monstre {
     constructor() {
-        super("Liche Sombre", 175, 30);
+        super("Liche Sombre", 175, 30, 10, 10);
     }
 
     agir(aventuriers: Character[]): void {

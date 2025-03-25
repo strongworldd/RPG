@@ -4,13 +4,12 @@ import { Color, Style } from "../../Color.ts";
 
 export class TitanCorrompu extends Monstre {
     constructor() {
-        super("Titan Corrompu", 200, 40);
+        super("Titan Corrompu", 200, 40, 10);
     }
 
     agir(aventuriers: Character[]): void {
         const random = Math.random();
         if (random < 0.7) {
-            // 70% chance
             const cible = super.act(aventuriers);
             if (cible) {
                 console.log(`${Color.Red}${this.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !`);
