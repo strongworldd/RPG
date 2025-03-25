@@ -18,17 +18,16 @@ export class GameManager{
     salle = 1;
 
     mainLoop(): void {
-        
-        const characters = Characters
-        const Bagage = bagage
+        const characters = Characters;
+        const Bagage = bagage;
         const classMonsters: (new () => Monstre)[] = [Basilic, Chimere, Golem, Spectre, Vampire];
 
         this.nextSalle(characters, classMonsters, Bagage);
 
-        do{
-            if (this.salle === 5) { //characters.some(character => character.isAlive()) && 
+        do {
+            if (this.salle === 5) {
                 console.log("Félicitations ! Vous avez terminé 5 salles avec au moins un aventurier vivant !");
-                prompt(`Pour vous récompenser voici une demi-étoile !`)
+                prompt(`Pour vous récompenser voici une demi-étoile !`);
                 Bagage.add(new HalfStar());
                 const continuer = prompt("Voulez vous continuer à jouer ? [y,n]");
                 if (continuer === "y" || continuer === "yes" || continuer === "") {
@@ -46,6 +45,8 @@ export class GameManager{
 
     nextSalle(characters :Character[], Monsters :(new () => Monstre)[], Bagage :Inventaire): void {
         console.log(`Salle ${this.salle}`);
+        this.resetCharacterSpeed(characters);
+
         if (this.salle === 1 || this.salle === 3) {
             this.combatAleatoire(characters, Monsters);
         } else if (this.salle === 2 || this.salle === 4) {
@@ -54,6 +55,12 @@ export class GameManager{
             this.combatBoss(characters);
         }
         this.salle++;
+    }
+
+    private resetCharacterSpeed(characters: Character[]): void {
+        characters.forEach(character => {
+            character.speed = character.baseSpeed; 
+        });
     }
 
     combatAleatoire(characters: Character[], classMonsters: (new () => Monstre)[]): void {
