@@ -11,23 +11,27 @@ import { Color, Style } from "./Color.ts";
 
 export class Menu{
     static alert :string =  `${Style.Erreur}Choix invalide. Veuillez choisir entre ${Style.Bold}1${Style.AfterNumberErreur}, ${Style.Bold}2${Style.AfterNumberErreur} ou ${Style.Bold}3${Style.AfterNumberErreur}.${Style.Reset}\n`;
-    static startMenu(): Character[] {
+    static startMenu(): Character[]{
         const options = [Guerrier, Mage, Paladin, Barbare, Pretre, Voleur];
         let characterlist = `${Style.ClearTerminal}Choisissez 3 aventuriers parmi les 6 disponibles \n I:${Color.Blue} Informations${Style.Reset}\n`;
         options.forEach((character, index) => {
         characterlist += ` ${index + 1}. ${Color.Green}${character.name}${Style.Reset} \n`;
         });
-        characterlist+=`Entrez trois numéros séparés par des virgules (ex : 1,2,3) \n`
+        characterlist+=`Entrez trois numéros séparés par des virgules (ex : 1,2,3) ou la lettre I pour accéder aux informations des aventuriers\n`
         const choices=prompt(`${characterlist}`)
 
-        if (choices=="I" || choices=="i" ||choices=="") {
+        if (choices == "I" || choices == "i" || choices == "") {
             options.forEach(option => {
                 console.log(`${option.displayInfo()}`);
             });
+        
+            prompt(`Appuyez sur Entrée pour continuer...`);
+        
+            return this.startMenu();
         } else if (!choices) {
             this.alert
             return this.startMenu();
-        }
+        } else {
 
         const adventurerIndex = choices.split(',').map(n => parseInt(n.trim())).filter(n => !isNaN(n) && n >= 1 && n <= 6);
 
@@ -39,9 +43,10 @@ export class Menu{
 
         const selectedAdventurers :Character[] = adventurerIndex.map(index => new options[index - 1](options[index - 1].name));
 
-        prompt(`Aventuriers sélectionnés : ${selectedAdventurers.map(character => Color.Blue+character.name+Style.Reset).join(", ")} \nAppuyez sur Entrée\n`);
+        prompt(`Aventuriers sélectionnés : ${selectedAdventurers.map(character => Color.Blue+character.name+Style.Reset).join(", ")} \nAppuyez sur Entrée pour continuer\n`);
 
         return selectedAdventurers;
+    }
     }
 
     static action = (currentFighter: Character, enemies: Monstre[], characters: Character[]): void => {
