@@ -1,5 +1,4 @@
 import { Color, Style } from "../Color.ts";
-import { Monstre } from "./classMonstres/Monstre.ts";
 
 export abstract class Character {
     name = "";
@@ -26,7 +25,7 @@ export abstract class Character {
 
     abstract specialAttack(target: Character | Character[]): void;
 
-    attack = (target :Monstre | Character, attackType :string = ""): string => {
+    attack = (target :Character, attackType :string = ""): string => {
         let attacking: number;
     
         switch (attackType) {
@@ -43,21 +42,21 @@ export abstract class Character {
                 attacking = Math.max(0, this.physicalAttack - target.defenseAttack);
                 break;
         }
-        if (target instanceof Monstre){
+        /*if (target instanceof Monstre){
             if (target.currentHealth - attacking > 0) {
                 target.currentHealth -= attacking;
                 return `${Color.Blue}${this.name}${Style.Reset} inflige ${attacking} points de dégât à ${Color.Red}${target.name}${Style.Reset}. Il ne lui reste plus que ${Color.BrightCyan}${target.currentHealth}/${target.maxHealth} PV${Style.Reset}`;
             } else {
                 return `${target.died()} grâce à ${Color.Blue}${this.name}${Style.Reset}!`;
             }
-        } else {
-        if (target.currentHealth - attacking > 0) {
-            target.currentHealth -= attacking;
-            return `${Color.Red}${this.name}${Style.Reset} inflige ${attacking} points de dégât à ${Color.Blue}${target.name}${Style.Reset}. Il ne lui reste plus que ${Color.BrightCyan}${target.currentHealth}/${target.maxHealth} PV${Style.Reset}`;
-        } else {
-            return `${target.died()} grâce à ${Color.Blue}${this.name}${Style.Reset}!`;
-        }
-    }
+        } else {*/
+            if (target.currentHealth - attacking > 0) {
+                target.currentHealth -= attacking;
+                return `${Color.Red}${this.name}${Style.Reset} inflige ${attacking} points de dégât à ${Color.Blue}${target.name}${Style.Reset}. Il ne lui reste plus que ${Color.BrightCyan}${target.currentHealth}/${target.maxHealth} PV${Style.Reset}`;
+            } else {
+                return `${target.died()} grâce à ${Color.Blue}${this.name}${Style.Reset}!`;
+            }
+        //}
     };
     
     protected hurt = (deCbm :number) :string => {

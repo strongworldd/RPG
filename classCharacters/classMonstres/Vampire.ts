@@ -7,9 +7,10 @@ export class Vampire extends Monstre {
         super("Vampire Sanguinaire", 100, 25, 7);
     }
 
-    actVampire(aventuriers: Character[]): void {
-        super.act(aventuriers);
-        console.log(`${Color.Red}${this.name}${Style.Reset} se régénère grâce à son attaque !`);
+    override attackMonstre = (aventuriers: Character): string =>{
+        const text = this.attack(aventuriers);
         this.currentHealth = Math.min(this.maxHealth, this.currentHealth + 10);
+        return text + (`\n${Color.Red}${this.name}${Style.Reset} se régénère de${Color.Cyan} 10 PV${Style.Reset} grâce à son attaque !`);
     }
+    override attackBoss = (_cibles :Character|Character[]):string => {return"nothing"}
 }

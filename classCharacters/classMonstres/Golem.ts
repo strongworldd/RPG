@@ -9,13 +9,16 @@ export class Golem extends Monstre {
         super("Golem de Pierre", 125, 15, 0);
     }
 
-    actGolem(aventuriers: Character[]): void {
+    override attackMonstre = (aventuriers: Character): string =>{
+        let text = ""
         if (!this.hasUsedStoneSkin) {
-            console.log(`${Color.Red}${this.name}${Style.Reset} active sa peau de pierre et réduit les dégâts reçus !`);
             this.currentHealth = Math.min(this.maxHealth, this.currentHealth + 50);
             this.hasUsedStoneSkin = true;
+            text = `\n${Color.Red}${this.name}${Style.Reset} active sa peau de pierre et réduit les dégâts reçus !`;
+        }else{
+            text = ""
         }
-
-        super.act(aventuriers);
+        return this.attack(aventuriers) + text
     }
+    override attackBoss = (_cibles :Character|Character[]):string => {return"nothing"}
 }

@@ -1,26 +1,12 @@
 import { Character } from '../Character.ts';
 
-export abstract class Monstre extends Character {
+export class Monstre extends Character {
 
     constructor(name: string, pv: number, attack: number, speed: number) {
         super(name, attack, 0, speed, pv, pv);
     }
 
-    act(aventuriers: Character[]): Character | null {
-        const vivantAventuriers = aventuriers.filter(aventurier => aventurier.isAlive());
-        if (vivantAventuriers.length === 0) return null;
-    
-        const random = Math.random();
-        let cible: Character;
-    
-        if (random < 0.2) {
-            cible = vivantAventuriers.reduce((prev, curr) => (prev.currentHealth < curr.currentHealth ? prev : curr));
-        } else {
-            const index = Math.floor(Math.random() * vivantAventuriers.length);
-            cible = vivantAventuriers[index];
-        }
-    
-        this.attack(cible);
-        return cible;
-    }
+     attackMonstre = (_cible: Character):string=>{return "nothing"}
+     attackBoss = (_cibles :Character[]):string=>{ return "sdf"}
+    override specialAttack(){}
 }
