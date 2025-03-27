@@ -11,24 +11,42 @@ import { Color, Style } from "./Color.ts";
 
 export class Menu{
     static alert :string =  `${Style.Erreur}Choix invalide. Veuillez choisir entre ${Style.Bold}1${Style.AfterNumberErreur}, ${Style.Bold}2${Style.AfterNumberErreur} ou ${Style.Bold}3${Style.AfterNumberErreur}.${Style.Reset}\n`;
-    static startMenu(): Character[] {
+    static startMenu(): Character[]{
         const options = [Guerrier, Mage, Paladin, Barbare, Pretre, Voleur];
-        const choices = prompt(`${Style.ClearTerminal}Choisissez 3 aventuriers parmi les 6 disponibles \n 1: ${Color.Green}Guerrier${Style.Reset} \n 2: ${Color.Green}Mage${Style.Reset} \n 3: ${Color.Green}Paladin${Style.Reset} \n 4: ${Color.Green}Barbare${Style.Reset} \n 5: ${Color.Green}Prêtre${Style.Reset} \n 6: ${Color.Green}Voleur${Style.Reset}\nEntrez trois numéros séparés par des virgules (ex : 1,2,3) \n`);
+        let characterlist = `${Style.ClearTerminal}Choisissez 3 aventuriers parmi les 6 disponibles \n I:${Color.Blue} Informations${Style.Reset}\n`;
+        options.forEach((character, index) => {
+        characterlist += ` ${index + 1}. ${Color.Green}${character.name}${Style.Reset} \n`;
+        });
+        characterlist+=`Entrez trois numéros séparés par des virgules (ex : 1,2,3) ou la lettre I pour accéder aux informations des aventuriers\n`
+        const choices=prompt(`${characterlist}`)
 
-        if (!choices) return this.startMenu();
+        if (choices == "I" || choices == "i" || choices == "") {
+            options.forEach(option => {
+                console.log(`${option.displayInfo()}`);
+            });
+        
+            prompt(`Appuyez sur Entrée pour continuer...`);
+        
+            return this.startMenu();
+        } else if (!choices) {
+            this.alert
+            return this.startMenu();
+        } else {
 
         const adventurerIndex = choices.split(',').map(n => parseInt(n.trim())).filter(n => !isNaN(n) && n >= 1 && n <= 6);
 
         if (adventurerIndex.length !== 3) {
             console.log(`${Style.Erreur}Vous devez choisir exactement ${Style.Bold}3${Style.AfterNumberErreur} aventuriers parmi les options disponibles.${Style.Reset}\n`);
-            return this.startMenu();
+            return this.startMenu()
+            
         }
 
         const selectedAdventurers :Character[] = adventurerIndex.map(index => new options[index - 1](options[index - 1].name));
 
-        prompt(`Aventuriers sélectionnés : ${selectedAdventurers.map(character => Color.Blue+character.name+Style.Reset).join(", ")} \nAppuyez sur Entrée\n`);
+        prompt(`Aventuriers sélectionnés : ${selectedAdventurers.map(character => Color.Blue+character.name+Style.Reset).join(", ")} \nAppuyez sur Entrée pour continuer\n`);
 
         return selectedAdventurers;
+    }
     }
 
     static action = (currentFighter: Character, enemies: Monstre[], characters: Character[]): void => {
@@ -105,7 +123,6 @@ export class Menu{
                         return this.action(currentFighter, livingEnemies, characters);
                     }else if (index <= 0 && index > livingCharacters.length) {
                         console.log(this.alert);
-                        console.log("index = ", index);
                         targetIndex = prompt(`${characterList}-1. ${Color.Red}retour${Style.Reset}\n `);
                         index = parseInt(targetIndex ?? "", 10);
                     }
@@ -148,7 +165,6 @@ export class Menu{
                 if (targetIndex === "") {
                     index = 0;
                 }
-                console.log("index = ", index);
                 let confirm: string|null = null;
                 do{confirm = prompt(`Veux-tu utiliser l'attack spéciale ${Color.Magenta}${currentFighter.specialAttackName}${Style.Reset} sur ${Color.Red}${livingEnemies[index].name}${Style.Reset}? [y,n]`);}
                 while(confirm !== "y" && confirm !== "n" && confirm !== "yes" && confirm !== "non" && confirm !== "");
@@ -164,8 +180,8 @@ export class Menu{
                 console.log("Vous n'avez plus d'objets, essayer d'en voler ou d'en collecter dans des coffres.");
                 return this.action(currentFighter, livingEnemies, characters);
             } else {
-                const itemNames = bagage.inventaire.map((item, index) => `${index + 1}. ${Color.Yellow}${item.name}${Style.Reset}`).join("\n");
-                const choice = prompt(`Choisissez l'objet à utiliser : \n${itemNames}\n -1. ${Color.Red}retour${Style.Reset}\n `);
+                const itemNames = bagage.inventaire.map((item, index) => `${index + 1}. ${Color.Yellow}${item.name} ${Style.Reset}`).join("\n");
+                const choice = prompt(`Choisissez l'objet à utiliser : \n${itemNames} \n -1. ${Color.Red}retour${Style.Reset}\n `);
                 let itemIndex = parseInt(choice ?? "", 10) - 1;  // ?? vérifie que la valeur ne sois pas falsy sinon return "" et parsint le transforme en nombre de base 10
                 if (choice === "") {
                     itemIndex = 0;
@@ -177,33 +193,33 @@ export class Menu{
                     prompt(`Objet choisi : ${Color.Green}${selectedItem.name}${Style.Reset}`);
                     
                     let userList = `Choisissez sur qui vous voulez utiliser ${Color.Green}${selectedItem.name}${Style.Reset} :\n`;
-                    let possiblechoices: Character[] = []
+                    const possiblechoices: Character[]=[]
 
                     if (selectedItem.name === "Potion de soin" ) {
                         livingCharacters.filter(character => character.currentHealth != character.maxHealth).forEach((character, index) => {
-                            userList += `${index + 1}. ${Color.Blue}${character.name} ${character.currentHealth} PV${Style.Reset}\n`;
+                            userList += `${index + 1}. ${Color.Blue}${character.name}${Style.Reset} ${Color.BrightCyan}${character.currentHealth}/${character.maxHealth} PV${Style.Reset}\n`;
                         });
-                        possiblechoices=livingCharacters.filter(character => character.currentHealth != character.maxHealth)
-                    }else if (selectedItem.name === "Demi-étoile" || selectedItem.name === "Morceau d'étoiles") {
+                        possiblechoices.push(...livingCharacters.filter(character => character.currentHealth != character.maxHealth))
+                    } else if (selectedItem.name === "Demi-étoile" || selectedItem.name === "Morceau d'étoiles") {
                         livingCharacters.filter(character => character.currentHealth != character.maxHealth).forEach((character, index) => {
                             userList += `${index + 1}. ${Color.Blue}${character.name} ${character.currentHealth} PV${Style.Reset}\n`;
                         });
                         deadCharacters.forEach((character, index) => {
                             userList += `${livingCharacters.filter(character => character.currentHealth != character.maxHealth).length + index + 1}. ${Color.Magenta}${character.name}${Style.Reset}\n`;
                         }); 
-                        possiblechoices=livingCharacters.filter(character => character.currentHealth != character.maxHealth),deadCharacters
-                    }else if (selectedItem.name === "Ether") {
+                        possiblechoices.push(...livingCharacters.filter(character => character.currentHealth != character.maxHealth), ...deadCharacters)
+                    } else if (selectedItem.name === "Ether") {
                     livingCharacters.filter(character => character.currentMana != character.maxMana).forEach((character, index) => {
-                        userList += `${index + 1}. ${Color.Blue}${character.name} ${character.currentMana} PV${Style.Reset}\n`;
+                        userList += `${index + 1}. ${Color.Blue}${character.name} ${Style.Reset} ${Color.BrightCyan}${character.currentHealth}/${character.maxHealth} PV ${character.currentMana} MP${Style.Reset}\n`;
                     });
-                    possiblechoices=livingCharacters.filter(character => character.currentMana != character.maxMana)
+                    possiblechoices.push(...livingCharacters.filter(character => character.currentMana != character.maxMana))
                     }  
                     if (possiblechoices.length==0){
                         console.log("Vous ne pouvez soignez personne car personne n'a été blessé.");
                         return this.action(currentFighter, livingEnemies, characters);
                     }    
                     let targetIndex = prompt(`${userList}-1. ${Color.Red}retour${Style.Reset}\n `);
-                    let index = parseInt(targetIndex ?? "", 10) - 1;
+                    let index=0
                 
                     do {
                         if (targetIndex === "-1") {
@@ -212,8 +228,8 @@ export class Menu{
                             console.log(this.alert);
                             targetIndex = prompt(`${userList}-1. ${Color.Red}retour${Style.Reset}\n `);
                             index = parseInt(targetIndex ?? "", 10) - 1;
-                        }
-                    } while ((index < 0 || index >= possiblechoices.length) && targetIndex !== "-1" || targetIndex === "");
+                        } 
+                    } while ((index < 0 || index >= possiblechoices.length) && targetIndex !== "-1" || targetIndex !== "");
                 
                     const target = possiblechoices[index] ?? possiblechoices[0];
                     let confirm: string | null = null;

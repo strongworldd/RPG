@@ -14,6 +14,10 @@ export class Voleur extends Character{
         super(name, 20, 5, 8, 100, 100)
     }
 
+    static override displayInfo(): string {
+        return "Voleur - Attaque Physique: 20 - Défense: 5 - Vitesse: 8 - PV Max: 100";
+}
+
     override specialAttack(target :Character){
         const chance = Math.random()*100
         if (chance < 40) {

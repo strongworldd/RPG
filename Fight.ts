@@ -24,7 +24,7 @@ export class Fight {
     }
 
     public start = (): void => {
-        console.log("⚔️ Le combat commence !");
+        console.log("⚔️  Le combat commence !");
         do {
             this.takeTurn();
         } while (!this.isTeamDefeated(this.adventurer) && !this.isTeamDefeated(this.enemies));
@@ -43,12 +43,15 @@ export class Fight {
         if (this.adventurer.includes(currentFighter)) {
             Menu.action(currentFighter, this.enemies, this.adventurer);
         } else {
+            setTimeout( () => {
             this.enemyAction(currentFighter as Monstre);
+        },200);
         }
 
         this.nextTurn();
     }
 
+    
     private enemyAction = (enemy: Monstre): void => {
         const vivantAventuriers = this.adventurer.filter(aventurier => aventurier.isAlive());
         let cible = vivantAventuriers[Math.floor(Math.random() * vivantAventuriers.length)];
