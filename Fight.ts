@@ -64,12 +64,12 @@ export class Fight {
             
             let attackMessage = ""
             if(enemy instanceof DragonAncien || enemy instanceof LicheSombre || enemy instanceof TitanCorrompu){
-                attackMessage = enemy.attackBoss(vivantAventuriers)
+                attackMessage = "\n" + enemy.attackBoss(vivantAventuriers)
             }else{
-                console.log(`${Color.Red}${enemy.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !`);
+                console.log(`\n${Color.Red}${enemy.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !`);
                 attackMessage = enemy.attackMonstre(cible); 
             }
-            prompt("\n"+attackMessage); 
+            prompt(attackMessage); 
         }
     }
 
