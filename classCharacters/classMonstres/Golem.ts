@@ -18,7 +18,7 @@ export class Golem extends Monstre {
         }else{
             text = ""
         }
-        return this.attack(aventuriers) + text
+        return text
     }
     override attackBoss = (_cibles :Character|Character[]):string => { return"nothing" }
 }

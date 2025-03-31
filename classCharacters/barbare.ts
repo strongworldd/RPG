@@ -11,7 +11,7 @@ export class Barbare extends Character {
     }
 
     static override displayInfo(): string {
-        return "Barbare - Attaque Physique: 30 - Défense: 3 - Vitesse: 6 - PV Max: 100";
+        return `${Color.Blue}Barbare${Style.Reset}  - ${Color.BrightRed}Attaque Physique: 30${Style.Reset} - ${Color.Green}Défense: 3${Style.Reset} - ${Color.BrightMagenta}Vitesse: 6${Style.Reset} - ${Color.Cyan}PV Max: 100${Style.Reset}`;
 }
 
     override specialAttack(target :Monstre | Monstre[]){

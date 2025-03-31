@@ -1,4 +1,5 @@
 import { Character } from "./Character.ts";
+import { Color, Style } from "../Color.ts";
 
 export class Paladin extends Character {
 
@@ -9,7 +10,7 @@ export class Paladin extends Character {
     }
 
     static override displayInfo(): string {
-        return "Paladin - Attaque Physique: 20 - Défense: 8 - Vitesse: 7 - PV Max: 100";
+        return `${Color.Blue}Paladin${Style.Reset}  - ${Color.BrightRed}Attaque Physique: 20${Style.Reset} - ${Color.Green}Défense: 8${Style.Reset} - ${Color.BrightMagenta}Vitesse: 7${Style.Reset} - ${Color.Cyan}PV Max: 100${Style.Reset}`;
 }
 
     override specialAttack(target :Character | Character[]){

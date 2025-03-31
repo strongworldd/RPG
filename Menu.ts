@@ -9,10 +9,11 @@ import { Voleur } from "./classCharacters/Voleur.ts";
 import { bagage } from "./GameManagerTest.ts";
 import { Color, Style } from "./Color.ts";
 
-export class Menu{
+export class Menu {
     static alert :string =  `${Style.Erreur}Choix invalide. Veuillez choisir entre ${Style.Bold}1${Style.AfterNumberErreur}, ${Style.Bold}2${Style.AfterNumberErreur} ou ${Style.Bold}3${Style.AfterNumberErreur}.${Style.Reset}\n`;
-    static startMenu(): Character[]{
+    static startMenu(): Character[] {
         const options = [Guerrier, Mage, Paladin, Barbare, Pretre, Voleur];
+
         let characterlist = `${Style.ClearTerminal}Choisissez 3 aventuriers parmi les 6 disponibles \n I:${Color.Blue} Informations${Style.Reset}\n`;
         options.forEach((character, index) => {
             characterlist += ` ${index + 1}. ${Color.Green}${character.name}${Style.Reset} \n`;
@@ -21,13 +22,34 @@ export class Menu{
         const choices = prompt(`${characterlist}`)
 
         if (choices == "I" || choices == "i" || choices == "") {
+            console.log(`${Color.Yellow}=== Informations des Objets Consommables ===${Style.Reset}`);
+            console.log(`${Color.BrightMagenta}Ether${Style.Reset}             - ${Color.Cyan}Régénère Mana: 30${Style.Reset}`);
+            console.log(`${Color.BrightMagenta}Potion de soin${Style.Reset}    - ${Color.Green}Régénère Vie: 50${Style.Reset}`);
+            console.log(`${Color.BrightMagenta}Morceau d'étoiles${Style.Reset} - ${Color.Green}Régénère Vie: 50${Style.Reset}  - ${Color.BrightGreen}Ressuscite avec: 20 PV${Style.Reset}`);
+            console.log(`${Color.BrightMagenta}Demi-étoile${Style.Reset}       - ${Color.Green}Régénère Vie: 100${Style.Reset} - ${Color.BrightGreen}Ressuscite avec: 50 PV${Style.Reset}\n`);
+
+            console.log(`${Color.Yellow}=== Informations des Aventuriers ===${Style.Reset}`);
             options.forEach(option => {
                 console.log(`${option.displayInfo()}`);
-            });
-            prompt(`${Style.Italic}[Appuyez sur Entrée]${Style.Reset}`);
+            }); 
+            
+            prompt(`Appuyez sur Entrée pour afficher les descriptions des monstres...\n`);
+
+            console.log(`${Color.Yellow}=== Informations des Monstres ===${Style.Reset}`);
+            console.log(`${Color.Red}Vampire Sanguinaire${Style.Reset} - ${Color.BrightRed}Attaque: 25${Style.Reset} - ${Color.Green}Défense: 7${Style.Reset} - ${Color.Cyan}PV Max: 100${Style.Reset}`);
+            console.log(`${Color.Red}Spectre Hanté${Style.Reset}       - ${Color.BrightRed}Attaque: 20${Style.Reset} - ${Color.Green}Défense: 5${Style.Reset} - ${Color.Cyan}PV Max: 80${Style.Reset}`);
+            console.log(`${Color.Red}Golem de Pierre${Style.Reset}     - ${Color.BrightRed}Attaque: 15${Style.Reset} - ${Color.Green}Défense: 0${Style.Reset} - ${Color.Cyan}PV Max: 125${Style.Reset}`);
+            console.log(`${Color.Red}Chimère Mutante${Style.Reset}     - ${Color.BrightRed}Attaque: 20${Style.Reset} - ${Color.Green}Défense: 5${Style.Reset} - ${Color.Cyan}PV Max: 100${Style.Reset}`);
+            console.log(`${Color.Red}Basilic Venimeux${Style.Reset}    - ${Color.BrightRed}Attaque: 28${Style.Reset} - ${Color.Green}Défense: 6${Style.Reset} - ${Color.Cyan}PV Max: 80${Style.Reset}\n`);
+
+            console.log(`${Color.Yellow}=== Informations des Boss ===${Style.Reset}`);
+            console.log(`${Color.Red}Dragon Ancien${Style.Reset}     - ${Color.BrightRed}Attaque: 50${Style.Reset} - ${Color.Green}Défense: 10${Style.Reset} - ${Color.Cyan}PV Max: 200${Style.Reset}`);
+            console.log(`${Color.Red}Liche Sombre${Style.Reset}      - ${Color.BrightRed}Attaque: 30${Style.Reset} - ${Color.Green}Défense: 10${Style.Reset} - ${Color.Cyan}PV Max: 175${Style.Reset}`);
+            console.log(`${Color.Red}Titan Corrompu${Style.Reset}    - ${Color.BrightRed}Attaque: 40${Style.Reset} - ${Color.Green}Défense: 10${Style.Reset} - ${Color.Cyan}PV Max: 200${Style.Reset}\n`);
+            prompt(`Appuyez sur Entrée pour continuer...`);
             return this.startMenu();
         } else if (!choices) {
-            this.alert
+            console.log(this.alert);
             return this.startMenu();
         } else {
             const adventurerIndex = choices.split(',').map(n => parseInt(n.trim())).filter(n => !isNaN(n) && n >= 1 && n <= 6);
@@ -40,7 +62,6 @@ export class Menu{
             return selectedAdventurers;
         }
     }
-
     static action = (currentFighter: Character, enemies: Monstre[], characters: Character[]): void => {
         let action: string | null;
         prompt(`\nC'est à ${Color.Blue}${currentFighter.name}${Style.Reset} de jouer. ${Color.Cyan}${currentFighter.currentHealth}/${currentFighter.maxHealth} PV${Style.Reset}\n${Style.Italic}[Appuyez sur Entrée]${Style.Reset}\n`);

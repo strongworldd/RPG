@@ -10,7 +10,7 @@ export class Pretre extends Character {
     }
 
     static override displayInfo(): string {
-        return "Pretre - Attaque Physique: 15 - Défense: 2 - Vitesse: 6 - PV Max: 100";
+        return `${Color.Blue}Pretre${Style.Reset}   - ${Color.BrightRed}Attaque Physique: 15${Style.Reset} - ${Color.Green}Défense: 2${Style.Reset} - ${Color.BrightMagenta}Vitesse: 6${Style.Reset} - ${Color.Cyan}PV Max: 100${Style.Reset}`;
 }
 
     override specialAttack(target: Character){
