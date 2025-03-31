@@ -69,7 +69,7 @@ export class Fight {
                 console.log(`${Color.Red}${enemy.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !`);
                 attackMessage = enemy.attackMonstre(cible); 
             }
-            prompt(attackMessage); 
+            prompt("\n"+attackMessage); 
         }
     }
 

@@ -3,8 +3,6 @@ import { Character } from "../Character.ts";
 import { Color, Style } from "../../Color.ts";
 
 export class Basilic extends Monstre {
-    lastAttacker: Character | null = null;
-
     constructor() {
         super("Basilic Venimeux", 80, 28, 6); 
     }

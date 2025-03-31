@@ -46,9 +46,14 @@ export abstract class Character {
                 attacking = Math.max(0, this.physicalAttack - target.defense);
                 break;
         }
-        return this.getColor(target, attacking)
+        if (target.isEsquive()) {
+            return `${Color.Red}${target.name}${Style.Reset} éblouit ${Color.Blue}${this.name}${Style.Reset} et esquive l'attaque !`;
+        } else {
+            return this.getColor(target, attacking);
+        }
     };
-    
+    public isEsquive():boolean{return false}
+
     protected getColor(target :Character, attacking :number) :string{
         if (target.currentHealth - attacking > 0) {
             target.currentHealth -= attacking;

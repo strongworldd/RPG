@@ -3,6 +3,8 @@ import { Character } from "../Character.ts";
 import { Color, Style } from "../../Color.ts";
 
 export class Spectre extends Monstre {
+    private unusedSkill = true
+    public esquiveAttack = false
 
     override name: string = "Spectre Hanté";
     constructor() {
@@ -10,13 +12,18 @@ export class Spectre extends Monstre {
     }
 
     override attackMonstre = (aventuriers: Character): string =>{
-       return this.attack(aventuriers) + (`\n${Color.Red}${this.name}${Style.Reset} devient éthéré et esquive la prochaine attaque !`);
+        let text = "";
+        if (this.unusedSkill) {
+            this.unusedSkill = false
+            this.esquiveAttack = true
+            text = `\n${Color.Red}${this.name}${Style.Reset} devient éthéré et esquive les attaques jusqu'à son prochain tour !`
+        }else{
+            this.esquiveAttack = false
+        }
+        return this.attack(aventuriers) + text
     }
-
-    //actuellement pas utiliser
-    esquive(): boolean {
-        const chance = this.currentHealth < 50 ? 0.25 : 0.20;
-        return Math.random() < chance;
+    public override isEsquive(): boolean {
+        return this.esquiveAttack
     }
-    override attackBoss = (_cibles :Character[]):string => {return"nothing"}
+    override attackBoss = (_cibles :Character[]) :string => {return "nothing"}
 }
