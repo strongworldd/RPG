@@ -15,7 +15,7 @@ export class Voleur extends Character{
     }
 
     static override displayInfo(): string {
-        return "Voleur - Attaque Physique: 20 - Défense: 5 - Vitesse: 8 - PV Max: 100";
+        return `${Color.Blue}Voleur${Style.Reset}   - ${Color.BrightRed}Attaque Physique: 20${Style.Reset} - ${Color.Green}Défense: 5${Style.Reset} - ${Color.BrightMagenta}Vitesse: 8${Style.Reset} - ${Color.Cyan}PV Max: 100${Style.Reset}`;
 }
 
     override specialAttack(target :Character){

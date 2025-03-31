@@ -18,17 +18,11 @@ export class Golem extends Monstre {
         }else{
             text = ""
         }
-<<<<<<< HEAD
 
         super.act(aventuriers);
-<<<<<<< HEAD
-=======
         console.log(`${Color.Red}${this.name}${Style.Reset} active sa peau de pierre et réduit les dégâts reçus !`);
         this.defense += 5;
->>>>>>> origin/lucas
-=======
         return this.attack(aventuriers) + text
->>>>>>> origin/valentin
     }
     override attackBoss = (_cibles :Character|Character[]):string => {return"nothing"}
 }
