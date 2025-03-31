@@ -9,7 +9,8 @@ export class Chimere extends Monstre {
         super("Chimère Mutante", 100, 20, 5);
     }
 
-    override attackMonstre = (aventuriers: Character): string =>{
+    override attackBoss = (_cibles :Character[]) :string => { return "nothing" }
+    override attackMonstre = (aventuriers: Character) :string =>{
         let text = "";
         if (this.unusedSkill) {
             this.physicalAttack += 5;
@@ -18,5 +19,5 @@ export class Chimere extends Monstre {
         }
         return this.attack(aventuriers) + text
     }
-    override attackBoss = (_cibles :Character[]):string => {return"nothing"}
+    
 }

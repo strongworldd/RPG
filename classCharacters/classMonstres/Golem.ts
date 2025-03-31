@@ -9,7 +9,8 @@ export class Golem extends Monstre {
         super("Golem de Pierre", 125, 15, 0);
     }
 
-    override attackMonstre = (aventuriers: Character): string =>{
+    override attackBoss = (_cibles :Character[]) :string => { return "nothing" }
+    override attackMonstre = (aventuriers: Character) :string =>{
         let text = ""
         if (!this.hasUsedStoneSkin) {
             this.currentHealth += 50;
@@ -19,5 +20,5 @@ export class Golem extends Monstre {
         }
         return this.attack(aventuriers) + text
     }
-    override attackBoss = (_cibles :Character[]):string => { return "nothing" }
+    
 }

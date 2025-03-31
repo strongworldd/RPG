@@ -6,12 +6,12 @@ export class Spectre extends Monstre {
     private unusedSkill = true
     public esquiveAttack = false
 
-    override name: string = "Spectre Hanté";
     constructor() {
         super("Spectre Hanté", 80, 20, 5);
     }
 
-    override attackMonstre = (aventuriers: Character): string =>{
+    override attackBoss = (_cibles :Character[]) :string => { return "nothing" }
+    override attackMonstre = (aventuriers: Character) :string =>{
         let text = "";
         if (this.unusedSkill) {
             this.unusedSkill = false
@@ -22,8 +22,7 @@ export class Spectre extends Monstre {
         }
         return this.attack(aventuriers) + text
     }
-    public override isEsquive(): boolean {
+    override isEsquive(): boolean {
         return this.esquiveAttack
     }
-    override attackBoss = (_cibles :Character[]) :string => {return "nothing"}
 }
