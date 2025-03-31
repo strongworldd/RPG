@@ -18,5 +18,5 @@ export class Spectre extends Monstre {
         const chance = this.currentHealth < 50 ? 0.25 : 0.20;
         return Math.random() < chance;
     }
-    override attackBoss = (_cibles :Character|Character[]):string => {return"nothing"}
+    override attackBoss = (_cibles :Character[]):string => {return"nothing"}
 }

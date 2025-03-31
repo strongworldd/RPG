@@ -8,7 +8,7 @@ export class Monstre extends Character {
     }
 
     attackMonstre = (_cible: Character) :string => { return "nothing" }
-    attackBoss = (_cibles :Character[]) :string => { return "sdf" }
+    attackBoss = (_cibles :Character[]) :string => { return "nothing" }
     override specialAttack(){}
     protected override getColor(target: Monstre, attacking: number): string {
         if (target.currentHealth - attacking > 0) {

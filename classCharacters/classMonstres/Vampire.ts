@@ -12,5 +12,5 @@ export class Vampire extends Monstre {
         this.currentHealth = Math.min(this.maxHealth, this.currentHealth + 10);
         return text + (`\n${Color.Red}${this.name}${Style.Reset} se régénère de${Color.Cyan} 10 PV${Style.Reset} grâce à son attaque !`);
     }
-    override attackBoss = (_cibles :Character|Character[]):string => {return"nothing"}
+    override attackBoss = (_cibles :Character[]):string => {return"nothing"}
 }

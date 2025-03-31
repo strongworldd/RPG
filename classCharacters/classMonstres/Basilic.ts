@@ -9,10 +9,6 @@ export class Basilic extends Monstre {
         super("Basilic Venimeux", 80, 28, 6); 
     }
 
-    subirAttaque(attacker: Character): void {
-        this.lastAttacker = attacker;
-    }
-
     override attackMonstre = (aventuriers: Character): string =>{
         return this.attack(aventuriers) + this.applyDebuff(aventuriers); 
     }
@@ -22,5 +18,5 @@ export class Basilic extends Monstre {
         aventurier.speed = Math.max(0, aventurier.speed - reduction); 
         return (`\n${Color.Blue}${aventurier.name}${Style.Reset} est ralenti de ${reduction} point ! Nouvelle vitesse : ${aventurier.speed}`);
     }
-    override attackBoss = (_cibles :Character|Character[]):string => {return"nothing"}
+    override attackBoss = (_cibles :Character[]):string => {return"nothing"}
 }

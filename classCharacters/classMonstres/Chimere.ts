@@ -12,5 +12,5 @@ export class Chimere extends Monstre {
         this.physicalAttack += 5; 
         return text + (`\n${Color.Red}${this.name}${Style.Reset} change de forme et augmente son attaque de 5 !`);
     }
-    override attackBoss = (_cibles :Character|Character[]):string => {return"nothing"}
+    override attackBoss = (_cibles :Character[]):string => {return"nothing"}
 }
