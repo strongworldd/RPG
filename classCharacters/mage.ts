@@ -5,7 +5,7 @@ export class Mage extends Character{
 
     override maxMana = 100
     override currentMana = 100
-    override magicAttack = 25
+    override magicAttack = 100
     override specialAttackName = "sorcererAttack"
 
     constructor(name :string) {
@@ -18,7 +18,7 @@ export class Mage extends Character{
 
     override specialAttack(target :Character){
         this.attack(target, "sorcererAttack")
-        this.currentMana -= 25
+        this.currentMana -= 50
         return `${Color.Blue}${this.name}${Style.Reset} à fait ${this.magicAttack} dégats à ${Color.Red}${target.name}${Style.Reset}. ${Color.Blue}${this.name}${Style.Reset} n'a plus que ${this.currentMana} mana, ${Color.Red}${target.name}${Style.Reset} n'a plus que ${target.currentHealth} points de vie.`
     }
 }

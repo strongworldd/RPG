@@ -145,7 +145,7 @@ export class Menu {
                 do{confirm = prompt(`Veux-tu utiliser l'action spéciale ${Color.Magenta}${currentFighter.specialAttackName}${Style.Reset}? [y,n]`);}
                 while(confirm !== "y" && confirm !== "n" && confirm !== "yes" && confirm !== "non" && confirm !== "");
                 if (confirm === "y" || confirm === "yes" || confirm === "") {
-                    prompt(`${currentFighter.specialAttack(livingCharacters[index-1])}`);
+                    prompt(`${currentFighter.specialAttack(livingCharacters[index-1])}\n${Style.Italic}[Appuyez sur Entrée]${Style.Reset}\n`);
                 } else{
                     return this.action(currentFighter, livingEnemies, characters);
                 }
@@ -159,7 +159,12 @@ export class Menu {
                     return this.action(currentFighter, livingEnemies, characters);
                 }
             }else{
-                let ennemieslist = `Choisissez un ennemi à ${Color.BrightRed}attaquer${Style.Reset} :\n`;
+                let ennemieslist = ""
+                if(currentFighter instanceof Voleur){
+                    ennemieslist = `Choisissez un ennemi à ${Color.Magenta}voler${Style.Reset} :\n`;
+                }else{
+                    ennemieslist = `Choisissez un ennemi à ${Color.Magenta}attaquer${Style.Reset} :\n`;
+                }
                 livingEnemies.forEach((character, index) => {
                     ennemieslist += `${index + 1}. ${Color.Red}${character.name}${Style.Reset}\n`;
                 });
@@ -204,9 +209,9 @@ export class Menu {
                 }
                 if (itemIndex >= 0 && itemIndex < bagage.inventaire.length) {
                     const selectedItem = bagage.inventaire[itemIndex];
-                    prompt(`Objet choisi : ${Color.Green}${selectedItem.name}${Style.Reset}`);
+                    prompt(`Objet choisi : ${Color.Yellow}${selectedItem.name}${Style.Reset}`);
                     
-                    let userList = `Choisissez sur qui vous voulez utiliser ${Color.Green}${selectedItem.name}${Style.Reset} :\n`;
+                    let userList = `Choisissez sur qui vous voulez utiliser ${Color.Yellow}${selectedItem.name}${Style.Reset} :\n`;
                     const possiblechoices: Character[]=[]
 
                     if (selectedItem.name === "Potion de soin" ) {
