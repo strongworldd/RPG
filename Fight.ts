@@ -29,7 +29,7 @@ export class Fight {
     }
 
     public start = (): void => {
-        console.log("⚔️ Le combat commence !");
+        console.log("⚔️  Le combat commence !");
         do {
             this.takeTurn();
         } while (!this.isTeamDefeated(this.adventurer) && !this.isTeamDefeated(this.enemies));
@@ -47,23 +47,25 @@ export class Fight {
         }
 
         if (this.adventurer.includes(currentFighter)) {
-            Menu.action(currentFighter, this.enemies, this.adventurer,[]);
+            Menu.action(currentFighter, this.enemies, this.adventurer);
         } else {
+            setTimeout( () => {
             this.enemyAction(currentFighter as Monstre);
+        },200);
         }
 
         this.nextTurn();
     }
 
+    
     private enemyAction = (enemy: Monstre): void => {
     const vivantAventuriers = this.adventurer.filter(aventurier => aventurier.isAlive());
     const cible = vivantAventuriers[Math.floor(Math.random() * vivantAventuriers.length)];
-
-    if (cible) {
-        console.log(`${Color.Red}${enemy.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !`);
-        const attackMessage = enemy.attack(cible); 
-        console.log(attackMessage); 
-    }
+        if (cible) {
+            console.log(`${Color.Red}${enemy.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !`);
+            const attackMessage = enemy.attack(cible); 
+            console.log(attackMessage); 
+        }
 
     if (enemy instanceof Basilic) {
         (enemy as Basilic).agir(this.adventurer);

@@ -17,5 +17,10 @@ export class Golem extends Monstre {
         }
 
         super.act(aventuriers);
+<<<<<<< HEAD
+=======
+        console.log(`${Color.Red}${this.name}${Style.Reset} active sa peau de pierre et réduit les dégâts reçus !`);
+        this.defense += 5;
+>>>>>>> origin/lucas
     }
 }
