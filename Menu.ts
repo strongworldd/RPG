@@ -208,7 +208,7 @@ export class Menu{
                     possiblechoices.push(...livingCharacters.filter(character => character.currentMana != character.maxMana))
                     }  
                     if (possiblechoices.length == 0){
-                        console.log("Vous ne pouvez soignez ou réssuciter ou régénérer le mana de personne, car personne n'a perdu de statistique à ce niveau là.");
+                        console.log("Vous ne pouvez pas utiliser cet item, car personne n'en à besoin.");
                         return this.action(currentFighter, livingEnemies, characters);
                     }    
                     let targetIndex :string|null
