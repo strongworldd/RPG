@@ -51,7 +51,7 @@ export class Menu{
 
     static action = (currentFighter: Character, enemies: Monstre[], characters: Character[]): void => {
         let action: string | null;
-        prompt(`\nC'est à ${Color.Blue}${currentFighter.name}${Style.Reset} de jouer. ${Color.BrightCyan}${currentFighter.currentHealth}/${currentFighter.maxHealth} PV${Style.Reset}\nAppuyez sur Entrée\n`);
+        prompt(`\nC'est à ${Color.Blue}${currentFighter.name}${Style.Reset} de jouer. ${Color.Cyan}${currentFighter.currentHealth}/${currentFighter.maxHealth} PV${Style.Reset}\nAppuyez sur Entrée\n`);
     
         // Vérifie si l'attaquant a une attaque spéciale
         if (currentFighter instanceof Guerrier) {
@@ -83,7 +83,7 @@ export class Menu{
         if (action === "1" || action === "") { // attaque classique
             let enemyList = `Choisissez l'ennemi à attaquer :\n`;
             livingEnemies.forEach((enemy, index) => {
-                enemyList += ` ${index + 1}. ${Color.Red}${enemy.name}${Style.Reset} ${enemy.currentHealth}/${enemy.maxHealth} \n`;
+                enemyList += ` ${index + 1}. ${Color.Red}${enemy.name}${Color.Cyan} ${enemy.currentHealth}/${enemy.maxHealth} PV${Style.Reset} \n`;
             });
             let index: number;
             let targetIndex: string|null = null;
@@ -235,7 +235,7 @@ export class Menu{
                     let confirm: string | null = null;
                 
                     do {
-                        confirm = prompt(`Veux-tu utiliser la potion ${Color.Magenta}${selectedItem.name}${Style.Reset} sur ${target.name}? [y,n]\n`);
+                        confirm = prompt(`Veux-tu utiliser la potion ${Color.Yellow}${selectedItem.name}${Style.Reset} sur ${Color.Blue}${target.name}${Style.Reset} ? [y,n]\n`);
                     }while (confirm !== "y" && confirm !== "n" && confirm !== "yes" && confirm !== "non" && confirm !== "");
                     if (confirm === "y" || confirm === "yes" || confirm === "") {
                         prompt(`${bagage.inventaire[itemIndex].use(target)}`);

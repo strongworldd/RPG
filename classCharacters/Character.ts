@@ -15,10 +15,14 @@ export abstract class Character {
     specialAttackName = "";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     constructor(name: string, physicalAttack: number, defenseAttack: number, speed: number, maxHealth: number, currentHealth: number) {
 =======
     constructor(name :string, physicalAttack :number, defense :number, speed :number, maxHealth :number, currentHealth :number) {
 >>>>>>> origin/lucas
+=======
+    constructor(name :string, physicalAttack :number, defense :number, speed :number, maxHealth :number, currentHealth :number) {
+>>>>>>> origin/valentin
         this.name = name;
         this.physicalAttack = physicalAttack;
         this.defense = defense;
@@ -29,16 +33,23 @@ export abstract class Character {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     abstract specialAttack(target: Character | Character[]): void;
 =======
+=======
+>>>>>>> origin/valentin
     static displayInfo(): string {
         return "Nom: [Nom par défaut] - Attaque Physique: 0 - Défense: 0 - Vitesse: 10 - PV Max: 100";
     }
 
+<<<<<<< HEAD
     abstract specialAttack(target: Character | Character[]) :void;
 >>>>>>> origin/lucas
+=======
+    abstract specialAttack(target: Character | Character[]): void;
+>>>>>>> origin/valentin
 
-    attack = (target :Monstre | Character, attackType :string = ""): string => {
+    attack = (target :Character, attackType :string = ""): string => {
         let attacking: number;
     
         switch (attackType) {
@@ -63,13 +74,13 @@ export abstract class Character {
                 return `${target.died()} grâce à ${Color.Blue}${this.name}${Style.Reset}!`;
             }
         } else {
-        if (target.currentHealth - attacking > 0) {
-            target.currentHealth -= attacking;
-            return `${Color.Red}${this.name}${Style.Reset} inflige ${attacking} points de dégât à ${Color.Blue}${target.name}${Style.Reset}. Il ne lui reste plus que ${Color.BrightCyan}${target.currentHealth}/${target.maxHealth} PV${Style.Reset}`;
-        } else {
-            return `${target.died()} grâce à ${Color.Red}${this.name}${Style.Reset}!`;
+            if (target.currentHealth - attacking > 0) {
+                target.currentHealth -= attacking;
+                return `${Color.Red}${this.name}${Style.Reset} inflige ${attacking} points de dégât à ${Color.Blue}${target.name}${Style.Reset}. Il ne lui reste plus que ${Color.BrightCyan}${target.currentHealth}/${target.maxHealth} PV${Style.Reset}`;
+            } else {
+                return `${target.died()} grâce à ${Color.Blue}${this.name}${Style.Reset}!`;
+            }
         }
-    }
     };
     
     protected hurt = (deCbm :number) :string => {
@@ -88,7 +99,7 @@ export abstract class Character {
         } else {
             this.currentHealth += healNumber;
         }
-        return `${Color.Blue}${this.name}${Style.Reset} se soigne de ${Color.Green}${healNumber}${Style.Reset} points de vie et est maintenant à ${this.currentHealth} points de vie`
+        return `${Color.Blue}${this.name}${Style.Reset} se soigne de ${Color.Green}${healNumber}${Style.Reset} points de vie et est maintenant à ${Color.Green}${this.currentHealth}/${this.maxHealth}${Style.Reset} points de vie`
     }
 
     regenMana(regenNumber :number) :string{

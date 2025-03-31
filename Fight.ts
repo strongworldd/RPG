@@ -1,15 +1,10 @@
 import { Character } from "./classCharacters/Character.ts";
 import { Monstre } from "./classCharacters/classMonstres/Monstre.ts";
-import { Basilic } from "./classCharacters/classMonstres/Basilic.ts";
-import { Chimere } from "./classCharacters/classMonstres/Chimere.ts";
-import { Golem } from "./classCharacters/classMonstres/Golem.ts";
-import { Spectre } from "./classCharacters/classMonstres/Spectre.ts";
-import { Vampire } from "./classCharacters/classMonstres/Vampire.ts";
+import { Menu } from "./Menu.ts";
+import { Color, Style } from "./Color.ts";
 import { DragonAncien } from "./classCharacters/Boss/DragonAncien.ts";
 import { LicheSombre } from "./classCharacters/Boss/LicheSombre.ts";
 import { TitanCorrompu } from "./classCharacters/Boss/TitanCorrompu.ts";
-import { Menu } from "./Menu.ts";
-import { Color, Style } from "./Color.ts";
 export class Fight {
     private fighters: Character[];
     private currentTurnIndex: number = 0;
@@ -42,8 +37,7 @@ export class Fight {
 
         if (!currentFighter.isAlive()) {
             console.log(`❌ ${currentFighter.name} est K.O.`);
-            this.nextTurn();
-            return;
+            return this.nextTurn();
         }
 
         if (this.adventurer.includes(currentFighter)) {
@@ -59,31 +53,27 @@ export class Fight {
 
     
     private enemyAction = (enemy: Monstre): void => {
-    const vivantAventuriers = this.adventurer.filter(aventurier => aventurier.isAlive());
-    const cible = vivantAventuriers[Math.floor(Math.random() * vivantAventuriers.length)];
-        if (cible) {
-            console.log(`${Color.Red}${enemy.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !`);
-            const attackMessage = enemy.attack(cible); 
-            console.log(attackMessage); 
-        }
+        const vivantAventuriers = this.adventurer.filter(aventurier => aventurier.isAlive());
+        let cible = vivantAventuriers[Math.floor(Math.random() * vivantAventuriers.length)];
 
-    if (enemy instanceof Basilic) {
-        (enemy as Basilic).agir(this.adventurer);
-    } else if (enemy instanceof Chimere) {
-        (enemy as Chimere).actChimere(this.adventurer);
-    } else if (enemy instanceof Spectre) {
-        (enemy as Spectre).actSpectre(this.adventurer);
-    } else if (enemy instanceof Golem) {
-        (enemy as Golem).actGolem(this.adventurer);
-    } else if (enemy instanceof Vampire) {
-        (enemy as Vampire).actVampire(this.adventurer);
-    } else if (enemy instanceof DragonAncien) {
-        (enemy as DragonAncien).agir(this.adventurer);
-    } else if (enemy instanceof LicheSombre) {
-        (enemy as LicheSombre).agir(this.adventurer);
-    } else if (enemy instanceof TitanCorrompu) {
-        (enemy as TitanCorrompu).agir(this.adventurer);
-    }
+        if (cible) {
+            const random = Math.random();
+            if (random < 0.2) {
+                cible = vivantAventuriers.reduce((prev, curr) => (prev.currentHealth < curr.currentHealth ? prev : curr));
+            } else {
+                const index = Math.floor(Math.random() * vivantAventuriers.length);
+                cible = vivantAventuriers[index];
+            }
+            
+            let attackMessage = ""
+            if(enemy instanceof DragonAncien || enemy instanceof LicheSombre || enemy instanceof TitanCorrompu){
+                attackMessage = enemy.attackBoss(vivantAventuriers)
+            }else{
+                console.log(`${Color.Red}${enemy.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !`);
+                attackMessage = enemy.attackMonstre(cible); 
+            }
+            prompt(attackMessage); 
+        }
     }
 
     private nextTurn = (): void => {

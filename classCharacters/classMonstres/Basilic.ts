@@ -13,17 +13,14 @@ export class Basilic extends Monstre {
         this.lastAttacker = attacker;
     }
 
-    agir(aventuriers: Character[]): void {
-        const cible = super.act(aventuriers); 
-    
-        if (cible) {
-            this.applyDebuff(cible); 
-        }
+    override attackMonstre = (aventuriers: Character): string =>{
+        return this.attack(aventuriers) + this.applyDebuff(aventuriers); 
     }
     
-     private applyDebuff(aventurier: Character): void {
+    private applyDebuff(aventurier: Character): string {
         const reduction = 1; 
         aventurier.speed = Math.max(0, aventurier.speed - reduction); 
-        console.log(`${Color.Blue}${aventurier.name}${Style.Reset} est ralenti de ${reduction} point ! Nouvelle vitesse : ${aventurier.speed}`);
+        return (`\n${Color.Blue}${aventurier.name}${Style.Reset} est ralenti de ${reduction} point ! Nouvelle vitesse : ${aventurier.speed}`);
     }
+    override attackBoss = (_cibles :Character|Character[]):string => {return"nothing"}
 }

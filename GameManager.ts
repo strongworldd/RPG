@@ -13,6 +13,7 @@ import { Inventaire } from "./Inventaire.ts";
 import { Monstre } from "./classCharacters/classMonstres/Monstre.ts";
 import { bagage, Characters } from "./GameManagerTest.ts";
 import { HalfStar } from "./classConsommables/HalfStar.ts";
+import { Color, Style } from "./Color.ts";
 export class GameManager{
     
     salle = 1;
@@ -26,25 +27,30 @@ export class GameManager{
 
         do {
             if (this.salle === 5) {
-                console.log("Félicitations ! Vous avez terminé 5 salles avec au moins un aventurier vivant !");
+                console.log(Style.ClearTerminal+"Félicitations ! Vous avez terminé 5 salles avec au moins un aventurier vivant !");
                 prompt(`Pour vous récompenser voici une demi-étoile !`);
                 Bagage.add(new HalfStar());
-                const continuer = prompt("Voulez vous continuer à jouer ? [y,n]");
-                if (continuer === "y" || continuer === "yes" || continuer === "") {
-                    this.nextSalle(characters, classMonsters, Bagage);
-                    this.salle = 1;
-                } else {
-                    return;
-                }
-            } else {
-                console.log("Félicitations ! Vous avez terminé une salle avec au moins un aventurier vivant !");
-                this.nextSalle(characters, classMonsters, Bagage);
-            }
-        } while (true);
+                let continuer = null
+                do{
+                    continuer = prompt("Voulez vous continuer à jouer ? [y,n]");
+                    if (continuer === "y" || continuer === "yes") {
+                        this.nextSalle(characters, classMonsters, Bagage);
+                        this.salle = 1;
+                    } else if(continuer === "n" || continuer === "non"){
+                        return;
+                    }else{
+                        console.log(`${Style.Bold}${Style.Italic}${Color.BrightCyan}Veuillez entrer quelque chose de correcte !${Style.Reset}`)
+                    }
+                }while(continuer !== "y" && continuer !== "yes" && continuer !== "n" && continuer !== "non")
+            } else if (characters.length > 0){
+                console.log("Félicitations ! Vous avez terminé une salle avec au moins 1 aventurier vivant !");
+                this.nextSalle(characters,classMonsters,Bagage);
+            }else{return}
+        }while(true)
     }
 
     nextSalle(characters :Character[], Monsters :(new () => Monstre)[], Bagage :Inventaire): void {
-        console.log(`Salle ${this.salle}`);
+        console.log(`🕌 Salle ${this.salle}`);
         this.resetCharacterSpeed(characters);
 
         if (this.salle === 1 || this.salle === 3) {
@@ -70,16 +76,13 @@ export class GameManager{
         const fight = new Fight(characters, monsters);
         console.log("Vous rencontrez les monstres", monsters.map(enemy => enemy.name));
         fight.start();
-        while (!fight.endFight()) {
-            fight.takeTurn();
-        }
     }
 
-    ouvrirCoffre(characters: Character[], inventaire: Inventaire): void {
+    ouvrirCoffre(characters: Character[], bagage: Inventaire): void {
         prompt("Salle de coffre !")
         const coffre = new Coffre();
         const randomCharacter = characters[Math.floor(Math.random() * characters.length)];
-        coffre.open(inventaire, randomCharacter);
+        coffre.open(bagage, randomCharacter);
     }
 
     combatBoss(characters: Character[]): void {
@@ -91,8 +94,5 @@ export class GameManager{
         const fight = new Fight(characters, [boss]);
         console.log(`Vous affrontez le boss ${boss.name}`);
         fight.start();
-        while (!fight.endFight()) {
-            fight.takeTurn();
-        }
     }
 }
