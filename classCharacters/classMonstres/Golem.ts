@@ -14,11 +14,11 @@ export class Golem extends Monstre {
         if (!this.hasUsedStoneSkin) {
             this.currentHealth = Math.min(this.maxHealth, this.currentHealth + 50);
             this.hasUsedStoneSkin = true;
-            text = `\n${Color.Red}${this.name}${Style.Reset} active sa peau de pierre et réduit les dégâts reçus !`;
+            text = `\n${Color.Red}${this.name}${Style.Reset} active sa peau de pierre et augmente ça vie de 50 !`;
         }else{
             text = ""
         }
         return this.attack(aventuriers) + text
     }
-    override attackBoss = (_cibles :Character|Character[]):string => {return"nothing"}
+    override attackBoss = (_cibles :Character|Character[]):string => { return"nothing" }
 }

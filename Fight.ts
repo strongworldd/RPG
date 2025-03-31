@@ -43,11 +43,8 @@ export class Fight {
         if (this.adventurer.includes(currentFighter)) {
             Menu.action(currentFighter, this.enemies, this.adventurer);
         } else {
-            setTimeout( () => {
             this.enemyAction(currentFighter as Monstre);
-        },200);
         }
-
         this.nextTurn();
     }
 

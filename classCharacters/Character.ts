@@ -52,7 +52,7 @@ export abstract class Character {
     protected getColor(target :Character, attacking :number) :string{
         if (target.currentHealth - attacking > 0) {
             target.currentHealth -= attacking;
-            return `${Color.Blue}${this.name}${Style.Reset} inflige ${attacking} points de dégât à ${Color.Red}${target.name}${Style.Reset}. Il ne lui reste plus que ${Color.BrightCyan}${target.currentHealth}/${target.maxHealth} PV${Style.Reset}`;
+            return `${Color.Blue}${this.name}${Style.Reset} inflige ${attacking} points de dégât à ${Color.Red}${target.name}${Style.Reset}. Il ne lui reste plus que ${Color.BrightCyan}${target.currentHealth}/${target.maxHealth} points de vie${Style.Reset}.`;
         } else {
             return `${target.died()} grâce à ${Color.Blue}${this.name}${Style.Reset}!`;
         }
@@ -74,7 +74,7 @@ export abstract class Character {
         } else {
             this.currentHealth += healNumber;
         }
-        return `${Color.Blue}${this.name}${Style.Reset} se soigne de ${Color.Green}${healNumber}${Style.Reset} points de vie et est maintenant à ${Color.Green}${this.currentHealth}/${this.maxHealth}${Style.Reset} points de vie`
+        return `${Color.Blue}${this.name}${Style.Reset} se soigne de ${Color.Green}${healNumber}${Style.Reset} points de vie et est maintenant à ${Color.Green}${this.currentHealth}/${this.maxHealth}${Style.Reset} points de vie.`
     }
 
     regenMana(regenNumber :number) :string{

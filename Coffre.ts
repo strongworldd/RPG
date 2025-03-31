@@ -35,7 +35,7 @@ export class Coffre {
         } else { 
             const damage = 20; 
             joueur.currentHealth -= damage;
-            prompt(`Le coffre était piégé ! ${Color.Blue}${joueur.name}${Style.Reset} subit ${damage} dégâts. Il lui reste ${joueur.currentHealth} HP.`);
+            prompt(`Le coffre était piégé ! ${Color.Blue}${joueur.name}${Style.Reset} subit ${damage} dégâts. Il lui reste ${Color.Cyan}${joueur.currentHealth}/${joueur.maxHealth} points de vie${Style.Reset}.`);
             return [];
         }
     }

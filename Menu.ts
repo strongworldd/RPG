@@ -15,43 +15,35 @@ export class Menu{
         const options = [Guerrier, Mage, Paladin, Barbare, Pretre, Voleur];
         let characterlist = `${Style.ClearTerminal}Choisissez 3 aventuriers parmi les 6 disponibles \n I:${Color.Blue} Informations${Style.Reset}\n`;
         options.forEach((character, index) => {
-        characterlist += ` ${index + 1}. ${Color.Green}${character.name}${Style.Reset} \n`;
+            characterlist += ` ${index + 1}. ${Color.Green}${character.name}${Style.Reset} \n`;
         });
-        characterlist+=`Entrez trois numéros séparés par des virgules (ex : 1,2,3) ou la lettre I pour accéder aux informations des aventuriers\n`
-        const choices=prompt(`${characterlist}`)
+        characterlist += `Entrez ${Style.Bold}trois${Style.Reset} numéros séparés par des virgules (ex : 1,2,3) ou la lettre I pour accéder aux informations du jeu\n`
+        const choices = prompt(`${characterlist}`)
 
         if (choices == "I" || choices == "i" || choices == "") {
             options.forEach(option => {
                 console.log(`${option.displayInfo()}`);
             });
-        
-            prompt(`Appuyez sur Entrée pour continuer...`);
-        
+            prompt(`${Style.Italic}[Appuyez sur Entrée]${Style.Reset}`);
             return this.startMenu();
         } else if (!choices) {
             this.alert
             return this.startMenu();
         } else {
-
-        const adventurerIndex = choices.split(',').map(n => parseInt(n.trim())).filter(n => !isNaN(n) && n >= 1 && n <= 6);
-
-        if (adventurerIndex.length !== 3) {
-            console.log(`${Style.Erreur}Vous devez choisir exactement ${Style.Bold}3${Style.AfterNumberErreur} aventuriers parmi les options disponibles.${Style.Reset}\n`);
-            return this.startMenu()
-            
+            const adventurerIndex = choices.split(',').map(n => parseInt(n.trim())).filter(n => !isNaN(n) && n >= 1 && n <= 6);
+            if (adventurerIndex.length !== 3) {
+                console.log(`${Style.Erreur}Vous devez choisir exactement ${Style.Bold}3${Style.AfterNumberErreur} aventuriers parmi les options disponibles.${Style.Reset}\n`);
+                return this.startMenu()
+            }
+            const selectedAdventurers :Character[] = adventurerIndex.map(index => new options[index - 1](options[index - 1].name));
+            prompt(`Aventuriers sélectionnés : ${selectedAdventurers.map(character => Color.Blue+character.name+Style.Reset).join(", ")}. \n${Style.Italic}[Appuyez sur Entrée]${Style.Reset}\n`);
+            return selectedAdventurers;
         }
-
-        const selectedAdventurers :Character[] = adventurerIndex.map(index => new options[index - 1](options[index - 1].name));
-
-        prompt(`Aventuriers sélectionnés : ${selectedAdventurers.map(character => Color.Blue+character.name+Style.Reset).join(", ")} \nAppuyez sur Entrée pour continuer\n`);
-
-        return selectedAdventurers;
-    }
     }
 
     static action = (currentFighter: Character, enemies: Monstre[], characters: Character[]): void => {
         let action: string | null;
-        prompt(`\nC'est à ${Color.Blue}${currentFighter.name}${Style.Reset} de jouer. ${Color.Cyan}${currentFighter.currentHealth}/${currentFighter.maxHealth} PV${Style.Reset}\nAppuyez sur Entrée\n`);
+        prompt(`\nC'est à ${Color.Blue}${currentFighter.name}${Style.Reset} de jouer. ${Color.Cyan}${currentFighter.currentHealth}/${currentFighter.maxHealth} PV${Style.Reset}\n${Style.Italic}[Appuyez sur Entrée]${Style.Reset}\n`);
     
         // Vérifie si l'attaquant a une attaque spéciale
         if (currentFighter instanceof Guerrier) {
@@ -70,8 +62,8 @@ export class Menu{
                 if (action === "") {
                     //console.log("nothing")
                 }else{
-                console.log(this.alert);
-                return this.action(currentFighter, enemies, characters);
+                    console.log(this.alert);
+                    return this.action(currentFighter, enemies, characters);
                 }
             }
         }
@@ -104,7 +96,7 @@ export class Menu{
             while(confirm !== "y" && confirm !== "n" && confirm !== "yes" && confirm !== "non" && confirm !== "");
             if (confirm === "y" || confirm === "yes" || confirm === "") {
                 const target = livingEnemies[index];
-                prompt(`Vous avez choisi d'attaquer ${Color.Red}${target.name}${Style.Reset}. \nAppuyez sur Entrée\n`);
+                prompt(`Vous avez choisi d'attaquer ${Color.Red}${target.name}${Style.Reset}. \n${Style.Italic}[Appuyez sur Entrée]${Style.Reset}\n`);
                 prompt(`${currentFighter.attack(target)}`);
             } else{
                 return this.action(currentFighter, livingEnemies, characters);
@@ -141,7 +133,7 @@ export class Menu{
                 do{confirm = prompt(`Veux-tu utiliser l'attaque spéciale ${Color.Magenta}${currentFighter.specialAttackName}${Style.Reset}? [y,n]\n`);}
                 while(confirm !== "y" && confirm !== "n" && confirm !== "yes" && confirm !== "non" && confirm !== "");
                 if (confirm === "y" || confirm === "yes" || confirm === "") {
-                    prompt(`${currentFighter.specialAttack(livingEnemies)}\nAppuyez sur Entrée\n`);
+                    prompt(`${currentFighter.specialAttack(livingEnemies)}\n${Style.Italic}[Appuyez sur Entrée]${Style.Reset}\n`);
                 } else{
                     return this.action(currentFighter, livingEnemies, characters);
                 }
@@ -183,12 +175,13 @@ export class Menu{
                 const itemNames = bagage.inventaire.map((item, index) => `${index + 1}. ${Color.Yellow}${item.name} ${Style.Reset}`).join("\n");
                 const choice = prompt(`Choisissez l'objet à utiliser : \n${itemNames} \n -1. ${Color.Red}retour${Style.Reset}\n `);
                 let itemIndex = parseInt(choice ?? "", 10) - 1;  // ?? vérifie que la valeur ne sois pas falsy sinon return "" et parsint le transforme en nombre de base 10
+                if (choice === "-1") {
+                    return this.action(currentFighter, enemies, characters);
+                }
                 if (choice === "") {
                     itemIndex = 0;
                 }
-                if (choice === "-1") {
-                    return this.action(currentFighter, enemies, characters);
-                } else if (itemIndex >= 0 && itemIndex < bagage.inventaire.length) {
+                if (itemIndex >= 0 && itemIndex < bagage.inventaire.length) {
                     const selectedItem = bagage.inventaire[itemIndex];
                     prompt(`Objet choisi : ${Color.Green}${selectedItem.name}${Style.Reset}`);
                     
@@ -202,7 +195,7 @@ export class Menu{
                         possiblechoices.push(...livingCharacters.filter(character => character.currentHealth != character.maxHealth))
                     } else if (selectedItem.name === "Demi-étoile" || selectedItem.name === "Morceau d'étoiles") {
                         livingCharacters.filter(character => character.currentHealth != character.maxHealth).forEach((character, index) => {
-                            userList += `${index + 1}. ${Color.Blue}${character.name} ${character.currentHealth} PV${Style.Reset}\n`;
+                            userList += `${index + 1}. ${Color.Blue}${character.name}${Style.Reset} ${Color.BrightCyan}${character.currentHealth}/${character.maxHealth} PV${Style.Reset}\n`;
                         });
                         deadCharacters.forEach((character, index) => {
                             userList += `${livingCharacters.filter(character => character.currentHealth != character.maxHealth).length + index + 1}. ${Color.Magenta}${character.name}${Style.Reset}\n`;
@@ -214,22 +207,26 @@ export class Menu{
                     });
                     possiblechoices.push(...livingCharacters.filter(character => character.currentMana != character.maxMana))
                     }  
-                    if (possiblechoices.length==0){
-                        console.log("Vous ne pouvez soignez personne car personne n'a été blessé.");
+                    if (possiblechoices.length == 0){
+                        console.log("Vous ne pouvez soignez ou réssuciter ou régénérer le mana de personne, car personne n'a perdu de statistique à ce niveau là.");
                         return this.action(currentFighter, livingEnemies, characters);
                     }    
-                    let targetIndex = prompt(`${userList}-1. ${Color.Red}retour${Style.Reset}\n `);
-                    let index=0
+                    let targetIndex :string|null
+                    let index :number = 0
                 
                     do {
+                        targetIndex = prompt(`${userList}-1. ${Color.Red}retour${Style.Reset}\n `);
                         if (targetIndex === "-1") {
                             return this.action(currentFighter, livingEnemies, characters);
-                        } else if (index < 0 || index >= possiblechoices.length) {
-                            console.log(this.alert);
-                            targetIndex = prompt(`${userList}-1. ${Color.Red}retour${Style.Reset}\n `);
+                        }else if(targetIndex === ""){
+                            index = 0
+                        }else{
                             index = parseInt(targetIndex ?? "", 10) - 1;
-                        } 
-                    } while ((index < 0 || index >= possiblechoices.length) && targetIndex !== "-1" || targetIndex !== "");
+                            if(index < 0 || index >= possiblechoices.length) {
+                                console.log(this.alert);
+                            }
+                        }
+                    } while ((index < 0 || index >= possiblechoices.length) && targetIndex !== "-1" && targetIndex !== "");
                 
                     const target = possiblechoices[index] ?? possiblechoices[0];
                     let confirm: string | null = null;
@@ -245,8 +242,6 @@ export class Menu{
                     }                
                 } 
             }               
-        }else{
-            console.log("CACA");
         }
     }
 }

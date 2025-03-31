@@ -26,7 +26,7 @@ export class GameManager{
         this.nextSalle(characters, classMonsters, Bagage);
 
         do {
-            if (this.salle === 5) {
+            if (this.salle === 6) {
                 console.log(Style.ClearTerminal+"Félicitations ! Vous avez terminé 5 salles avec au moins un aventurier vivant !");
                 prompt(`Pour vous récompenser voici une demi-étoile !`);
                 Bagage.add(new HalfStar());
@@ -70,11 +70,12 @@ export class GameManager{
     }
 
     combatAleatoire(characters: Character[], classMonsters: (new () => Monstre)[]): void {
-        prompt("Combat aléatoire !")
+        prompt("Combat aléatoire !");
         const shuffledMonsters = classMonsters.sort(() => 0.5 - Math.random()).slice(0, 3);
         const monsters = shuffledMonsters.map(MonsterClass => new MonsterClass());
+        const monsterNames = monsters.map(monster => Color.Red + monster.name + Style.Reset).join(", ");
+        console.log(`Vous rencontrez les monstres : ${monsterNames}. \nPréparez-vous au combat !`);
         const fight = new Fight(characters, monsters);
-        console.log("Vous rencontrez les monstres", monsters.map(enemy => enemy.name));
         fight.start();
     }
 
