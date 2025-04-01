@@ -16,7 +16,7 @@ import { HalfStar } from "./classConsommables/HalfStar.ts";
 import { Color, Style } from "./Color.ts";
 export class GameManager{
     
-    salle = 1;
+    salle = 0;
 
     mainLoop(): void {
         const characters = Characters;
@@ -50,6 +50,7 @@ export class GameManager{
     }
 
     nextSalle(characters :Character[], Monsters :(new () => Monstre)[], Bagage :Inventaire): void {
+        this.salle++;
         console.log(`🕌 Salle ${this.salle}`);
         this.resetCharacterSpeed(characters);
 
@@ -60,7 +61,7 @@ export class GameManager{
         } else if (this.salle === 5) {
             this.combatBoss(characters);
         }
-        this.salle++;
+        
     }
 
     private resetCharacterSpeed(characters: Character[]): void {
