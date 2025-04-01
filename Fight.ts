@@ -38,9 +38,7 @@ export class Fight {
         if (!currentFighter.isAlive()) {
             console.log(`❌ ${currentFighter.name} est K.O.`);
             return this.nextTurn();
-        }
-
-        if (this.adventurer.includes(currentFighter)) {
+        }else if (this.adventurer.includes(currentFighter)) {
             Menu.action(currentFighter, this.enemies, this.adventurer);
         } else {
             this.enemyAction(currentFighter as Monstre);
@@ -69,7 +67,7 @@ export class Fight {
                 console.log(`\n${Color.Red}${enemy.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !`);
                 attackMessage = enemy.attackMonstre(cible); 
             }
-            prompt(attackMessage); 
+            prompt(attackMessage);
         }
     }
 

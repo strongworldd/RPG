@@ -30,7 +30,7 @@ export class Coffre {
                 inventaire.add(item);
             }
             console.log("Vous avez ouvert le coffre et trouvé les objets suivants :");
-            droppedItems.forEach(item => prompt(item.name));
+            droppedItems.forEach(item => prompt(Color.Yellow+item.name+Style.Reset));
             return droppedItems;
         } else { 
             const damage = 20; 
