@@ -5,6 +5,7 @@ export enum Color {
     Yellow = "\x1b[33m", //inventaire
     Magenta = "\x1b[35m", //attack spécial
     Cyan = "\x1b[36m", //info rapide des stats (PV, mana...)
+    Orange = "\x1b[38;5;208m", 
     White = "\x1b[37m",
     Black = "\x1b[30m",
     BrightRed = "\x1b[91m", //mots attaquer
