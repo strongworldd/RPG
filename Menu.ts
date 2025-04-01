@@ -23,7 +23,7 @@ export class Menu {
 
         if (choices == "I" || choices == "i" || choices == "") {
             console.log(`${Color.Yellow}=== Informations des Objets Consommables ===${Style.Reset}`);
-            console.log(`${Color.BrightMagenta}Ether${Style.Reset}             - ${Color.Cyan}Régénère Mana: 30${Style.Reset}`);
+            console.log(`${Color.BrightMagenta}Ether${Style.Reset}             - ${Color.Cyan}Régénère Mana: 50${Style.Reset}`);
             console.log(`${Color.BrightMagenta}Potion de soin${Style.Reset}    - ${Color.Green}Régénère Vie: 50${Style.Reset}`);
             console.log(`${Color.BrightMagenta}Morceau d'étoiles${Style.Reset} - ${Color.Green}Régénère Vie: 20${Style.Reset}  - ${Color.BrightGreen}Ressuscite avec: 20 PV${Style.Reset}`);
             console.log(`${Color.BrightMagenta}Demi-étoile${Style.Reset}       - ${Color.Green}Régénère Vie: 100${Style.Reset} - ${Color.BrightGreen}Ressuscite avec: 50 PV${Style.Reset}\n`);
