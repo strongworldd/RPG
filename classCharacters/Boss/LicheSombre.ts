@@ -7,11 +7,11 @@ export class LicheSombre extends Monstre {
         super("Liche Sombre", 175, 30, 10);
     }
 
-    override attackMonstre = (_cible: Character):string=>{return "nothing"}
+    override attackMonstre = (_cible: Character): string => { return "nothing"; }
 
-    override attackBoss = (aventuriers :Character[]): string => {
-        let cible
-        let text = ""
+    override attackBoss = (aventuriers: Character[]): string => {
+        let cible;
+        let text = "";
         const random = Math.random();
         if (random < 0.2) {
             cible = aventuriers.reduce((prev, curr) => (prev.currentHealth < curr.currentHealth ? prev : curr));
@@ -22,30 +22,30 @@ export class LicheSombre extends Monstre {
 
         const random2 = Math.random();
         if (random2 < 0.7) {
-            // 70% chance
-            return this.attack(cible) + `${Color.Red}${this.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !`;
+            text += `${Color.Red}${this.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !\n`;
+            text += this.attack(cible);
         } else {
-            // 30% chance
             text += `${Color.Red}${this.name}${Style.Reset} invoque une aura de terreur, drainant la vitalité de ses ennemis !\n`;
             aventuriers.forEach(aventurier => {
                 if (aventurier.isAlive()) {
                     aventurier.currentHealth -= 20;
-                    this.currentHealth = Math.min(this.maxHealth, this.currentHealth + 10); // Se régénère avec le drain
-                    text += `${Color.Blue}${aventurier.name}${Style.Reset} subit 20 dégâts ! Il ne lui reste plus que${Color.Cyan}${aventurier.currentHealth}/${aventurier.maxHealth} PV${Style.Reset}.\n`;
+                    this.currentHealth = Math.min(this.maxHealth, this.currentHealth + 10);
+                    text += `${Color.Blue}${aventurier.name}${Style.Reset} subit 20 dégâts ! Il lui reste ${Color.Cyan}${aventurier.currentHealth}/${aventurier.maxHealth} PV${Style.Reset}.\n`;
                 }
             });
 
             text += `${Color.Red}${this.name}${Style.Reset} lance un sort maudit sur l'ennemi le plus faible !\n`;
-            const cible = aventuriers.reduce((prev, curr) => (prev.currentHealth < curr.currentHealth ? prev : curr));
-            if (cible.isAlive()) {
-                cible.currentHealth -= 50;
-                if (cible.currentHealth <= 0) {
-                    text += `${Color.Blue}${cible.name}${Style.Reset} succombe à la malédiction !\n`;
-                }else{
-                    text += `${Color.Blue}${cible.name}${Style.Reset} est frappé par une malédiction et subit 50 dégâts ! Il ne lui reste plus que${Color.Cyan}${cible.currentHealth}/${cible.maxHealth} PV${Style.Reset}.\n`;
+            const weakest = aventuriers.reduce((prev, curr) => (prev.currentHealth < curr.currentHealth ? prev : curr));
+            if (weakest.isAlive()) {
+                weakest.currentHealth -= 50;
+                if (weakest.currentHealth <= 0) {
+                    weakest.currentHealth = 0;
+                    text += `${Color.Blue}${weakest.name}${Style.Reset} succombe à la malédiction !\n`;
+                } else {
+                    text += `${Color.Blue}${weakest.name}${Style.Reset} est frappé par une malédiction et subit 50 dégâts ! Il lui reste ${Color.Cyan}${weakest.currentHealth}/${weakest.maxHealth} PV${Style.Reset}.\n`;
                 }
             }
         }
-        return text + "Appuyez sur entrer"
+        return text + "Appuyez sur entrer";
     }
 }

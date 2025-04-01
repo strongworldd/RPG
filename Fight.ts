@@ -5,6 +5,7 @@ import { Color, Style } from "./Color.ts";
 import { DragonAncien } from "./classCharacters/Boss/DragonAncien.ts";
 import { LicheSombre } from "./classCharacters/Boss/LicheSombre.ts";
 import { TitanCorrompu } from "./classCharacters/Boss/TitanCorrompu.ts";
+
 export class Fight {
     private fighters: Character[];
     private currentTurnIndex: number = 0;
@@ -15,7 +16,7 @@ export class Fight {
 
     private determineTurnOrder = (): Character[] => {
         const participants: Character[] = [...this.adventurer, ...this.enemies];
-        participants.sort((a, b) => b.speed - a.speed); // Trie par vitesse décroissante
+        participants.sort((a, b) => b.speed - a.speed);
         return participants;
     }
 
@@ -48,7 +49,6 @@ export class Fight {
         this.nextTurn();
     }
 
-    
     private enemyAction = (enemy: Monstre): void => {
         const vivantAventuriers = this.adventurer.filter(aventurier => aventurier.isAlive());
         let cible = vivantAventuriers[Math.floor(Math.random() * vivantAventuriers.length)];
@@ -61,15 +61,15 @@ export class Fight {
                 const index = Math.floor(Math.random() * vivantAventuriers.length);
                 cible = vivantAventuriers[index];
             }
-            
-            let attackMessage = ""
-            if(enemy instanceof DragonAncien || enemy instanceof LicheSombre || enemy instanceof TitanCorrompu){
-                attackMessage = "\n" + enemy.attackBoss(vivantAventuriers)
-            }else{
+
+            let attackMessage = "";
+            if (enemy instanceof DragonAncien || enemy instanceof LicheSombre || enemy instanceof TitanCorrompu) {
+                attackMessage = "\n" + enemy.attackBoss(vivantAventuriers);
+            } else {
                 console.log(`\n${Color.Red}${enemy.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !`);
-                attackMessage = enemy.attackMonstre(cible); 
+                attackMessage = enemy.attackMonstre(cible);
             }
-            prompt(attackMessage); 
+            prompt(attackMessage);
         }
     }
 
@@ -97,7 +97,7 @@ export class Fight {
             console.log("💀 Tous les aventuriers sont K.O. ! GAME OVER.");
             return true;
         } else if (this.isTeamDefeated(this.enemies)) {
-            console.log("🏆 Victoire ! Les aventuriers ont triomphé du combat ! Youpiiiiiii");
+            console.log("🏆 Victoire ! Les aventuriers ont triomphé du combat !");
             return true;
         }
         return false;
