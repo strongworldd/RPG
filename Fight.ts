@@ -5,6 +5,7 @@ import { Color, Style } from "./Color.ts";
 import { DragonAncien } from "./classCharacters/Boss/DragonAncien.ts";
 import { LicheSombre } from "./classCharacters/Boss/LicheSombre.ts";
 import { TitanCorrompu } from "./classCharacters/Boss/TitanCorrompu.ts";
+import { exit } from "jsr:@cliffy/internal@1.0.0-rc.7/runtime/exit";
 export class Fight {
     private fighters: Character[];
     private currentTurnIndex: number = 0;
@@ -62,7 +63,7 @@ export class Fight {
             
             let attackMessage = ""
             if(enemy instanceof DragonAncien || enemy instanceof LicheSombre || enemy instanceof TitanCorrompu){
-                attackMessage = "\n" + enemy.attackBoss(vivantAventuriers)
+                attackMessage = enemy.attackBoss(vivantAventuriers)
             }else{
                 console.log(`\n${Color.Red}${enemy.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !`);
                 attackMessage = enemy.attackMonstre(cible); 
@@ -79,7 +80,7 @@ export class Fight {
 
         if (this.isTeamDefeated(this.fighters)) {
             console.log("💀 Tous les combattants sont K.O. ! Fin du combat.");
-            return;
+            exit(0);
         }
 
         while (!this.fighters[this.currentTurnIndex].isAlive()) {
@@ -93,7 +94,7 @@ export class Fight {
     public endFight = (): boolean => {
         if (this.isTeamDefeated(this.adventurer)) {
             console.log("💀 Tous les aventuriers sont K.O. ! GAME OVER.");
-            return true;
+            exit(0)
         } else if (this.isTeamDefeated(this.enemies)) {
             console.log("🏆 Victoire ! Les aventuriers ont triomphé du combat ! Youpiiiiiii");
             return true;

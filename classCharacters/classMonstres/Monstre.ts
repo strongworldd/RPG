@@ -10,15 +10,15 @@ export class Monstre extends Character {
     attackMonstre = (_cible: Character) :string => { return "nothing" }
     attackBoss = (_cibles :Character[]) :string => { return "nothing" }
     override specialAttack(){}
-    protected override getColor(target: Monstre, attacking: number): string {
+    protected override getColor(target: Character, attacking: number): string {
         if (target.currentHealth - attacking > 0) {
             target.currentHealth -= attacking;
             return `${Color.Red}${this.name}${Style.Reset} inflige ${attacking} points de dégât à ${Color.Blue}${target.name}${Style.Reset}. Il ne lui reste plus que ${Color.BrightCyan}${target.currentHealth}/${target.maxHealth} points de vie${Style.Reset}.`;
         } else {
-            return `${this.died()} grâce à ${Color.Blue}${this.name}${Style.Reset}!`;
+            return `${target.died()} à cause de ${Color.Red}${this.name}${Style.Reset}!`;
         }
     }
-    protected override died(): string {
+    override died(): string {
         this.currentHealth = 0;
         return (`${Color.Red}${this.name}${Style.Reset} est mort !`)
     }

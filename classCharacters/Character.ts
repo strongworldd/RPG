@@ -92,7 +92,7 @@ export abstract class Character {
         return `${Color.Blue}${this.name}${Style.Reset} à récupéré ${regenNumber} mana et est désormais à ${this.currentMana} mana.`
     }
 
-    protected died() :string{
+    died() :string{
         this.currentHealth = 0;
         return (`${Color.Blue}${this.name}${Style.Reset} est mort !`)
     }
