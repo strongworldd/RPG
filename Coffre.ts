@@ -30,12 +30,16 @@ export class Coffre {
                 inventaire.add(item);
             }
             console.log("Vous avez ouvert le coffre et trouvé les objets suivants :");
-            droppedItems.forEach(item => prompt(item.name));
+            droppedItems.forEach(item => prompt(Color.Yellow+item.name+Style.Reset));
             return droppedItems;
         } else { 
             const damage = 20; 
+            if (joueur.currentHealth-damage > 0){
             joueur.currentHealth -= damage;
             prompt(`Le coffre était piégé ! ${Color.Blue}${joueur.name}${Style.Reset} subit ${damage} dégâts. Il lui reste ${Color.Cyan}${joueur.currentHealth}/${joueur.maxHealth} points de vie${Style.Reset}.`);
+            } else {
+                prompt(`Le coffre était piégé et ${Color.Blue}${joueur.name}${Style.Reset} en meurt`)
+            }
             return [];
         }
     }

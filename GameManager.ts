@@ -14,9 +14,10 @@ import { Monstre } from "./classCharacters/classMonstres/Monstre.ts";
 import { bagage, Characters } from "./GameManagerTest.ts";
 import { HalfStar } from "./classConsommables/HalfStar.ts";
 import { Color, Style } from "./Color.ts";
+
 export class GameManager{
     
-    salle = 1;
+    salle = 0;
 
     mainLoop(): void {
         const characters = Characters;
@@ -26,8 +27,8 @@ export class GameManager{
         this.nextSalle(characters, classMonsters, Bagage);
 
         do {
-            if (this.salle === 6) {
-                console.log(Style.ClearTerminal+"Félicitations ! Vous avez terminé 5 salles avec au moins un aventurier vivant !");
+            if (this.salle%5 === 0) {
+                console.log(Style.ClearTerminal + "Félicitations ! Vous avez terminé 5 salles avec au moins 1 aventurier vivant !");
                 prompt(`Pour vous récompenser voici une demi-étoile !`);
                 Bagage.add(new HalfStar());
                 let continuer = null
@@ -35,7 +36,6 @@ export class GameManager{
                     continuer = prompt("Voulez vous continuer à jouer ? [y,n]");
                     if (continuer === "y" || continuer === "yes") {
                         this.nextSalle(characters, classMonsters, Bagage);
-                        this.salle = 1;
                     } else if(continuer === "n" || continuer === "non"){
                         return;
                     }else{
@@ -50,17 +50,18 @@ export class GameManager{
     }
 
     nextSalle(characters :Character[], Monsters :(new () => Monstre)[], Bagage :Inventaire): void {
+        this.salle++;
         console.log(`🕌 Salle ${this.salle}`);
         this.resetCharacterSpeed(characters);
 
-        if (this.salle === 1 || this.salle === 3) {
+        if (this.salle%5 === 1 || this.salle%5 === 3) {
             this.combatAleatoire(characters, Monsters);
-        } else if (this.salle === 2 || this.salle === 4) {
+        } else if (this.salle%5 === 2 || this.salle%5 === 4) {
             this.ouvrirCoffre(characters, Bagage);
-        } else if (this.salle === 5) {
+        } else if (this.salle%5 === 0) {
             this.combatBoss(characters);
         }
-        this.salle++;
+        
     }
 
     private resetCharacterSpeed(characters: Character[]): void {

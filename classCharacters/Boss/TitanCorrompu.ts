@@ -22,8 +22,13 @@ export class TitanCorrompu extends Monstre {
 
         const random2 = Math.random();
         if (random2 < 0.7) {
+<<<<<<< HEAD
             text += `${Color.Red}${this.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !\n`;
             text += this.attack(cible);
+=======
+            // 70% chance
+            return `${Color.Red}${this.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !` + this.attack(cible);
+>>>>>>> origin/valentin
         } else {
             text += `${Color.Red}${this.name}${Style.Reset} frappe le sol, créant une onde de choc qui déséquilibre ses ennemis !\n`;
             aventuriers.forEach(aventurier => {
@@ -34,6 +39,7 @@ export class TitanCorrompu extends Monstre {
             });
 
             text += `${Color.Red}${this.name}${Style.Reset} concentre son énergie sombre et libère un coup titanesque sur le plus fort !\n`;
+<<<<<<< HEAD
             const strongest = aventuriers.reduce((prev, curr) => (prev.physicalAttack > curr.physicalAttack ? prev : curr));
             if (strongest.isAlive()) {
                 strongest.currentHealth -= 60;
@@ -46,5 +52,18 @@ export class TitanCorrompu extends Monstre {
             }
         }
         return text + "Appuyez sur entrer";
+=======
+            const cible = aventuriers.reduce((prev, curr) => (prev.physicalAttack > curr.physicalAttack ? prev : curr));
+            if (cible.isAlive()) {
+                cible.currentHealth -= 60;
+                if (cible.currentHealth <= 0) {
+                    text += `${Color.Blue}${cible.name}${Style.Reset} est écrasé sous la force du Titan Corrompu !\n`;
+                }else{
+                    text += `${Color.Blue}${cible.name}${Style.Reset} subit un coup titanesque de 60 dégâts ! Il ne lui reste plus que ${Color.Cyan}${cible.currentHealth}/${cible.maxHealth} points de vie${Style.Reset}.\n`;
+                }
+            }
+        }
+        return text + "Appuyez sur entrée"
+>>>>>>> origin/valentin
     }
 }

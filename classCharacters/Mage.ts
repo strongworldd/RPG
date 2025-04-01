@@ -13,7 +13,7 @@ export class Mage extends Character{
     }
 
     static override displayInfo(): string {
-        return `${Color.Blue}Mage${Style.Reset}     - ${Color.BrightRed}Attaque Physique: 10${Style.Reset} - ${Color.Green}Défense: 2${Style.Reset} - ${Color.BrightMagenta}Vitesse: 4${Style.Reset} - ${Color.Cyan}PV Max: 100${Style.Reset} - ${Color.Yellow}Mana Max: 100${Style.Reset}`;
+        return `${Color.Blue}Mage${Style.Reset}     - ${Color.BrightRed}Attaque Physique: 10${Style.Reset} - ${Color.Green}Défense: 2${Style.Reset} - ${Color.BrightMagenta}Vitesse: 4${Style.Reset} - ${Color.Cyan}PV Max: 100${Style.Reset} - ${Color.Yellow}Mana Max: 100${Style.Reset}\n${Color.Orange}Attaque spéciale:${Style.Reset} Attaque magique qui consomme du Mana qui fait 100 dégats, mais ignore la défense ennemie.`;
 }
 
     override specialAttack(target :Character){

@@ -21,7 +21,7 @@ export class DragonAncien extends Monstre {
         const random2 = Math.random();
         if (random2 < 0.7) {
             // 70% chance
-            return this.attack(cible) + `${Color.Red}${this.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !`;
+            return `${Color.Red}${this.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !` + this.attack(cible);
         } else {
             // 30% chance
         text += `${Color.Red}${this.name}${Style.Reset} rugit, intimidant ses ennemis et réduisant leur attaque !\n`;
@@ -38,11 +38,11 @@ export class DragonAncien extends Monstre {
                 if (aventurier.currentHealth <= 0) {
                     text += `${Color.Blue}${aventurier.name}${Style.Reset} est mort !\n`;
                 }else{
-                    text += `${Color.Blue}${aventurier.name}${Style.Reset} subit 40 dégâts ! Il ne lui reste plus que${Color.Cyan}${aventurier.currentHealth}/${aventurier.maxHealth} PV${Style.Reset}.\n`;
+                    text += `${Color.Blue}${aventurier.name}${Style.Reset} subit 40 dégâts ! Il ne lui reste plus que ${Color.Cyan}${aventurier.currentHealth}/${aventurier.maxHealth} points de vie${Style.Reset}.\n`;
                 }
             }
         });
-        return text + "Appuyez sur entrer"
+        return text + "Appuyez sur entrée"
     }
 }
 }

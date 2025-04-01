@@ -5,7 +5,11 @@ import { Color, Style } from "./Color.ts";
 import { DragonAncien } from "./classCharacters/Boss/DragonAncien.ts";
 import { LicheSombre } from "./classCharacters/Boss/LicheSombre.ts";
 import { TitanCorrompu } from "./classCharacters/Boss/TitanCorrompu.ts";
+<<<<<<< HEAD
 
+=======
+import { exit } from "jsr:@cliffy/internal@1.0.0-rc.7/runtime/exit";
+>>>>>>> origin/valentin
 export class Fight {
     private fighters: Character[];
     private currentTurnIndex: number = 0;
@@ -39,9 +43,7 @@ export class Fight {
         if (!currentFighter.isAlive()) {
             console.log(`❌ ${currentFighter.name} est K.O.`);
             return this.nextTurn();
-        }
-
-        if (this.adventurer.includes(currentFighter)) {
+        }else if (this.adventurer.includes(currentFighter)) {
             Menu.action(currentFighter, this.enemies, this.adventurer);
         } else {
             this.enemyAction(currentFighter as Monstre);
@@ -52,6 +54,7 @@ export class Fight {
     private enemyAction = (enemy: Monstre): void => {
         const vivantAventuriers = this.adventurer.filter(aventurier => aventurier.isAlive());
         let cible = vivantAventuriers[Math.floor(Math.random() * vivantAventuriers.length)];
+        
 
         if (cible) {
             const random = Math.random();
@@ -61,11 +64,19 @@ export class Fight {
                 const index = Math.floor(Math.random() * vivantAventuriers.length);
                 cible = vivantAventuriers[index];
             }
+<<<<<<< HEAD
 
             let attackMessage = "";
             if (enemy instanceof DragonAncien || enemy instanceof LicheSombre || enemy instanceof TitanCorrompu) {
                 attackMessage = "\n" + enemy.attackBoss(vivantAventuriers);
             } else {
+=======
+            
+            let attackMessage = ""
+            if(enemy instanceof DragonAncien || enemy instanceof LicheSombre || enemy instanceof TitanCorrompu){
+                attackMessage = enemy.attackBoss(vivantAventuriers)
+            }else{
+>>>>>>> origin/valentin
                 console.log(`\n${Color.Red}${enemy.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !`);
                 attackMessage = enemy.attackMonstre(cible);
             }
@@ -81,7 +92,7 @@ export class Fight {
 
         if (this.isTeamDefeated(this.fighters)) {
             console.log("💀 Tous les combattants sont K.O. ! Fin du combat.");
-            return;
+            exit(0);
         }
 
         while (!this.fighters[this.currentTurnIndex].isAlive()) {
@@ -95,7 +106,7 @@ export class Fight {
     public endFight = (): boolean => {
         if (this.isTeamDefeated(this.adventurer)) {
             console.log("💀 Tous les aventuriers sont K.O. ! GAME OVER.");
-            return true;
+            exit(0)
         } else if (this.isTeamDefeated(this.enemies)) {
             console.log("🏆 Victoire ! Les aventuriers ont triomphé du combat !");
             return true;
