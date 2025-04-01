@@ -5,11 +5,8 @@ import { Color, Style } from "./Color.ts";
 import { DragonAncien } from "./classCharacters/Boss/DragonAncien.ts";
 import { LicheSombre } from "./classCharacters/Boss/LicheSombre.ts";
 import { TitanCorrompu } from "./classCharacters/Boss/TitanCorrompu.ts";
-<<<<<<< HEAD
 
-=======
 import { exit } from "jsr:@cliffy/internal@1.0.0-rc.7/runtime/exit";
->>>>>>> origin/valentin
 export class Fight {
     private fighters: Character[];
     private currentTurnIndex: number = 0;
@@ -64,19 +61,12 @@ export class Fight {
                 const index = Math.floor(Math.random() * vivantAventuriers.length);
                 cible = vivantAventuriers[index];
             }
-<<<<<<< HEAD
-
-            let attackMessage = "";
-            if (enemy instanceof DragonAncien || enemy instanceof LicheSombre || enemy instanceof TitanCorrompu) {
-                attackMessage = "\n" + enemy.attackBoss(vivantAventuriers);
-            } else {
-=======
             
             let attackMessage = ""
             if(enemy instanceof DragonAncien || enemy instanceof LicheSombre || enemy instanceof TitanCorrompu){
                 attackMessage = enemy.attackBoss(vivantAventuriers)
             }else{
->>>>>>> origin/valentin
+
                 console.log(`\n${Color.Red}${enemy.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !`);
                 attackMessage = enemy.attackMonstre(cible);
             }

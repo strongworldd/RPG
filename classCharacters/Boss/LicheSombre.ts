@@ -34,31 +34,13 @@ export class LicheSombre extends Monstre {
             aventuriers.forEach(aventurier => {
                 if (aventurier.isAlive()) {
                     aventurier.currentHealth -= 20;
-<<<<<<< HEAD
-                    this.currentHealth = Math.min(this.maxHealth, this.currentHealth + 10);
-                    text += `${Color.Blue}${aventurier.name}${Style.Reset} subit 20 dégâts ! Il lui reste ${Color.Cyan}${aventurier.currentHealth}/${aventurier.maxHealth} PV${Style.Reset}.\n`;
-=======
                     this.currentHealth = Math.min(this.maxHealth, this.currentHealth + 10); // Se régénère avec le drain
                     text += `${Color.Blue}${aventurier.name}${Style.Reset} subit 20 dégâts ! Il ne lui reste plus que ${Color.Cyan}${aventurier.currentHealth}/${aventurier.maxHealth} points de vie${Style.Reset}.\n`;
->>>>>>> origin/valentin
                 }
             });
 
             text += `${Color.Red}${this.name}${Style.Reset} lance un sort maudit sur l'ennemi le plus faible !\n`;
-<<<<<<< HEAD
-            const weakest = aventuriers.reduce((prev, curr) => (prev.currentHealth < curr.currentHealth ? prev : curr));
-            if (weakest.isAlive()) {
-                weakest.currentHealth -= 50;
-                if (weakest.currentHealth <= 0) {
-                    weakest.currentHealth = 0;
-                    text += `${Color.Blue}${weakest.name}${Style.Reset} succombe à la malédiction !\n`;
-                } else {
-                    text += `${Color.Blue}${weakest.name}${Style.Reset} est frappé par une malédiction et subit 50 dégâts ! Il lui reste ${Color.Cyan}${weakest.currentHealth}/${weakest.maxHealth} PV${Style.Reset}.\n`;
-                }
-            }
-        }
-        return text + "Appuyez sur entrer";
-=======
+
             const cible = aventuriers.reduce((prev, curr) => (prev.currentHealth < curr.currentHealth ? prev : curr));
             if (cible.isAlive()) {
                 cible.currentHealth -= 50;
@@ -70,6 +52,5 @@ export class LicheSombre extends Monstre {
             }
         }
         return text + "Appuyez sur entrée"
->>>>>>> origin/valentin
     }
 }
