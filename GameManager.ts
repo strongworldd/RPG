@@ -14,6 +14,7 @@ import { Monstre } from "./classCharacters/classMonstres/Monstre.ts";
 import { bagage, Characters } from "./GameManagerTest.ts";
 import { HalfStar } from "./classConsommables/HalfStar.ts";
 import { Color, Style } from "./Color.ts";
+
 export class GameManager{
     
     salle = 0;
