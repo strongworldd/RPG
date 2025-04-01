@@ -2,7 +2,6 @@ import { Color, Style } from '../../Color.ts';
 import { Character } from '../Character.ts';
 
 export class Monstre extends Character {
-
     constructor(name: string, pv: number, attack: number, speed: number) {
         super(name, attack, 0, speed, pv, pv);
     }
@@ -11,11 +10,14 @@ export class Monstre extends Character {
     attackBoss = (_cibles :Character[]) :string => { return "nothing" }
     override specialAttack(){}
     protected override getColor(target: Monstre, attacking: number): string {
+        console.log(target.currentHealth)
+        console.log(attacking)
         if (target.currentHealth - attacking > 0) {
+            
             target.currentHealth -= attacking;
             return `${Color.Red}${this.name}${Style.Reset} inflige ${attacking} points de dégât à ${Color.Blue}${target.name}${Style.Reset}. Il ne lui reste plus que ${Color.BrightCyan}${target.currentHealth}/${target.maxHealth} points de vie${Style.Reset}.`;
         } else {
-            return `${this.died()} grâce à ${Color.Blue}${this.name}${Style.Reset}!`;
+            return `${target.died()} grâce à ${Color.Blue}${this.name}${Style.Reset}!`;
         }
     }
     protected override died(): string {

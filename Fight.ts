@@ -52,6 +52,7 @@ export class Fight {
     private enemyAction = (enemy: Monstre): void => {
         const vivantAventuriers = this.adventurer.filter(aventurier => aventurier.isAlive());
         let cible = vivantAventuriers[Math.floor(Math.random() * vivantAventuriers.length)];
+        
 
         if (cible) {
             const random = Math.random();
