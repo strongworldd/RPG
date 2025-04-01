@@ -42,7 +42,7 @@ export class DragonAncien extends Monstre {
                 }
             }
         });
-        return text + "Appuyez sur entrer"
+        return text + "Appuyez sur entrée"
     }
 }
 }

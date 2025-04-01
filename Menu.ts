@@ -33,19 +33,19 @@ export class Menu {
                 console.log(`${option.displayInfo()}`);
             }); 
             
-            prompt(`Appuyez sur Entrée pour afficher les descriptions des monstres...\n`);
+            prompt(`Appuyez sur Entrée pour continuer...\n`);
 
             console.log(`${Color.Yellow}=== Informations des Monstres ===${Style.Reset}`);
-            console.log(`${Color.Red}Vampire Sanguinaire${Style.Reset} - ${Color.BrightRed}Attaque: 25${Style.Reset} - ${Color.Green}Défense: 7${Style.Reset} - ${Color.Cyan}PV Max: 100${Style.Reset}`);
-            console.log(`${Color.Red}Spectre Hanté${Style.Reset}       - ${Color.BrightRed}Attaque: 20${Style.Reset} - ${Color.Green}Défense: 5${Style.Reset} - ${Color.Cyan}PV Max: 80${Style.Reset}`);
-            console.log(`${Color.Red}Golem de Pierre${Style.Reset}     - ${Color.BrightRed}Attaque: 15${Style.Reset} - ${Color.Green}Défense: 0${Style.Reset} - ${Color.Cyan}PV Max: 125${Style.Reset}`);
-            console.log(`${Color.Red}Chimère Mutante${Style.Reset}     - ${Color.BrightRed}Attaque: 20${Style.Reset} - ${Color.Green}Défense: 5${Style.Reset} - ${Color.Cyan}PV Max: 100${Style.Reset}`);
-            console.log(`${Color.Red}Basilic Venimeux${Style.Reset}    - ${Color.BrightRed}Attaque: 28${Style.Reset} - ${Color.Green}Défense: 6${Style.Reset} - ${Color.Cyan}PV Max: 80${Style.Reset}\n`);
+            console.log(`${Color.Red}Vampire Sanguinaire${Style.Reset} - ${Color.BrightRed}Attaque: 25${Style.Reset} - ${Color.Green}Défense: 7${Style.Reset} - ${Color.Cyan}PV Max: 100${Style.Reset}\n${Color.Orange}Première attaque:${Style.Reset} Se régénère de 10 PV`);
+            console.log(`${Color.Red}Spectre Hanté${Style.Reset}       - ${Color.BrightRed}Attaque: 20${Style.Reset} - ${Color.Green}Défense: 5${Style.Reset} - ${Color.Cyan}PV Max: 80${Style.Reset}\n${Color.Orange}Première attaque: ${Style.Reset}Devient éthéré et esquive les attaques jusqu'à son prochain tour`);
+            console.log(`${Color.Red}Golem de Pierre${Style.Reset}     - ${Color.BrightRed}Attaque: 15${Style.Reset} - ${Color.Green}Défense: 0${Style.Reset} - ${Color.Cyan}PV Max: 125${Style.Reset}\n${Color.Orange}Première attaque: ${Style.Reset}Active sa peau de pierre et augmente sa vie max de 50`);
+            console.log(`${Color.Red}Chimère Mutante${Style.Reset}     - ${Color.BrightRed}Attaque: 20${Style.Reset} - ${Color.Green}Défense: 5${Style.Reset} - ${Color.Cyan}PV Max: 100${Style.Reset}\n${Color.Orange}Première attaque: ${Style.Reset}Change de forme et augmente son attaque de 5`);
+            console.log(`${Color.Red}Basilic Venimeux${Style.Reset}    - ${Color.BrightRed}Attaque: 28${Style.Reset} - ${Color.Green}Défense: 6${Style.Reset} - ${Color.Cyan}PV Max: 80${Style.Reset}\n${Color.Orange}Première attaque: ${Style.Reset}Ralentit un aventurier de 1 point`);
 
             console.log(`${Color.Yellow}=== Informations des Boss ===${Style.Reset}`);
-            console.log(`${Color.Red}Dragon Ancien${Style.Reset}     - ${Color.BrightRed}Attaque: 50${Style.Reset} - ${Color.Green}Défense: 10${Style.Reset} - ${Color.Cyan}PV Max: 200${Style.Reset}`);
-            console.log(`${Color.Red}Liche Sombre${Style.Reset}      - ${Color.BrightRed}Attaque: 30${Style.Reset} - ${Color.Green}Défense: 10${Style.Reset} - ${Color.Cyan}PV Max: 175${Style.Reset}`);
-            console.log(`${Color.Red}Titan Corrompu${Style.Reset}    - ${Color.BrightRed}Attaque: 40${Style.Reset} - ${Color.Green}Défense: 10${Style.Reset} - ${Color.Cyan}PV Max: 200${Style.Reset}\n`);
+            console.log(`${Color.Red}Dragon Ancien${Style.Reset}     - ${Color.BrightRed}Attaque: 50${Style.Reset} - ${Color.Green}Défense: 10${Style.Reset} - ${Color.Cyan}PV Max: 200${Style.Reset}\n${Color.Orange}Première attaque: ${Style.Reset}Rugit, intimidant ses ennemis et réduisant leur attaque`);
+            console.log(`${Color.Red}Liche Sombre${Style.Reset}      - ${Color.BrightRed}Attaque: 30${Style.Reset} - ${Color.Green}Défense: 10${Style.Reset} - ${Color.Cyan}PV Max: 175${Style.Reset}\n${Color.Orange}Première attaque: ${Style.Reset}Invoque une aura de terreur, drainant la vitalité de ses ennemis`);
+            console.log(`${Color.Red}Titan Corrompu${Style.Reset}    - ${Color.BrightRed}Attaque: 40${Style.Reset} - ${Color.Green}Défense: 10${Style.Reset} - ${Color.Cyan}PV Max: 200${Style.Reset}\n${Color.Orange}Première attaque: ${Style.Reset}Frappe le sol, créant une onde de choc qui réduit la vitesse de ses ennemis`);
             prompt(`Appuyez sur Entrée pour continuer...`);
             return this.startMenu();
         } else if (!choices) {
