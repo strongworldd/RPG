@@ -10,7 +10,7 @@ export class Pretre extends Character {
     }
 
     static override displayInfo(): string {
-        return `${Color.Blue}Pretre${Style.Reset}   - ${Color.BrightRed}Attaque Physique: 15${Style.Reset} - ${Color.Green}Défense: 2${Style.Reset} - ${Color.BrightMagenta}Vitesse: 6${Style.Reset} - ${Color.Cyan}PV Max: 100${Style.Reset}\n${Color.Orange}Attaque spéciale: ${Style.Reset}Action de soin permettant de restaurer 25% des points de vie d'un allié ou de lui-même.`;
+        return `${Color.Blue}Pretre${Style.Reset}   - ${Color.BrightRed}Attaque Physique: 15${Style.Reset} - ${Color.Green}Défense: 2${Style.Reset} - ${Color.BrightMagenta}Vitesse: 6${Style.Reset} - ${Color.Cyan}PV Max: 100${Style.Reset}\n${Color.Orange}Attaque spéciale : ${Style.Reset}Action de soin permettant de restaurer 25% des points de vie d'un allié ou de lui-même.`;
 }
 
     override specialAttack(target: Character){

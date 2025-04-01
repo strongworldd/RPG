@@ -11,7 +11,7 @@ export class Barbare extends Character {
     }
 
     static override displayInfo(): string {
-        return `${Color.Blue}Barbare${Style.Reset}  - ${Color.BrightRed}Attaque Physique: 30${Style.Reset} - ${Color.Green}Défense: 3${Style.Reset} - ${Color.BrightMagenta}Vitesse: 6${Style.Reset} - ${Color.Cyan}PV Max: 100${Style.Reset}\n${Color.Orange}Attaque spéciale:${Style.Reset} Attaque un ennemi au hasard pour 130% des dégats physiques normaux (attaque - défense adverse)*1.3, mais il se blessera de 20% de sa vie`;
+        return `${Color.Blue}Barbare${Style.Reset}  - ${Color.BrightRed}Attaque Physique: 30${Style.Reset} - ${Color.Green}Défense: 3${Style.Reset} - ${Color.BrightMagenta}Vitesse: 6${Style.Reset} - ${Color.Cyan}PV Max: 100${Style.Reset}\n${Color.Orange}Attaque spéciale :${Style.Reset} Attaque un ennemi au hasard pour 130% des dégats physiques normaux (attaque - défense adverse)*1.3, mais il se blessera de 20% de sa vie.`;
 }
 
     override specialAttack(target :Monstre | Monstre[]){
