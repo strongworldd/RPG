@@ -23,7 +23,7 @@ export class LicheSombre extends Monstre {
         const random2 = Math.random();
         if (random2 < 0.7) {
             // 70% chance
-            return this.attack(cible) + `${Color.Red}${this.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !`;
+            return `${Color.Red}${this.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !` + this.attack(cible);
         } else {
             // 30% chance
             text += `${Color.Red}${this.name}${Style.Reset} invoque une aura de terreur, drainant la vitalité de ses ennemis !\n`;
@@ -31,7 +31,7 @@ export class LicheSombre extends Monstre {
                 if (aventurier.isAlive()) {
                     aventurier.currentHealth -= 20;
                     this.currentHealth = Math.min(this.maxHealth, this.currentHealth + 10); // Se régénère avec le drain
-                    text += `${Color.Blue}${aventurier.name}${Style.Reset} subit 20 dégâts ! Il ne lui reste plus que${Color.Cyan}${aventurier.currentHealth}/${aventurier.maxHealth} PV${Style.Reset}.\n`;
+                    text += `${Color.Blue}${aventurier.name}${Style.Reset} subit 20 dégâts ! Il ne lui reste plus que ${Color.Cyan}${aventurier.currentHealth}/${aventurier.maxHealth} points de vie${Style.Reset}.\n`;
                 }
             });
 
@@ -42,7 +42,7 @@ export class LicheSombre extends Monstre {
                 if (cible.currentHealth <= 0) {
                     text += `${Color.Blue}${cible.name}${Style.Reset} succombe à la malédiction !\n`;
                 }else{
-                    text += `${Color.Blue}${cible.name}${Style.Reset} est frappé par une malédiction et subit 50 dégâts ! Il ne lui reste plus que${Color.Cyan}${cible.currentHealth}/${cible.maxHealth} PV${Style.Reset}.\n`;
+                    text += `${Color.Blue}${cible.name}${Style.Reset} est frappé par une malédiction et subit 50 dégâts ! Il ne lui reste plus que ${Color.Cyan}${cible.currentHealth}/${cible.maxHealth} points de vie${Style.Reset}.\n`;
                 }
             }
         }

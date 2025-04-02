@@ -10,7 +10,7 @@ import { bagage } from "./GameManagerTest.ts";
 import { Color, Style } from "./Color.ts";
 
 export class Menu {
-    static alert :string =  `${Style.Erreur}Choix invalide. Veuillez choisir entre ${Style.Bold}1${Style.AfterNumberErreur}, ${Style.Bold}2${Style.AfterNumberErreur} ou ${Style.Bold}3${Style.AfterNumberErreur}.${Style.Reset}\n`;
+    static alert :string = `${Style.Erreur}Choix invalide. Veuillez choisir entre ${Style.Bold}1${Style.AfterNumberErreur}, ${Style.Bold}2${Style.AfterNumberErreur} ou ${Style.Bold}3${Style.AfterNumberErreur}.${Style.Reset}\n`;
     static startMenu(): Character[] {
         const options = [Guerrier, Mage, Paladin, Barbare, Pretre, Voleur];
 

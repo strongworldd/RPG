@@ -23,7 +23,7 @@ export class TitanCorrompu extends Monstre {
         const random2 = Math.random();
         if (random2 < 0.7) {
             // 70% chance
-            return this.attack(cible) + `${Color.Red}${this.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !`;
+            return `${Color.Red}${this.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !` + this.attack(cible);
         } else {
             text += `${Color.Red}${this.name}${Style.Reset} frappe le sol, créant une onde de choc qui déséquilibre ses ennemis !\n`;
             aventuriers.forEach(aventurier => {
@@ -40,7 +40,7 @@ export class TitanCorrompu extends Monstre {
                 if (cible.currentHealth <= 0) {
                     text += `${Color.Blue}${cible.name}${Style.Reset} est écrasé sous la force du Titan Corrompu !\n`;
                 }else{
-                    text += `${Color.Blue}${cible.name}${Style.Reset} subit un coup titanesque de 60 dégâts ! Il ne lui reste plus que${Color.Cyan}${cible.currentHealth}/${cible.maxHealth} PV${Style.Reset}.\n`;
+                    text += `${Color.Blue}${cible.name}${Style.Reset} subit un coup titanesque de 60 dégâts ! Il ne lui reste plus que ${Color.Cyan}${cible.currentHealth}/${cible.maxHealth} points de vie${Style.Reset}.\n`;
                 }
             }
         }
