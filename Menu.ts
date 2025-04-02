@@ -77,14 +77,22 @@ export class Menu {
         if (currentFighter instanceof Guerrier) {
             action = prompt(`Quelle action voulez vous effectuer ?\n1: ${Color.BrightRed}Attaquer ${Style.Reset}(${currentFighter.physicalAttack} dégats) \n2: ${Color.Yellow}Utiliser un objet${Style.Reset} \n`);
             if (!action || !["1", "2", ""].includes(action)) {
-                console.log(`${Style.Erreur}Choix invalide. Veuillez choisir entre ${Style.Bold}1${Style.AfterNumberErreur} ou ${Style.Bold}2${Style.AfterNumberErreur}.${Style.Reset}\n`);
-                return this.action(currentFighter, enemies, characters);
+                if (action === "") {
+                //nothing   
+                }else{
+                    console.log(`${Style.Erreur}Choix invalide. Veuillez choisir entre ${Style.Bold}1${Style.AfterNumberErreur} ou ${Style.Bold}2${Style.AfterNumberErreur}.${Style.Reset}\n`);
+                    return this.action(currentFighter, enemies, characters);
+                }
             }
         } else {
             action = prompt(`Quelle action voulez vous effectuer ? \n1: ${Color.BrightRed}Attaquer ${Style.Reset}(${currentFighter.physicalAttack} dégats) \n2: ${Color.Yellow}Utiliser un objet${Style.Reset} \n3: ${Color.Magenta}Action Spéciale${Style.Reset} \n`);
             if (!action || !["1", "2", "3", ""].includes(action)) {
-                console.log(this.alert);
-                return this.action(currentFighter, enemies, characters);
+                if (action === "") {
+                //nothing   
+                }else{
+                    console.log(this.alert);
+                    return this.action(currentFighter, enemies, characters);
+                }
             }
         }
     
