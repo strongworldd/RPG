@@ -22,10 +22,8 @@ export class LicheSombre extends Monstre {
 
         const random2 = Math.random();
         if (random2 < 0.7) {
-            // 70% chance
             return `${Color.Red}${this.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !` + this.attack(cible);
         } else {
-            // 30% chance
             text += `${Color.Red}${this.name}${Style.Reset} invoque une aura de terreur, drainant la vitalité de ses ennemis !\n`;
             aventuriers.forEach(aventurier => {
                 if (aventurier.isAlive()) {

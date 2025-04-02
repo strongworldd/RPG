@@ -22,7 +22,6 @@ export class TitanCorrompu extends Monstre {
 
         const random2 = Math.random();
         if (random2 < 0.7) {
-            // 70% chance
             return `${Color.Red}${this.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !` + this.attack(cible);
         } else {
             text += `${Color.Red}${this.name}${Style.Reset} frappe le sol, créant une onde de choc qui déséquilibre ses ennemis !\n`;

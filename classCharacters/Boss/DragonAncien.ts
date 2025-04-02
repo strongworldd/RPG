@@ -20,10 +20,8 @@ export class DragonAncien extends Monstre {
 
         const random2 = Math.random();
         if (random2 < 0.7) {
-            // 70% chance
             return `${Color.Red}${this.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !` + this.attack(cible);
         } else {
-            // 30% chance
         text += `${Color.Red}${this.name}${Style.Reset} rugit, intimidant ses ennemis et réduisant leur attaque !\n`;
         aventuriers.forEach(aventurier => {
             if (aventurier.isAlive()) {
