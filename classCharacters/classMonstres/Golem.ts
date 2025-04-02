@@ -16,7 +16,7 @@ export class Golem extends Monstre {
             this.currentHealth += 50;
             this.maxHealth += 50;
             this.hasUsedStoneSkin = true;
-            text = `\n${Color.Red}${this.name}${Style.Reset} active sa peau de pierre et augmente sa vie max de 50 !\n${Color.Red}${this.name}${Style.Reset} a désormais ${Color.Cyan}${this.currentHealth}/${this.maxHealth} points de vie${Style.Reset}`;
+            text = `\n${Color.Red}${this.name}${Style.Reset} active sa peau de pierre et augmente sa vie max de 50 !\n${Color.Red}${this.name}${Style.Reset} a désormais ${Color.Cyan}${this.currentHealth}/${this.maxHealth} points de vie${Style.Reset}.`;
         }
         return this.attack(aventuriers) + text
     }

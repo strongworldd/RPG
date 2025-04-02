@@ -57,10 +57,8 @@ export abstract class Character {
     protected getColor(target :Character, attacking :number) :string{
         if (target.currentHealth - attacking > 0) {
             target.currentHealth -= attacking;
-            console.log('caca2')
             return `${Color.Blue}${this.name}${Style.Reset} inflige ${attacking} points de dégât à ${Color.Red}${target.name}${Style.Reset}. Il ne lui reste plus que ${Color.BrightCyan}${target.currentHealth}/${target.maxHealth} points de vie${Style.Reset}.`;
         } else {
-            console.log('pipi2')
             return `${target.died()} grâce à ${Color.Blue}${this.name}${Style.Reset}!`;
         }
     }

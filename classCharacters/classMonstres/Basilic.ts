@@ -14,6 +14,6 @@ export class Basilic extends Monstre {
     private applyDebuff(aventurier: Character): string {
         const reduction = 1; 
         aventurier.speed = Math.max(0, aventurier.speed - reduction); 
-        return (`\n${Color.Blue}${aventurier.name}${Style.Reset} est ralenti de ${reduction} point ! Nouvelle vitesse : ${aventurier.speed}`);
+        return (`\n${Color.Blue}${aventurier.name}${Style.Reset} est ralenti de ${reduction} point ! Nouvelle vitesse : ${aventurier.speed}.`);
     }
 }

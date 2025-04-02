@@ -16,7 +16,7 @@ export class Spectre extends Monstre {
         if (this.unusedSkill) {
             this.unusedSkill = false
             this.esquiveAttack = true
-            text = `\n${Color.Red}${this.name}${Style.Reset} devient éthéré et esquive les attaques jusqu'à son prochain tour !`
+            text = `\n${Color.Red}${this.name}${Style.Reset} devient éthéré et esquive les attaques jusqu'à son prochain tour.`
         }else{
             this.esquiveAttack = false
         }

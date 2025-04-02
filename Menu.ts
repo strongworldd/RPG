@@ -14,7 +14,7 @@ export class Menu {
     static menuInfo(){
         const options = [Guerrier, Mage, Paladin, Barbare, Pretre, Voleur];
         console.log(`${Style.ClearTerminal}${Color.Yellow}=== Informations des Objets Consommables ===${Style.Reset}`);
-        console.log(`${Color.BrightMagenta}Ether${Style.Reset}             - ${Color.Cyan}Régénère Mana: 50${Style.Reset}`);
+        console.log(`${Color.BrightMagenta}Ether${Style.Reset}             - ${Color.BrightBlue}Régénère Mana: 50${Style.Reset}`);
         console.log(`${Color.BrightMagenta}Potion de soin${Style.Reset}    - ${Color.Green}Régénère Vie: 50${Style.Reset}`);
         console.log(`${Color.BrightMagenta}Morceau d'étoiles${Style.Reset} - ${Color.Green}Régénère Vie: 20${Style.Reset}  - ${Color.BrightGreen}Ressuscite avec: 20 PV${Style.Reset}`);
         console.log(`${Color.BrightMagenta}Demi-étoile${Style.Reset}       - ${Color.Green}Régénère Vie: 100${Style.Reset} - ${Color.BrightGreen}Ressuscite avec: 50 PV${Style.Reset}`);
@@ -71,7 +71,7 @@ export class Menu {
     }
     static action = (currentFighter: Character, enemies: Monstre[], characters: Character[]): void => {
         let action: string | null;
-        prompt(`\nC'est à ${Color.Blue}${currentFighter.name}${Style.Reset} de jouer. ${Color.Cyan}${currentFighter.currentHealth}/${currentFighter.maxHealth} PV${Style.Reset}\n${Style.Italic}[Appuyez sur Entrée]${Style.Reset}\n`);
+        console.log(`\nC'est à ${Color.Blue}${currentFighter.name}${Style.Reset} de jouer. ${Color.Cyan}${currentFighter.currentHealth}/${currentFighter.maxHealth} PV${Style.Reset}\n${Style.Italic}[Appuyez sur Entrée]${Style.Reset}\n`);
     
         // Vérifie si l'attaquant a une attaque spéciale
         if (currentFighter instanceof Guerrier) {
@@ -132,27 +132,33 @@ export class Menu {
         } else if (action === "3" && !(currentFighter instanceof Guerrier)) { // attack spécial
             if (currentFighter instanceof Pretre) {
                 let characterList = `Choisissez un allié à ${Color.Green}soigner${Style.Reset} :\n`;
-                livingCharacters.forEach((character, index) => {
-                    characterList += `${index + 1}. ${Color.Blue}${character.name}${Style.Reset}\n`;
+                const usable = livingCharacters.filter(character => character.currentHealth < character.maxHealth)
+                if (usable.length === 0) {
+                    console.log(`Vous n'avez aucun allié bléssé.`);
+                    return this.action(currentFighter, livingEnemies, characters);
+                }
+                usable.forEach((character, index) => {
+                    characterList += `${index + 1}. ${Color.Blue}${character.name} ${Color.Cyan}${character.currentHealth}/${character.maxHealth} PV${Style.Reset}\n`;
                 });
-    
                 let targetIndex = prompt(`${characterList}-1. ${Color.Red}retour${Style.Reset}\n `);
                 let index = parseInt(targetIndex ?? "", 10);
                 do{ 
                     if (targetIndex === "-1") {
                         return this.action(currentFighter, livingEnemies, characters);
-                    }else if (index <= 0 && index > livingCharacters.length) {
+                    }else if (index <= 0 && index >= livingCharacters.length) {
                         console.log(this.alert);
                         targetIndex = prompt(`${characterList}-1. ${Color.Red}retour${Style.Reset}\n `);
-                        index = parseInt(targetIndex ?? "", 10);
+                        index = parseInt(targetIndex ?? "", 10) - 1;
                     }
-                }while(index <= 0 && index > livingCharacters.length && targetIndex !== "-1");
-
+                }while(index <= 0 && index >= livingCharacters.length && targetIndex !== "-1" && targetIndex !== "");
+                if (targetIndex === "") {
+                    index = 0
+                }
                 let confirm: string|null = null;
-                do{confirm = prompt(`Veux-tu utiliser l'action spéciale ${Color.Magenta}${currentFighter.specialAttackName}${Style.Reset}? [y,n]`);}
+                do{confirm = prompt(`Veux-tu utiliser l'action spéciale ${Color.Magenta}${currentFighter.specialAttackName}${Style.Reset} sur ${Color.Blue}${livingCharacters[index].name}${Style.Reset}? [y,n]`);}
                 while(confirm !== "y" && confirm !== "n" && confirm !== "yes" && confirm !== "non" && confirm !== "");
                 if (confirm === "y" || confirm === "yes" || confirm === "") {
-                    prompt(`${currentFighter.specialAttack(livingCharacters[index-1])}\n${Style.Italic}[Appuyez sur Entrée]${Style.Reset}\n`);
+                    prompt(`${currentFighter.specialAttack(livingCharacters[index])}\n${Style.Italic}[Appuyez sur Entrée]${Style.Reset}\n`);
                 } else{
                     return this.action(currentFighter, livingEnemies, characters);
                 }
@@ -169,29 +175,34 @@ export class Menu {
                 let ennemieslist = ""
                 if(currentFighter instanceof Voleur){
                     ennemieslist = `Choisissez un ennemi à ${Color.Magenta}voler${Style.Reset} :\n`;
+                    livingEnemies.forEach((character, index) => {
+                        ennemieslist += `${index + 1}. ${Color.Red}${character.name}${Style.Reset}\n`;
+                    });
                 }else{
                     ennemieslist = `Choisissez un ennemi à ${Color.Magenta}attaquer${Style.Reset} :\n`;
+                    livingEnemies.forEach((character, index) => {
+                        ennemieslist += `${index + 1}. ${Color.Red}${character.name}${Color.Cyan} ${character.currentHealth}/${character.maxHealth} PV ${Style.Reset}\n`;
+                    });
                 }
-                livingEnemies.forEach((character, index) => {
-                    ennemieslist += `${index + 1}. ${Color.Red}${character.name}${Style.Reset}\n`;
-                });
+                
     
                 let targetIndex = prompt(`${ennemieslist}-1. ${Color.Red}retour${Style.Reset}\n `);
                 let index = parseInt(targetIndex ?? "", 10) - 1;
-                while (index < 0 && index >= livingEnemies.length && targetIndex !== "-1" && targetIndex !== "") {
+                do {
                     if (targetIndex === "-1") {
                         return this.action(currentFighter, livingEnemies, characters);
+                    }else if (targetIndex === "") {
+                        index = 0;
                     }else if (index < 0 && index >= livingEnemies.length) {
                         console.log(this.alert);
                         targetIndex = prompt(`${ennemieslist}-1. ${Color.Red}retour${Style.Reset}\n `);
                         index = parseInt(targetIndex ?? "", 10) - 1;
                     }
-                }
-                if (targetIndex === "") {
-                    index = 0;
-                }
+                }while (index < 0 && index >= livingEnemies.length && targetIndex !== "-1" && targetIndex !== "")
+                    console.log(`living ennemies : ${livingEnemies}\nliving ennemies length : ${livingEnemies.length}\nindex : ${index}`)
+                
                 let confirm: string|null = null;
-                do{confirm = prompt(`Veux-tu utiliser l'attack spéciale ${Color.Magenta}${currentFighter.specialAttackName}${Style.Reset} sur ${Color.Red}${livingEnemies[index].name}${Style.Reset}? [y,n]`);}
+                do{confirm = prompt(`${currentFighter instanceof Voleur ? `Veux-tu utiliser l'action spéciale ${Color.Magenta}${currentFighter.specialAttackName}${Style.Reset} sur ${Color.Red}${livingEnemies[index].name}${Style.Reset}? [y,n]`:`Veux-tu utiliser l'attack spéciale ${Color.Magenta}${currentFighter.specialAttackName}${Style.Reset} sur ${Color.Red}${livingEnemies[index].name}${Style.Reset}? [y,n]`}`);}
                 while(confirm !== "y" && confirm !== "n" && confirm !== "yes" && confirm !== "non" && confirm !== "");
 
                 if (confirm === "y" || confirm === "yes" || confirm === "") {

@@ -21,19 +21,19 @@ export class Voleur extends Character{
     override specialAttack(target :Character){
         const chance = Math.random()*100
         if (chance < 40) {
-            return `${Color.Blue}${this.name}${Style.Reset} n'a rien voler à ${Color.Red}${target.name}${Style.Reset}`;
+            return `${Color.Blue}${this.name}${Style.Reset} n'a rien voler à ${Color.Red}${target.name}${Style.Reset}.`;
         } else if (chance < 70) {
             bagage.add(new HealPotion())
-            return `${Color.Blue}${this.name}${Style.Reset} a voler une potion de soin à ${Color.Red}${target.name}${Style.Reset}`;
+            return `${Color.Blue}${this.name}${Style.Reset} a voler une ${Color.Yellow}potion de soin${Style.Reset} à ${Color.Red}${target.name}${Style.Reset}.`;
         } else if (chance < 85) {
             bagage.add(new StarShard())
-            return `${Color.Blue}${this.name}${Style.Reset} a voler un fragement d'étoile à ${Color.Red}${target.name}${Style.Reset}`;
+            return `${Color.Blue}${this.name}${Style.Reset} a voler un ${Color.Yellow}fragement d'étoile${Style.Reset} à ${Color.Red}${target.name}${Style.Reset}.`;
         } else if (chance < 95) {
             bagage.add(new Ether())
-            return `${Color.Blue}${this.name}${Style.Reset} a voler un ether à ${Color.Red}${target.name}${Style.Reset}`;
+            return `${Color.Blue}${this.name}${Style.Reset} a voler un ${Color.Yellow}ether${Style.Reset} à ${Color.Red}${target.name}${Style.Reset}.`;
         } else {
             bagage.add(new HalfStar())
-            return `${Color.Blue}${this.name}${Style.Reset} a voler une demi-étoile à ${Color.Red}${target.name}${Style.Reset}`;
+            return `${Color.Blue}${this.name}${Style.Reset} a voler une ${Color.Yellow}demi-étoile${Style.Reset} à ${Color.Red}${target.name}${Style.Reset}.`;
         }
     }
 }
