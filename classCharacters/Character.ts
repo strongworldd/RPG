@@ -89,7 +89,7 @@ export abstract class Character {
         }else{
             this.currentMana += regenNumber
         }
-        return `${Color.Blue}${this.name}${Style.Reset} à récupéré ${regenNumber} mana et est désormais à ${this.currentMana} mana.`
+        return `${Color.Blue}${this.name}${Style.Reset} à récupéré ${Color.Green}${regenNumber}${Style.Reset} mana et est désormais à ${Color.Cyan}${this.currentMana}/${this.maxMana} mana${Style.Reset}.`
     }
 
     died() :string{
@@ -99,7 +99,7 @@ export abstract class Character {
 
     revive = (healRevive :number) :string => {
         this.currentHealth = healRevive;  
-        return `${this.name} ressuscite avec ${healRevive} points de vie.`
+        return `${Color.Blue}${this.name}${Style.Reset} ressuscite avec ${Color.Cyan}${this.currentHealth}/${this.maxHealth} points de vie${Style.Reset}.`
     }
 
     isAlive() :boolean {

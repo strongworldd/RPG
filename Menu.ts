@@ -14,10 +14,10 @@ export class Menu {
     static menuInfo(){
         const options = [Guerrier, Mage, Paladin, Barbare, Pretre, Voleur];
         console.log(`${Style.ClearTerminal}${Color.Yellow}=== Informations des Objets Consommables ===${Style.Reset}`);
-        console.log(`${Color.BrightMagenta}Ether${Style.Reset}             - ${Color.BrightBlue}Régénère Mana: 50${Style.Reset}`);
-        console.log(`${Color.BrightMagenta}Potion de soin${Style.Reset}    - ${Color.Green}Régénère Vie: 50${Style.Reset}`);
-        console.log(`${Color.BrightMagenta}Morceau d'étoiles${Style.Reset} - ${Color.Green}Régénère Vie: 20${Style.Reset}  - ${Color.BrightGreen}Ressuscite avec: 20 PV${Style.Reset}`);
-        console.log(`${Color.BrightMagenta}Demi-étoile${Style.Reset}       - ${Color.Green}Régénère Vie: 100${Style.Reset} - ${Color.BrightGreen}Ressuscite avec: 50 PV${Style.Reset}`);
+        console.log(`${Color.BrightMagenta}Ether${Style.Reset}             - ${Color.BrightBlue}Régénère Mana : 50${Style.Reset}`);
+        console.log(`${Color.BrightMagenta}Potion de soin${Style.Reset}    - ${Color.Green}Régénère Vie : 50${Style.Reset}`);
+        console.log(`${Color.BrightMagenta}Morceau d'étoiles${Style.Reset} - ${Color.Green}Régénère Vie : 20${Style.Reset}  - ${Color.BrightGreen}Ressuscite avec : 20 PV${Style.Reset}`);
+        console.log(`${Color.BrightMagenta}Demi-étoile${Style.Reset}       - ${Color.Green}Régénère Vie : 100${Style.Reset} - ${Color.BrightGreen}Ressuscite avec : 50 PV${Style.Reset}`);
         console.log(`\n${Color.Yellow}=== Informations des Aventuriers ===${Style.Reset}`);
         options.forEach(option => {
             console.log(`${option.displayInfo()}`);
@@ -25,19 +25,19 @@ export class Menu {
         
         prompt(`\nAppuyez sur Entrée pour continuer...`);
         console.log(`\n${Color.Yellow}=== Informations des Monstres ===${Style.Reset}`);
-        console.log(`${Color.Red}Vampire Sanguinaire${Style.Reset} - ${Color.BrightRed}Attaque: 25${Style.Reset} - ${Color.Green}Défense: 7${Style.Reset} - ${Color.Cyan}PV Max: 100${Style.Reset}\n${Color.Orange}Première attaque:${Style.Reset} Se régénère de 10 PV`);
-        console.log(`${Color.Red}Spectre Hanté${Style.Reset}       - ${Color.BrightRed}Attaque: 20${Style.Reset} - ${Color.Green}Défense: 5${Style.Reset} - ${Color.Cyan}PV Max: 80${Style.Reset}\n${Color.Orange}Première attaque: ${Style.Reset}Devient éthéré et esquive les attaques jusqu'à son prochain tour`);
-        console.log(`${Color.Red}Golem de Pierre${Style.Reset}     - ${Color.BrightRed}Attaque: 15${Style.Reset} - ${Color.Green}Défense: 0${Style.Reset} - ${Color.Cyan}PV Max: 125${Style.Reset}\n${Color.Orange}Première attaque: ${Style.Reset}Active sa peau de pierre et augmente sa vie max de 50`);
-        console.log(`${Color.Red}Chimère Mutante${Style.Reset}     - ${Color.BrightRed}Attaque: 20${Style.Reset} - ${Color.Green}Défense: 5${Style.Reset} - ${Color.Cyan}PV Max: 100${Style.Reset}\n${Color.Orange}Première attaque: ${Style.Reset}Change de forme et augmente son attaque de 5`);
-        console.log(`${Color.Red}Basilic Venimeux${Style.Reset}    - ${Color.BrightRed}Attaque: 28${Style.Reset} - ${Color.Green}Défense: 6${Style.Reset} - ${Color.Cyan}PV Max: 80${Style.Reset}\n${Color.Orange}Première attaque: ${Style.Reset}Ralentit un aventurier de 1 point`);
+        console.log(`${Color.Red}Vampire Sanguinaire${Style.Reset} - ${Color.BrightRed}Attaque : 25${Style.Reset} - ${Color.Green}Défense : 7${Style.Reset} - ${Color.Cyan}PV Max : 100${Style.Reset}\n${Color.Orange}Première attaque :${Style.Reset} Se régénère de 10 points de vie.`);
+        console.log(`${Color.Red}Spectre Hanté${Style.Reset}       - ${Color.BrightRed}Attaque : 20${Style.Reset} - ${Color.Green}Défense : 5${Style.Reset} - ${Color.Cyan}PV Max : 80${Style.Reset}\n${Color.Orange}Première attaque : ${Style.Reset}Devient éthéré et esquive les attaques jusqu'à son prochain tour.`);
+        console.log(`${Color.Red}Golem de Pierre${Style.Reset}     - ${Color.BrightRed}Attaque : 15${Style.Reset} - ${Color.Green}Défense : 0${Style.Reset} - ${Color.Cyan}PV Max : 125${Style.Reset}\n${Color.Orange}Première attaque : ${Style.Reset}Active sa peau de pierre et augmente sa vie max de 50.`);
+        console.log(`${Color.Red}Chimère Mutante${Style.Reset}     - ${Color.BrightRed}Attaque : 20${Style.Reset} - ${Color.Green}Défense : 5${Style.Reset} - ${Color.Cyan}PV Max : 100${Style.Reset}\n${Color.Orange}Première attaque : ${Style.Reset}Change de forme et augmente son attaque de 5.`);
+        console.log(`${Color.Red}Basilic Venimeux${Style.Reset}    - ${Color.BrightRed}Attaque : 28${Style.Reset} - ${Color.Green}Défense : 6${Style.Reset} - ${Color.Cyan}PV Max : 80${Style.Reset}\n${Color.Orange}Première attaque : ${Style.Reset}Ralentit un aventurier de 1 point.`);
         console.log(`\n${Color.Yellow}=== Informations des Boss ===${Style.Reset}`);
-        console.log(`${Color.Red}Dragon Ancien${Style.Reset}     - ${Color.BrightRed}Attaque: 50${Style.Reset} - ${Color.Green}Défense: 10${Style.Reset} - ${Color.Cyan}PV Max: 200${Style.Reset}\n${Color.Orange}Première attaque: ${Style.Reset}Rugit, intimidant ses ennemis et réduisant leur attaque`);
-        console.log(`${Color.Red}Liche Sombre${Style.Reset}      - ${Color.BrightRed}Attaque: 30${Style.Reset} - ${Color.Green}Défense: 10${Style.Reset} - ${Color.Cyan}PV Max: 175${Style.Reset}\n${Color.Orange}Première attaque: ${Style.Reset}Invoque une aura de terreur, drainant la vitalité de ses ennemis`);
-        console.log(`${Color.Red}Titan Corrompu${Style.Reset}    - ${Color.BrightRed}Attaque: 40${Style.Reset} - ${Color.Green}Défense: 10${Style.Reset} - ${Color.Cyan}PV Max: 200${Style.Reset}\n${Color.Orange}Première attaque: ${Style.Reset}Frappe le sol, créant une onde de choc qui réduit la vitesse de ses ennemis`);
+        console.log(`${Color.Red}Dragon Ancien${Style.Reset}     - ${Color.BrightRed}Attaque : 50${Style.Reset} - ${Color.Green}Défense : 10${Style.Reset} - ${Color.Cyan}PV Max : 200${Style.Reset}\n${Color.Orange}Première attaque : ${Style.Reset}${Color.Violet}Inconnue.${Style.Reset}`);//Rugit, intimidant ses ennemis et réduisant leur attaque.`);
+        console.log(`${Color.Red}Liche Sombre${Style.Reset}      - ${Color.BrightRed}Attaque : 30${Style.Reset} - ${Color.Green}Défense : 10${Style.Reset} - ${Color.Cyan}PV Max : 175${Style.Reset}\n${Color.Orange}Première attaque : ${Style.Reset}${Color.Violet}Inconnue.${Style.Reset}`);//Invoque une aura de terreur, drainant la vitalité de ses ennemis.`);
+        console.log(`${Color.Red}Titan Corrompu${Style.Reset}    - ${Color.BrightRed}Attaque : 40${Style.Reset} - ${Color.Green}Défense : 10${Style.Reset} - ${Color.Cyan}PV Max : 200${Style.Reset}\n${Color.Orange}Première attaque : ${Style.Reset}${Color.Violet}Inconnue.${Style.Reset}`);//Frappe le sol, créant une onde de choc qui réduit la vitesse de ses ennemis.`);
         prompt(`\nAppuyez sur Entrée pour continuer...`);
     }
     
-    static alert :string = `${Style.Erreur}Choix invalide. Veuillez choisir entre ${Style.Bold}1${Style.AfterNumberErreur}, ${Style.Bold}2${Style.AfterNumberErreur} ou ${Style.Bold}3${Style.AfterNumberErreur}.${Style.Reset}\n`;
+    static alert :string = `${Style.Erreur}${Style.Bold}Choix invalide. Veuillez entrez un chiffre correcte.${Style.Reset}\n`;
     static startMenu(): Character[] {
         if (this.firstOpen) {
             this.firstOpen = false
@@ -250,7 +250,7 @@ export class Menu {
                         possiblechoices.push(...livingCharacters.filter(character => character.currentHealth != character.maxHealth), ...deadCharacters)
                     } else if (selectedItem.name === "Ether") {
                     livingCharacters.filter(character => character.currentMana != character.maxMana).forEach((character, index) => {
-                        userList += `${index + 1}. ${Color.Blue}${character.name} ${Style.Reset} ${Color.BrightCyan}${character.currentHealth}/${character.maxHealth} PV ${character.currentMana} MP${Style.Reset}\n`;
+                        userList += `${index + 1}. ${Color.Blue}${character.name} ${Color.Cyan}${character.currentMana}/${character.maxMana} Mana${Style.Reset}\n`;
                     });
                     possiblechoices.push(...livingCharacters.filter(character => character.currentMana != character.maxMana))
                     }  

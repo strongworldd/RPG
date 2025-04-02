@@ -10,8 +10,8 @@ export class Paladin extends Character {
     }
 
     static override displayInfo(): string {
-        return `${Color.Blue}Paladin${Style.Reset}  - ${Color.BrightRed}Attaque Physique: 20${Style.Reset} - ${Color.Green}Défense: 8${Style.Reset} - ${Color.BrightMagenta}Vitesse: 7${Style.Reset} - ${Color.Cyan}PV Max: 100${Style.Reset}\n${Color.Orange}Attaque spéciale:${Style.Reset} Cible tous les ennemis, leur infligeant 40% des dégats d'une attaque physique`;
-}
+        return `${Color.Blue}Paladin${Style.Reset}  - ${Color.BrightRed}Attaque Physique: 20${Style.Reset} - ${Color.Green}Défense: 8${Style.Reset} - ${Color.BrightMagenta}Vitesse: 7${Style.Reset} - ${Color.Cyan}PV Max: 100${Style.Reset}\n${Color.Orange}Attaque spéciale:${Style.Reset} Cible tous les ennemis, leur infligeant 40% des dégats d'une attaque physique.`;
+    }
 
     override specialAttack(target :Character | Character[]){
         let res = ""
