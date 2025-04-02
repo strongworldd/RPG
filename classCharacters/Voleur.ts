@@ -15,35 +15,30 @@ export class Voleur extends Character{
     }
 
     static override displayInfo(): string {
-        return `${Color.Blue}Voleur${Style.Reset}   - ${Color.BrightRed}Attaque Physique: 20${Style.Reset} - ${Color.Green}Défense: 5${Style.Reset} - ${Color.BrightMagenta}Vitesse: 8${Style.Reset} - ${Color.Cyan}PV Max: 100${Style.Reset}\n${Color.Orange}Attaque spéciale: ${Style.Reset}Vole un objet : 40% de chances de ne rien voler, 30% d'obtenir une potion, 15% d'obtenir un fragment d'étoile, 10% d'obtenir un éther et 5% d'obtenir une demi-étoile.`;
+        return `${Color.Blue}Voleur${Style.Reset}   - ${Color.BrightRed}Attaque Physique: 20${Style.Reset} - ${Color.Green}Défense: 5${Style.Reset} - ${Color.BrightMagenta}Vitesse: 8${Style.Reset} - ${Color.Cyan}PV Max: 100${Style.Reset}\n${Color.Orange}Attaque spéciale: ${Style.Reset}Vole un objet : 40% de chances de ne rien voler, 30% d'obtenir une potion, 15% d'obtenir un fragment d'étoile, 10% d'obtenir un éther et 5% d'obtenir une demi-étoile.\n${Color.LightPurple}Compétence secrète: ${Color.Violet}Inconnue${Style.Reset}.`;
     }
 
-    override specialAttack(target: Character): string {
-        // Vérifier si la cible a 10 PV ou moins
+    override specialAttack(target :Character){
         if (target.currentHealth < 10) {
-            bagage.add(new HalfStar());
-            return `${Color.Blue}${this.name}${Style.Reset} a volé une ${Color.Yellow}demi-étoile${Style.Reset} à ${Color.Red}${target.name}${Style.Reset} car il est gravement affaibli.`;
-        }
+        bagage.add(new HalfStar());
+        return `${Color.Blue}${this.name}${Style.Reset} a voler une ${Color.Yellow}demi-étoile${Style.Reset} à ${Color.Red}${target.name}${Style.Reset} car il est gravement affaibli.`;
+    }
 
-        const healthPercentage = (target.currentHealth / target.maxHealth) * 100;
-        const chance = Math.random() * 100;
-        const rareBoost = 100 - healthPercentage;
-        const commonBoost = healthPercentage;
-
-        if (chance < 40 + commonBoost * 0.3) {
-            return `${Color.Blue}${this.name}${Style.Reset} n'a rien volé à ${Color.Red}${target.name}${Style.Reset}.`;
-        } else if (chance < 70 + commonBoost * 0.2) {
-            bagage.add(new HealPotion());
-            return `${Color.Blue}${this.name}${Style.Reset} a volé une ${Color.Yellow}potion de soin${Style.Reset} à ${Color.Red}${target.name}${Style.Reset}.`;
-        } else if (chance < 85 + rareBoost * 0.2) {
-            bagage.add(new StarShard());
-            return `${Color.Blue}${this.name}${Style.Reset} a volé un ${Color.Yellow}fragment d'étoile${Style.Reset} à ${Color.Red}${target.name}${Style.Reset}.`;
-        } else if (chance < 95 + rareBoost * 0.1) {
-            bagage.add(new Ether());
-            return `${Color.Blue}${this.name}${Style.Reset} a volé un ${Color.Yellow}éther${Style.Reset} à ${Color.Red}${target.name}${Style.Reset}.`;
+        const chance = Math.random()*100
+        if (chance < 40) {
+            return `${Color.Blue}${this.name}${Style.Reset} n'a rien voler à ${Color.Red}${target.name}${Style.Reset}.`;
+        } else if (chance < 70) {
+            bagage.add(new HealPotion())
+            return `${Color.Blue}${this.name}${Style.Reset} a voler une ${Color.Yellow}potion de soin${Style.Reset} à ${Color.Red}${target.name}${Style.Reset}.`;
+        } else if (chance < 85) {
+            bagage.add(new StarShard())
+            return `${Color.Blue}${this.name}${Style.Reset} a voler un ${Color.Yellow}fragement d'étoile${Style.Reset} à ${Color.Red}${target.name}${Style.Reset}.`;
+        } else if (chance < 95) {
+            bagage.add(new Ether())
+            return `${Color.Blue}${this.name}${Style.Reset} a voler un ${Color.Yellow}ether${Style.Reset} à ${Color.Red}${target.name}${Style.Reset}.`;
         } else {
-            bagage.add(new HalfStar());
-            return `${Color.Blue}${this.name}${Style.Reset} a volé une ${Color.Yellow}demi-étoile${Style.Reset} à ${Color.Red}${target.name}${Style.Reset}.`;
+            bagage.add(new HalfStar())
+            return `${Color.Blue}${this.name}${Style.Reset} a voler une ${Color.Yellow}demi-étoile${Style.Reset} à ${Color.Red}${target.name}${Style.Reset}.`;
         }
     }
 }
