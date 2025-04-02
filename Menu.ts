@@ -71,11 +71,11 @@ export class Menu {
     }
     static action = (currentFighter: Character, enemies: Monstre[], characters: Character[]): void => {
         let action: string | null;
-        console.log(`\nC'est à ${Color.Blue}${currentFighter.name}${Style.Reset} de jouer. ${Color.Cyan}${currentFighter.currentHealth}/${currentFighter.maxHealth} PV${Style.Reset}\n${Style.Italic}[Appuyez sur Entrée]${Style.Reset}\n`);
+        console.log(`\nC'est à ${Color.Blue}${currentFighter.name}${Style.Reset} de jouer. ${Color.Cyan}${currentFighter.currentHealth}/${currentFighter.maxHealth} PV${Style.Reset}`);
     
         // Vérifie si l'attaquant a une attaque spéciale
         if (currentFighter instanceof Guerrier) {
-            action = prompt(`Quelle action voulez vous effectuer?\n1: ${Color.BrightRed}Attaquer ${Style.Reset}(${currentFighter.physicalAttack} dégats) \n2: ${Color.Yellow}Utiliser un objet${Style.Reset} \n`);
+            action = prompt(`Quelle action voulez vous effectuer ?\n1: ${Color.BrightRed}Attaquer ${Style.Reset}(${currentFighter.physicalAttack} dégats) \n2: ${Color.Yellow}Utiliser un objet${Style.Reset} \n`);
             if (!action || !["1", "2", ""].includes(action)) {
                 if (action === "") {
                     //console.log("nothing")
@@ -85,7 +85,7 @@ export class Menu {
                 }
             }
         } else {
-            action = prompt(`Quelle action voulez vous effectuer? \n1: ${Color.BrightRed}Attaquer ${Style.Reset}(${currentFighter.physicalAttack} dégats) \n2: ${Color.Yellow}Utiliser un objet${Style.Reset} \n3: ${Color.Magenta}Action Spéciale${Style.Reset} \n`);
+            action = prompt(`Quelle action voulez vous effectuer ? \n1: ${Color.BrightRed}Attaquer ${Style.Reset}(${currentFighter.physicalAttack} dégats) \n2: ${Color.Yellow}Utiliser un objet${Style.Reset} \n3: ${Color.Magenta}Action Spéciale${Style.Reset} \n`);
             if (!action || !["1", "2", "3", ""].includes(action)) {
                 if (action === "") {
                     //console.log("nothing")
@@ -131,35 +131,41 @@ export class Menu {
             }
         } else if (action === "3" && !(currentFighter instanceof Guerrier)) { // attack spécial
             if (currentFighter instanceof Pretre) {
-                let characterList = `Choisissez un allié à ${Color.Green}soigner${Style.Reset} :\n`;
-                const usable = livingCharacters.filter(character => character.currentHealth < character.maxHealth)
+                const usable = livingCharacters.filter(character => character.currentHealth < character.maxHealth);
                 if (usable.length === 0) {
-                    console.log(`Vous n'avez aucun allié bléssé.`);
+                    console.log(`Vous n'avez aucun allié blessé.`);
                     return this.action(currentFighter, livingEnemies, characters);
                 }
+                let characterList = `Choisissez un allié à ${Color.Green}soigner${Style.Reset} :\n`;
                 usable.forEach((character, index) => {
                     characterList += `${index + 1}. ${Color.Blue}${character.name} ${Color.Cyan}${character.currentHealth}/${character.maxHealth} PV${Style.Reset}\n`;
                 });
-                let targetIndex = prompt(`${characterList}-1. ${Color.Red}retour${Style.Reset}\n `);
-                let index = parseInt(targetIndex ?? "", 10);
-                do{ 
+            
+                let targetIndex: string | null = null;
+                let index: number = -1;
+                do {
+                    targetIndex = prompt(`${characterList}-1. ${Color.Red}retour${Style.Reset}\n `);
                     if (targetIndex === "-1") {
                         return this.action(currentFighter, livingEnemies, characters);
-                    }else if (index <= 0 && index >= livingCharacters.length) {
-                        console.log(this.alert);
-                        targetIndex = prompt(`${characterList}-1. ${Color.Red}retour${Style.Reset}\n `);
-                        index = parseInt(targetIndex ?? "", 10) - 1;
                     }
-                }while(index <= 0 && index >= livingCharacters.length && targetIndex !== "-1" && targetIndex !== "");
-                if (targetIndex === "") {
-                    index = 0
-                }
-                let confirm: string|null = null;
-                do{confirm = prompt(`Veux-tu utiliser l'action spéciale ${Color.Magenta}${currentFighter.specialAttackName}${Style.Reset} sur ${Color.Blue}${livingCharacters[index].name}${Style.Reset}? [y,n]`);}
-                while(confirm !== "y" && confirm !== "n" && confirm !== "yes" && confirm !== "non" && confirm !== "");
+                    if (targetIndex === "") {
+                        index = 0
+                        break
+                    }
+                    index = parseInt(targetIndex ?? "", 10) - 1;
+                    if (isNaN(index) || index < 0 || index >= usable.length) {
+                        console.log(this.alert);
+                    }
+                } while (isNaN(index) || index < 0 || index >= usable.length);
+                const target = usable[index];
+                let confirm: string | null = null;
+                do {
+                    confirm = prompt(`Veux-tu utiliser l'action spéciale ${Color.Magenta}${currentFighter.specialAttackName}${Style.Reset} sur ${Color.Blue}${target.name}${Style.Reset} ? [y,n]`);
+                } while (confirm !== "y" && confirm !== "n" && confirm !== "yes" && confirm !== "non" && confirm !== "");
+            
                 if (confirm === "y" || confirm === "yes" || confirm === "") {
-                    prompt(`${currentFighter.specialAttack(livingCharacters[index])}\n${Style.Italic}[Appuyez sur Entrée]${Style.Reset}\n`);
-                } else{
+                    prompt(`${currentFighter.specialAttack(target)}\n${Style.Italic}[Appuyez sur Entrée]${Style.Reset}\n`);
+                } else {
                     return this.action(currentFighter, livingEnemies, characters);
                 }
             } else if(currentFighter instanceof Paladin || currentFighter instanceof Barbare){
@@ -184,23 +190,20 @@ export class Menu {
                         ennemieslist += `${index + 1}. ${Color.Red}${character.name}${Color.Cyan} ${character.currentHealth}/${character.maxHealth} PV ${Style.Reset}\n`;
                     });
                 }
-                
-    
                 let targetIndex = prompt(`${ennemieslist}-1. ${Color.Red}retour${Style.Reset}\n `);
                 let index = parseInt(targetIndex ?? "", 10) - 1;
                 do {
                     if (targetIndex === "-1") {
                         return this.action(currentFighter, livingEnemies, characters);
-                    }else if (targetIndex === "") {
-                        index = 0;
-                    }else if (index < 0 && index >= livingEnemies.length) {
+                    }else if (index < 0 || index >= livingEnemies.length) {
                         console.log(this.alert);
                         targetIndex = prompt(`${ennemieslist}-1. ${Color.Red}retour${Style.Reset}\n `);
                         index = parseInt(targetIndex ?? "", 10) - 1;
                     }
-                }while (index < 0 && index >= livingEnemies.length && targetIndex !== "-1" && targetIndex !== "")
-                    console.log(`living ennemies : ${livingEnemies}\nliving ennemies length : ${livingEnemies.length}\nindex : ${index}`)
-                
+                }while (index < 0 || index >= livingEnemies.length && targetIndex !== "-1" && targetIndex !== "")
+                if (targetIndex === "") {
+                    index = 0;
+                }
                 let confirm: string|null = null;
                 do{confirm = prompt(`${currentFighter instanceof Voleur ? `Veux-tu utiliser l'action spéciale ${Color.Magenta}${currentFighter.specialAttackName}${Style.Reset} sur ${Color.Red}${livingEnemies[index].name}${Style.Reset}? [y,n]`:`Veux-tu utiliser l'attack spéciale ${Color.Magenta}${currentFighter.specialAttackName}${Style.Reset} sur ${Color.Red}${livingEnemies[index].name}${Style.Reset}? [y,n]`}`);}
                 while(confirm !== "y" && confirm !== "n" && confirm !== "yes" && confirm !== "non" && confirm !== "");
