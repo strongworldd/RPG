@@ -3,7 +3,7 @@ import { Consommable } from "./Consommable.ts";
 
 export class Ether extends Consommable{
     constructor(){
-        super("Ether", 0, 30, 0, 0, 0)
+        super("Ether", 0, 50, 0, 0, 0)
     }
 
     override use(target :Character){

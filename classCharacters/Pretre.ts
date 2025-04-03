@@ -11,7 +11,7 @@ export class Pretre extends Character {
 
     static override displayInfo(): string {
         return `${Color.Blue}Pretre${Style.Reset}   - ${Color.BrightRed}Attaque Physique: 15${Style.Reset} - ${Color.Green}Défense: 2${Style.Reset} - ${Color.BrightMagenta}Vitesse: 6${Style.Reset} - ${Color.Cyan}PV Max: 100${Style.Reset}\n${Color.Orange}Attaque spéciale: ${Style.Reset}Action de soin permettant de restaurer 25% des points de vie d'un allié ou de lui-même.`;
-}
+    }
 
     override specialAttack(target: Character){
         let healNumber = target.maxHealth * 0.25
@@ -21,6 +21,6 @@ export class Pretre extends Character {
         } else {
             target.currentHealth += healNumber
         }
-        return `${Color.Blue}${this.name}${Style.Reset} soigne ${Color.Green}${target.name}${Style.Reset} de ${Color.Yellow}${healNumber}${Style.Reset}, ${Color.Blue}${target.name}${Style.Reset} à désormais ${Color.Green}${target.currentHealth}${Style.Reset} point de vie.`
+        return `${Color.Blue}${this.name}${Style.Reset} soigne ${Color.Blue}${target.name}${Style.Reset} de ${Color.Green}${healNumber}${Style.Reset}, ${Color.Blue}${target.name}${Style.Reset} est désormais à ${Color.Cyan}${target.currentHealth}/${target.maxHealth} points de vie${Style.Reset}.`
     }
 }

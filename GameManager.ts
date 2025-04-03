@@ -29,7 +29,7 @@ export class GameManager{
         do {
             if (this.salle%5 === 0) {
                 console.log(Style.ClearTerminal + "Félicitations ! Vous avez terminé 5 salles avec au moins 1 aventurier vivant !");
-                prompt(`Pour vous récompenser voici une demi-étoile !`);
+                prompt(`Pour vous récompenser voici une ${Color.Yellow}demi-étoile${Style.Reset} !`);
                 Bagage.add(new HalfStar());
                 let continuer = null
                 do{
