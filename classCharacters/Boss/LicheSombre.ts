@@ -7,11 +7,11 @@ export class LicheSombre extends Monstre {
         super("Liche Sombre", 175, 30, 10);
     }
 
-    override attackMonstre = (_cible: Character):string=>{return "nothing"}
+    override attackMonstre = (_cible: Character): string => { return "nothing"; }
 
-    override attackBoss = (aventuriers :Character[]): string => {
-        let cible
-        let text = ""
+    override attackBoss = (aventuriers: Character[]): string => {
+        let cible;
+        let text = "";
         const random = Math.random();
         if (random < 0.2) {
             cible = aventuriers.reduce((prev, curr) => (prev.currentHealth < curr.currentHealth ? prev : curr));
@@ -24,16 +24,17 @@ export class LicheSombre extends Monstre {
         if (random2 < 0.7) {
             return `${Color.Red}${this.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset}.\n` + this.attack(cible);
         } else {
-            text += `${Color.Red}${this.name}${Style.Reset} invoque une aura de terreur, drainant la vitalité de ses ennemis !\n`;
+            text += `${Color.Red}${this.name}${Style.Reset} invoque une aura de terreur, drainant 10 points de vitalité de ses ennemis et se régénérant de 10 points !\n`;
             aventuriers.forEach(aventurier => {
                 if (aventurier.isAlive()) {
-                    aventurier.currentHealth -= 20;
+                    aventurier.currentHealth -= 10;
                     this.currentHealth = Math.min(this.maxHealth, this.currentHealth + 10); // Se régénère avec le drain
-                    text += `${Color.Blue}${aventurier.name}${Style.Reset} subit 20 dégâts ! Il ne lui reste plus que ${Color.Cyan}${aventurier.currentHealth}/${aventurier.maxHealth} points de vie${Style.Reset}.\n`;
+                    text += `${Color.Blue}${aventurier.name}${Style.Reset} subit 10 dégâts ! Il ne lui reste plus que ${Color.Cyan}${aventurier.currentHealth}/${aventurier.maxHealth} points de vie${Style.Reset}.\n`;
                 }
             });
 
             text += `${Color.Red}${this.name}${Style.Reset} lance un sort maudit sur l'ennemi le plus faible !\n`;
+
             const cible = aventuriers.reduce((prev, curr) => (prev.currentHealth < curr.currentHealth ? prev : curr));
             if (cible.isAlive()) {
                 cible.currentHealth -= 50;
@@ -44,6 +45,6 @@ export class LicheSombre extends Monstre {
                 }
             }
         }
-        return text + "Appuyez sur entrée"
+        return text + `${Style.Italic}[Appuyez sur entrée]${Style.Reset}`
     }
 }

@@ -7,11 +7,11 @@ export class TitanCorrompu extends Monstre {
         super("Titan Corrompu", 200, 40, 10);
     }
 
-    override attackMonstre = (_cible: Character):string=>{return "nothing"}
+    override attackMonstre = (_cible: Character): string => { return "nothing"; }
 
-    override attackBoss = (aventuriers :Character[]): string => {
-        let cible 
-        let text = ""
+    override attackBoss = (aventuriers: Character[]): string => {
+        let cible;
+        let text = "";
         const random = Math.random();
         if (random < 0.2) {
             cible = aventuriers.reduce((prev, curr) => (prev.currentHealth < curr.currentHealth ? prev : curr));
@@ -35,14 +35,14 @@ export class TitanCorrompu extends Monstre {
             text += `${Color.Red}${this.name}${Style.Reset} concentre son énergie sombre et libère un coup titanesque sur le plus fort !\n`;
             const cible = aventuriers.reduce((prev, curr) => (prev.physicalAttack > curr.physicalAttack ? prev : curr));
             if (cible.isAlive()) {
-                cible.currentHealth -= 60;
+                cible.currentHealth -= 50;
                 if (cible.currentHealth <= 0) {
                     text += `${Color.Blue}${cible.name}${Style.Reset} est écrasé sous la force du Titan Corrompu !\n`;
                 }else{
-                    text += `${Color.Blue}${cible.name}${Style.Reset} subit un coup titanesque de 60 dégâts ! Il ne lui reste plus que ${Color.Cyan}${cible.currentHealth}/${cible.maxHealth} points de vie${Style.Reset}.\n`;
+                    text += `${Color.Blue}${cible.name}${Style.Reset} subit un coup titanesque de 50 dégâts ! Il ne lui reste plus que ${Color.Cyan}${cible.currentHealth}/${cible.maxHealth} points de vie${Style.Reset}.\n`;
                 }
             }
         }
-        return text + "Appuyez sur entrée"
+        return text + `${Style.Italic}[Appuyez sur entrée]${Style.Reset}`
     }
 }
