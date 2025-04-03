@@ -25,12 +25,12 @@ export class LicheSombre extends Monstre {
 
             return `${Color.Red}${this.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !` + this.attack(cible);
         } else {
-            text += `${Color.Red}${this.name}${Style.Reset} invoque une aura de terreur, drainant la vitalité de ses ennemis !\n`;
+            text += `${Color.Red}${this.name}${Style.Reset} invoque une aura de terreur, drainant 10 points de vitalité de ses ennemis et se régénérant de 10 points !\n`;
             aventuriers.forEach(aventurier => {
                 if (aventurier.isAlive()) {
-                    aventurier.currentHealth -= 20;
+                    aventurier.currentHealth -= 10;
                     this.currentHealth = Math.min(this.maxHealth, this.currentHealth + 10); // Se régénère avec le drain
-                    text += `${Color.Blue}${aventurier.name}${Style.Reset} subit 20 dégâts ! Il ne lui reste plus que ${Color.Cyan}${aventurier.currentHealth}/${aventurier.maxHealth} points de vie${Style.Reset}.\n`;
+                    text += `${Color.Blue}${aventurier.name}${Style.Reset} subit 10 dégâts ! Il ne lui reste plus que ${Color.Cyan}${aventurier.currentHealth}/${aventurier.maxHealth} points de vie${Style.Reset}.\n`;
                 }
             });
 

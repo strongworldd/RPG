@@ -20,12 +20,15 @@ export class DragonAncien extends Monstre {
 
         const random2 = Math.random();
         if (random2 < 0.7) {
-            return `${Color.Red}${this.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} !` + this.attack(cible);
-        } else {
-        text += `${Color.Red}${this.name}${Style.Reset} rugit, intimidant ses ennemis et réduisant leur attaque !\n`;
-        aventuriers.forEach(aventurier => {
+            const damage = this.physicalAttack - cible.defense;
+            cible.currentHealth = Math.max(0, cible.currentHealth - damage);
+                return `${Color.Red}${this.name}${Style.Reset} attaque ${Color.Blue}${cible.name}${Style.Reset} et inflige ${Color.BrightRed}${damage}${Style.Reset} points de dégâts !\n` +
+                       `${Color.Blue}${cible.name}${Style.Reset} a maintenant ${Color.Cyan}${cible.currentHealth}/${cible.maxHealth} PV${Style.Reset}.\n`;
+                } else {
+            text += `${Color.Red}${this.name}${Style.Reset} rugit, intimidant ses ennemis et réduisant leur attaque de 5 points !\n`;        aventuriers.forEach(aventurier => {
             if (aventurier.isAlive()) {
-                aventurier.physicalAttack = Math.max(1, aventurier.physicalAttack - 10);
+                aventurier.physicalAttack = Math.max(1, aventurier.physicalAttack - 5);
+                text += `${Color.Blue}${aventurier.name}${Style.Reset} a maintenant une attaque de ${Color.Cyan}${aventurier.physicalAttack}${Style.Reset}.\n`;
             }
         });
 
