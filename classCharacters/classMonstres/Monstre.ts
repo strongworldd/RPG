@@ -20,6 +20,6 @@ export class Monstre extends Character {
     }
     override died(): string {
         this.currentHealth = 0;
-        return (`${Color.Red}${this.name}${Style.Reset} est mort !`)
+        return (`${Color.Red}${this.name}${Style.Reset} est mort,`)
     }
 }

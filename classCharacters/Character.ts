@@ -94,7 +94,7 @@ export abstract class Character {
 
     died() :string{
         this.currentHealth = 0;
-        return (`${Color.Blue}${this.name}${Style.Reset} est mort !`)
+        return (`${Color.Blue}${this.name}${Style.Reset} est mort,`)
     }
 
     revive = (healRevive :number) :string => {
