@@ -1,12 +1,10 @@
 import { Consommable } from "./classConsommables/Consommable.ts";
-import { Doppelganger } from "./classConsommables/Doppelganger.ts";
 import { Ether } from "./classConsommables/Ether.ts";
 import { HealPotion } from "./classConsommables/HealPotion.ts";
 import { StarShard } from "./classConsommables/StarShard.ts";
-import { Talaria } from "./classConsommables/Talaria.ts";
 
 export class Inventaire{
-    inventaire :Consommable[] = [new HealPotion(), new HealPotion(), new Ether(), new StarShard(), new Talaria(), new Doppelganger()]
+    inventaire :Consommable[] = [new HealPotion(), new HealPotion(), new Ether(), new StarShard()]
 
     add(item :Consommable){
         this.inventaire.push(item)
