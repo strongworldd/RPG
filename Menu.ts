@@ -73,7 +73,7 @@ export class Menu {
     }
     static action = (currentFighter: Character, enemies: Monstre[], characters: Character[]): void => {
         let action: string | null;
-        console.log(`\nC'est à ${Color.Blue}${currentFighter.name}${Style.Reset} de jouer. ${Color.Cyan}${currentFighter.currentHealth}/${currentFighter.maxHealth} PV${Style.Reset} vitesse :${currentFighter.speed}/${currentFighter.baseSpeed}`);
+        console.log(`\nC'est à ${Color.Blue}${currentFighter.name}${Style.Reset} de jouer. ${Color.Cyan}${currentFighter.currentHealth}/${currentFighter.maxHealth} PV${Style.Reset}`);
     
         // Vérifie si l'attaquant a une attaque spéciale
         if (currentFighter instanceof Guerrier) {

@@ -17,7 +17,7 @@ export class Voleur extends Character{
     }
 
     static override displayInfo(): string {
-        return `${Color.Blue}Voleur${Style.Reset}   - ${Color.BrightRed}Attaque Physique: 20${Style.Reset} - ${Color.Green}Défense: 5${Style.Reset} - ${Color.BrightMagenta}Vitesse: 8${Style.Reset} - ${Color.Cyan}PV Max: 100${Style.Reset}\n${Color.Orange}Attaque spéciale: ${Style.Reset}Vole un objet : 40% de chances de ne rien voler, 30% d'obtenir une potion, 15% d'obtenir un fragment d'étoile, 10% d'obtenir un éther et 5% d'obtenir une demi-étoile.\n${Color.LightPurple}Compétence secrète: ${Color.Violet}Inconnue${Style.Reset}.`;
+        return `${Color.Blue}Voleur${Style.Reset}   - ${Color.BrightRed}Attaque Physique: 20${Style.Reset} - ${Color.Green}Défense: 5${Style.Reset} - ${Color.BrightMagenta}Vitesse: 8${Style.Reset} - ${Color.Cyan}PV Max: 100${Style.Reset}\n${Color.Orange}Attaque spéciale: ${Style.Reset}Vole un objet : 20% de chance d'obtenir des Talaria, 10 % de chances d'obtenir un Doppelganger, 10% de chances de ne rien voler, 30% d'obtenir une potion de soin, 15% d'obtenir un fragment d'étoile, 10% d'obtenir un éther et 5% d'obtenir une demi-étoile.\n${Color.LightPurple}Compétence secrète: ${Color.Violet}Inconnue${Style.Reset}.`;
     }
 
     override specialAttack(target :Character){
