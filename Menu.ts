@@ -77,7 +77,7 @@ export class Menu {
     
         // Vérifie si l'attaquant a une attaque spéciale
         if (currentFighter instanceof Guerrier) {
-            action = prompt(`Quelle action voulez vous effectuer ?\n1: ${Color.BrightRed}Attaquer ${Style.Reset}(${currentFighter.physicalAttack} dégats) \n2: ${Color.Yellow}Utiliser un objet${Style.Reset} \n`);
+            action = prompt(`Quelle action voulez vous effectuer ?\n1: ${Color.BrightRed}Attaquer ${Style.Reset}(${currentFighter.physicalAttack} dégâts) \n2: ${Color.Yellow}Utiliser un objet${Style.Reset} \n`);
             if (!action || !["1", "2", ""].includes(action)) {
                 if (action === "") {
                 //nothing   
@@ -87,7 +87,7 @@ export class Menu {
                 }
             }
         } else {
-            action = prompt(`Quelle action voulez vous effectuer ? \n1: ${Color.BrightRed}Attaquer ${Style.Reset}(${currentFighter.physicalAttack} dégats) \n2: ${Color.Yellow}Utiliser un objet${Style.Reset} \n3: ${Color.Magenta}Action Spéciale${Style.Reset} \n`);
+            action = prompt(`Quelle action voulez vous effectuer ? \n1: ${Color.BrightRed}Attaquer ${Style.Reset}(${currentFighter.physicalAttack} dégâts) \n2: ${Color.Yellow}Utiliser un objet${Style.Reset} \n3: ${Color.Magenta}Action Spéciale${Style.Reset} \n`);
             if (!action || !["1", "2", "3", ""].includes(action)) {
                 if (action === "") {
                 //nothing   

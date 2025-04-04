@@ -114,7 +114,7 @@ export abstract class Character {
 
     boostDamage = (boost :number) :string => {
         this.activeBoostDamage = true;
-        this.physicalAttack = Math.min(this.physicalAttack + boost, 10);
+        this.physicalAttack += boost;
         return `${Color.Blue}${this.name}${Style.Reset} boost son attaque physique de ${Color.BrightRed}${boost}${Style.Reset} points et fait maintenant ${Color.BrightRed}${this.physicalAttack} points de dégâts${Style.Reset}.`;
     }
 

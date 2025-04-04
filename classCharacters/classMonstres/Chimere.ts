@@ -15,7 +15,7 @@ export class Chimere extends Monstre {
         if (this.unusedSkill) {
             this.physicalAttack += 5;
             this.unusedSkill = false
-            text = `\n${Color.Red}${this.name}${Style.Reset} change de forme et augmente son attaque de 5 !\n${Color.Red}${this.name}${Style.Reset} fait désormais ${Color.BrightRed}${this.physicalAttack} points de dégats${Style.Reset}.`
+            text = `\n${Color.Red}${this.name}${Style.Reset} change de forme et augmente son attaque de 5 !\n${Color.Red}${this.name}${Style.Reset} fait désormais ${Color.BrightRed}${this.physicalAttack} points de dégâts${Style.Reset}.`
         }
         return this.attack(aventuriers) + text
     }
