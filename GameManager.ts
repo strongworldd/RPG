@@ -28,8 +28,8 @@ export class GameManager{
 
         do {
             if (this.salle%5 === 0) {
-                console.log(Style.ClearTerminal + "Félicitations ! Vous avez terminé 5 salles avec au moins 1 aventurier vivant !");
-                prompt(`Pour vous récompenser voici une ${Color.Yellow}demi-étoile${Style.Reset} !`);
+                console.log(Style.ClearTerminal + Style.Bold + Color.Green + "Félicitations ! Vous avez terminé 5 salles avec au moins 1 aventurier vivant !"+ Style.Reset);
+                prompt(`Pour vous récompenser voici une ${Color.Yellow}Demi-étoile${Style.Reset} !`);
                 Bagage.add(new HalfStar());
                 let continuer = null
                 do{
@@ -43,7 +43,7 @@ export class GameManager{
                     }
                 }while(continuer !== "y" && continuer !== "yes" && continuer !== "n" && continuer !== "non")
             } else if (characters.length > 0){
-                console.log("Félicitations ! Vous avez terminé une salle avec au moins 1 aventurier vivant !");
+                console.log(`${Color.Green}Félicitations ! Vous avez terminé une salle avec au moins 1 aventurier vivant !${Style.Reset}`);
                 this.nextSalle(characters,classMonsters,Bagage);
             }else{return}
         }while(true)
@@ -94,7 +94,7 @@ export class GameManager{
         const BossClass = bosses[randomIndex];
         const boss = new BossClass();
         const fight = new Fight(characters, [boss]);
-        console.log(`Vous affrontez le boss ${boss.name}`);
+        console.log(`Vous affrontez le boss ${Style.Bold}${Color.Red}${boss.name}${Style.Reset}.`);
         fight.start();
     }
 }

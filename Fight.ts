@@ -35,6 +35,7 @@ export class Fight {
     }
 
     public takeTurn = (): void => {
+        this.fighters = this.determineTurnOrder();
         const currentFighter = this.fighters[this.currentTurnIndex];
 
         if (!currentFighter.isAlive()) {
@@ -99,6 +100,7 @@ export class Fight {
             exit(0)
         } else if (this.isTeamDefeated(this.enemies)) {
             console.log("🏆 Victoire ! Les aventuriers ont triomphé du combat !");
+            this.adventurer.forEach(aventurier => {aventurier.speed = aventurier.baseSpeed;});
             return true;
         }
         return false;

@@ -6,6 +6,8 @@ import { HalfStar } from "./classConsommables/HalfStar.ts";
 import { Inventaire } from "./Inventaire.ts";
 import { Character } from "./classCharacters/Character.ts";
 import { Color, Style } from "./Color.ts";
+import { Talaria } from "./classConsommables/Talaria.ts";
+import { Doppelganger } from "./classConsommables/Doppelganger.ts";
 
 export class Coffre {
     items: Consommable[];
@@ -15,7 +17,9 @@ export class Coffre {
             new HealPotion(),
             new Ether(),
             new StarShard(),
-            new HalfStar()
+            new HalfStar(),
+            new Talaria(),
+            new Doppelganger(),
         ];
     }
 
@@ -30,13 +34,13 @@ export class Coffre {
                 inventaire.add(item);
             }
             console.log("Vous avez ouvert le coffre et trouvé les objets suivants :");
-            droppedItems.forEach(item => prompt(Color.Yellow+item.name+Style.Reset));
+            droppedItems.forEach(item => prompt(Color.Yellow + item.name + Style.Reset));
             return droppedItems;
         } else { 
             const damage = 20; 
             if (joueur.currentHealth-damage > 0){
-            joueur.currentHealth -= damage;
-            prompt(`Le coffre était piégé ! ${Color.Blue}${joueur.name}${Style.Reset} subit ${damage} dégâts. Il lui reste ${Color.Cyan}${joueur.currentHealth}/${joueur.maxHealth} points de vie${Style.Reset}.`);
+                joueur.currentHealth -= damage;
+                prompt(`Le coffre était piégé ! ${Color.Blue}${joueur.name}${Style.Reset} subit ${damage} dégâts. Il lui reste ${Color.Cyan}${joueur.currentHealth}/${joueur.maxHealth} points de vie${Style.Reset}.`);
             } else {
                 prompt(`Le coffre était piégé et ${Color.Blue}${joueur.name}${Style.Reset} en meurt`)
             }

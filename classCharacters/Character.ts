@@ -3,6 +3,7 @@ import { Color, Style } from "../Color.ts";
 export abstract class Character {
     name = "";
     physicalAttack = 0;
+    physicalAttackBase = 0;
     defense = 0;
     speed = 10;
     baseSpeed = 10; 
@@ -12,10 +13,14 @@ export abstract class Character {
     currentMana = 0;
     magicAttack = 0;
     specialAttackName = "";
+    activeBoostDamage = false;
+    activeBoostDefense = false;
+    activeBoostSpeed = false;
 
     constructor(name :string, physicalAttack :number, defense :number, speed :number, maxHealth :number, currentHealth :number) {
         this.name = name;
         this.physicalAttack = physicalAttack;
+        this.physicalAttackBase = physicalAttack;
         this.defense = defense;
         this.speed = speed;
         this.baseSpeed = speed; 
@@ -30,7 +35,8 @@ export abstract class Character {
     abstract specialAttack(target: Character | Character[]): void;
 
     attack = (target :Character, attackType :string = "") :string => {
-        let attacking: number;
+        let attacking :number;
+        let ret :string;
     
         switch (attackType) {
             case "sorcererAttack":
@@ -49,7 +55,21 @@ export abstract class Character {
         if (target.isEsquive()) {
             return `${Color.Red}${target.name}${Style.Reset} éblouit ${Color.Blue}${this.name}${Style.Reset} et esquive l'attaque !`;
         } else {
-            return this.getColor(target, attacking);
+            ret = this.getColor(target, attacking)
+            if (this.activeBoostDamage) {
+                this.activeBoostDamage = false;
+                this.physicalAttack = this.physicalAttackBase;
+                ret += `\nLe ${Color.Yellow}Doppelganger${Style.Reset} de ${Color.Blue}${this.name}${Style.Reset} meurt et son attaque physique revient à la normal.\n${Color.Blue}${this.name}${Style.Reset} fait maintenant ${Color.BrightRed}${this.physicalAttack} points de dégâts${Style.Reset}.`;
+            }
+            if (this.activeBoostDefense) {
+                this.activeBoostDefense = false;
+                ret += `\nLe ${Color.Yellow}Doppelganger${Style.Reset} de ${Color.Blue}${this.name}${Style.Reset} meurt et sa défense revient à la normal.\n${Color.Blue}${this.name}${Style.Reset} fait maintenant ${Color.BrightRed}${(this.physicalAttack -= 10)} points de dégâts${Style.Reset}.`;
+            }
+            if(this.activeBoostSpeed) {
+                this.activeBoostSpeed = false;
+                ret += `\nLes ${Color.Yellow}Talaria${Style.Reset} de ${Color.Blue}${this.name}${Style.Reset} deviennent trop usées et sa vitesse revient à la normal.\n${Color.Blue}${this.name}${Style.Reset} à maintenant ${Color.BrightBlue}${(Math.max(0, this.speed -= 3))} points de vitesse${Style.Reset}.`;
+            }
+            return ret
         }
     };
     public isEsquive():boolean{return false}
@@ -90,6 +110,23 @@ export abstract class Character {
             this.currentMana += regenNumber
         }
         return `${Color.Blue}${this.name}${Style.Reset} à récupéré ${Color.Green}${regenNumber}${Style.Reset} mana et est désormais à ${Color.Cyan}${this.currentMana}/${this.maxMana} mana${Style.Reset}.`
+    }
+
+    boostDamage = (boost :number) :string => {
+        this.activeBoostDamage = true;
+        this.physicalAttack = Math.min(this.physicalAttack + boost, 10);
+        return `${Color.Blue}${this.name}${Style.Reset} boost son attaque physique de ${Color.BrightRed}${boost}${Style.Reset} points et fait maintenant ${Color.BrightRed}${this.physicalAttack} points de dégâts${Style.Reset}.`;
+    }
+
+    //boostDefense = (boost :number) :string => {
+    //    this.activeBoostDefense = true;
+    //}
+
+    boostSpeed = (boost :number) :string => {
+        this.activeBoostSpeed = true;
+        boost = Math.min(10 - (this.speed + boost), 3);
+        this.speed += boost;
+        return `${Color.Blue}${this.name}${Style.Reset} boost sa vitesse de ${Color.BrightBlue}${boost}${Style.Reset} points et à maintenant ${Color.BrightBlue}${this.speed} points de vitesse${Style.Reset}.`;
     }
 
     died() :string{

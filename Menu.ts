@@ -14,10 +14,12 @@ export class Menu {
     static menuInfo(){
         const options = [Guerrier, Mage, Paladin, Barbare, Pretre, Voleur];
         console.log(`${Style.ClearTerminal}${Color.Yellow}=== Informations des Objets Consommables ===${Style.Reset}`);
-        console.log(`${Color.BrightMagenta}Ether${Style.Reset}             - ${Color.BrightBlue}Régénère Mana: 50${Style.Reset}`);
-        console.log(`${Color.BrightMagenta}Potion de soin${Style.Reset}    - ${Color.Green}Régénère Vie: 50${Style.Reset}`);
-        console.log(`${Color.BrightMagenta}Morceau d'étoiles${Style.Reset} - ${Color.Green}Régénère Vie: 50${Style.Reset}  - ${Color.BrightGreen}Ressuscite avec: 20 PV${Style.Reset}`);
-        console.log(`${Color.BrightMagenta}Demi-étoile${Style.Reset}       - ${Color.Green}Régénère Vie: 100${Style.Reset} - ${Color.BrightGreen}Ressuscite avec: 100 PV${Style.Reset}`);
+        console.log(`${Color.BrightMagenta}Doppelganger${Style.Reset}      - ${Color.BrightRed}Boost de dégâts  : 10${Style.Reset}  - ${Color.BrightYellow}Durée: 1 tour  ${Style.Reset}- ${Color.Red}Limite: aucune${Style.Reset}`);
+        console.log(`${Color.BrightMagenta}Talaria${Style.Reset}           - ${Color.BrightBlue}Boost de vitesse : 3${Style.Reset}   - ${Color.BrightYellow}Durée: 1 combat  ${Style.Reset}- ${Color.Red}Limite: 10 de vitesse${Style.Reset}`);
+        console.log(`${Color.BrightMagenta}Ether${Style.Reset}             - ${Color.BrightBlue}Régénère Mana    : 50${Style.Reset}`);
+        console.log(`${Color.BrightMagenta}Potion de soin${Style.Reset}    - ${Color.Green}Régénère Vie     : 50${Style.Reset}`);
+        console.log(`${Color.BrightMagenta}Morceau d'étoiles${Style.Reset} - ${Color.Green}Régénère Vie     : 50${Style.Reset}  - ${Color.BrightGreen}Ressuscite avec: 20 PV${Style.Reset}`);
+        console.log(`${Color.BrightMagenta}Demi-étoile${Style.Reset}       - ${Color.Green}Régénère Vie     : 100${Style.Reset} - ${Color.BrightGreen}Ressuscite avec: 100 PV${Style.Reset}`);
         console.log(`\n${Color.Yellow}=== Informations des Aventuriers ===${Style.Reset}`);
         options.forEach(option => {
             console.log(`${option.displayInfo()}`);
@@ -71,7 +73,7 @@ export class Menu {
     }
     static action = (currentFighter: Character, enemies: Monstre[], characters: Character[]): void => {
         let action: string | null;
-        console.log(`\nC'est à ${Color.Blue}${currentFighter.name}${Style.Reset} de jouer. ${Color.Cyan}${currentFighter.currentHealth}/${currentFighter.maxHealth} PV${Style.Reset}`);
+        console.log(`\nC'est à ${Color.Blue}${currentFighter.name}${Style.Reset} de jouer. ${Color.Cyan}${currentFighter.currentHealth}/${currentFighter.maxHealth} PV${Style.Reset} vitesse :${currentFighter.speed}/${currentFighter.baseSpeed}`);
     
         // Vérifie si l'attaquant a une attaque spéciale
         if (currentFighter instanceof Guerrier) {
@@ -122,7 +124,7 @@ export class Menu {
                 }
             }while(isNaN(index) || index < 0 || index >= livingEnemies.length);
             let confirm: string | null;
-            do{confirm = prompt(`Veux-tu attaquer ${Color.Red}${livingEnemies[index].name}${Style.Reset}? [y,n]`);}
+            do{confirm = prompt(`Veux-tu attaquer ${Color.Red}${livingEnemies[index].name}${Style.Reset} ? [y,n]`);}
             while(confirm !== "y" && confirm !== "n" && confirm !== "yes" && confirm !== "non" && confirm !== "");
             if (confirm === "y" || confirm === "yes" || confirm === "") {
                 const target = livingEnemies[index];
@@ -135,7 +137,7 @@ export class Menu {
             if (currentFighter instanceof Pretre) {
                 const usable = livingCharacters.filter(character => character.currentHealth < character.maxHealth);
                 if (usable.length === 0) {
-                    console.log(`Vous n'avez aucun allié blessé.`);
+                    console.log(`Vous n'avez aucun ${Color.Green}allié blessé${Style.Reset}.`);
                     return this.action(currentFighter, livingEnemies, characters);
                 }
                 let characterList = `Choisissez un allié à ${Color.Green}soigner${Style.Reset} :\n`;
@@ -172,7 +174,7 @@ export class Menu {
                 }
             } else if(currentFighter instanceof Paladin || currentFighter instanceof Barbare){
                 let confirm: string | null;
-                do{confirm = prompt(`Veux-tu utiliser l'attaque spéciale ${Color.Magenta}${currentFighter.specialAttackName}${Style.Reset}? [y,n]\n`);}
+                do{confirm = prompt(`Veux-tu utiliser l'attaque spéciale ${Color.Magenta}${currentFighter.specialAttackName}${Style.Reset} ? [y,n]\n`);}
                 while(confirm !== "y" && confirm !== "n" && confirm !== "yes" && confirm !== "non" && confirm !== "");
                 if (confirm === "y" || confirm === "yes" || confirm === "") {
                     prompt(`${currentFighter.specialAttack(livingEnemies)}\n${Style.Italic}[Appuyez sur Entrée]${Style.Reset}\n`);
@@ -209,7 +211,7 @@ export class Menu {
                     }
                 }while (index < 0 || index >= livingEnemies.length || isNaN(index))
                 let confirm: string | null;
-                do{confirm = prompt(`${currentFighter instanceof Voleur ? `Veux-tu utiliser l'action spéciale ${Color.Magenta}${currentFighter.specialAttackName}${Style.Reset} sur ${Color.Red}${livingEnemies[index].name}${Style.Reset}? [y,n]`:`Veux-tu utiliser l'attack spéciale ${Color.Magenta}${currentFighter.specialAttackName}${Style.Reset} sur ${Color.Red}${livingEnemies[index].name}${Style.Reset}? [y,n]`}`);}
+                do{confirm = prompt(`${currentFighter instanceof Voleur ? `Veux-tu utiliser l'action spéciale ${Color.Magenta}${currentFighter.specialAttackName}${Style.Reset} sur ${Color.Red}${livingEnemies[index].name}${Style.Reset} ? [y,n]`:`Veux-tu utiliser l'attack spéciale ${Color.Magenta}${currentFighter.specialAttackName}${Style.Reset} sur ${Color.Red}${livingEnemies[index].name}${Style.Reset} ? [y,n]`}`);}
                 while(confirm !== "y" && confirm !== "n" && confirm !== "yes" && confirm !== "non" && confirm !== "");
 
                 if (confirm === "y" || confirm === "yes" || confirm === "") {
@@ -263,8 +265,17 @@ export class Menu {
                     userList += `${index + 1}. ${Color.Blue}${character.name} ${Color.Cyan}${character.currentMana}/${character.maxMana} Mana${Style.Reset}\n`;
                 });
                 possiblechoices.push(...livingCharacters.filter(character => character.currentMana != character.maxMana))
-                }  
-                if (possiblechoices.length == 0){
+                }else if (selectedItem.name === "Doppelganger"){
+                    livingCharacters.filter(character => character.isAlive()).forEach((character, index) => {
+                        userList += `${index + 1}. ${Color.Red}${character.name}${Style.Reset} ${Color.BrightCyan}${character.physicalAttack} -> ${character.physicalAttack + 10}${Style.Reset}\n`;
+                    });
+                    possiblechoices.push(...livingCharacters.filter(character => character.isAlive()))
+                }else if(selectedItem.name === "Talaria"){
+                    livingCharacters.filter(character => character.isAlive()).forEach((character, index) => {
+                        userList += `${index + 1}. ${Color.Red}${character.name}${Style.Reset} ${Color.BrightCyan}${character.speed} -> ${character.speed + 3}${Style.Reset}\n`;
+                    });
+                    possiblechoices.push(...livingCharacters.filter(character => character.isAlive()))
+                }if (possiblechoices.length == 0){
                     console.log("Vous ne pouvez pas utiliser cet item, car personne n'en à besoin.");
                     return this.action(currentFighter, livingEnemies, characters);
                 }    
