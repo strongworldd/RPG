@@ -14,7 +14,7 @@ export abstract class Character {
     magicAttack = 0;
     specialAttackName = "";
     activeBoostDamage = false;
-    activeBoostDefense = false;
+    //activeBoostDefense = false;
     activeBoostSpeed = false;
 
     constructor(name :string, physicalAttack :number, defense :number, speed :number, maxHealth :number, currentHealth :number) {
@@ -61,10 +61,10 @@ export abstract class Character {
                 this.physicalAttack = this.physicalAttackBase;
                 ret += `\nLe ${Color.Yellow}Doppelganger${Style.Reset} de ${Color.Blue}${this.name}${Style.Reset} meurt et son attaque physique revient à la normal.\n${Color.Blue}${this.name}${Style.Reset} fait maintenant ${Color.BrightRed}${this.physicalAttack} points de dégâts${Style.Reset}.`;
             }
-            if (this.activeBoostDefense) {
-                this.activeBoostDefense = false;
-                ret += `\nLe ${Color.Yellow}Doppelganger${Style.Reset} de ${Color.Blue}${this.name}${Style.Reset} meurt et sa défense revient à la normal.\n${Color.Blue}${this.name}${Style.Reset} fait maintenant ${Color.BrightRed}${(this.physicalAttack -= 10)} points de dégâts${Style.Reset}.`;
-            }
+            //if (this.activeBoostDefense) {
+            //    this.activeBoostDefense = false;
+            //    ret += `\nLe ${Color.Yellow}Doppelganger${Style.Reset} de ${Color.Blue}${this.name}${Style.Reset} meurt et sa défense revient à la normal.\n${Color.Blue}${this.name}${Style.Reset} fait maintenant ${Color.BrightRed}${(this.physicalAttack -= 10)} points de dégâts${Style.Reset}.`;
+            //}
             if(this.activeBoostSpeed) {
                 this.activeBoostSpeed = false;
                 ret += `\nLes ${Color.Yellow}Talaria${Style.Reset} de ${Color.Blue}${this.name}${Style.Reset} deviennent trop usées et sa vitesse revient à la normal.\n${Color.Blue}${this.name}${Style.Reset} à maintenant ${Color.BrightBlue}${(Math.max(0, this.speed -= 3))} points de vitesse${Style.Reset}.`;
