@@ -4,7 +4,7 @@ import { Color, Style } from "../../Color.ts";
 
 export class Basilic extends Monstre {
     constructor() {
-        super("Basilic Venimeux", 80, 28, 6); 
+        super("Basilic Venimeux", 80, 28, 3); 
     }
 
     override attackBoss = (_cibles :Character[]) :string => { return "nothing" }
