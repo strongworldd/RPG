@@ -40,7 +40,7 @@ export class Voleur extends Character{
             return `${Color.Blue}${this.name}${Style.Reset} a voler une ${Color.Yellow}Potion de soin${Style.Reset} à ${Color.Red}${target.name}${Style.Reset}.`;
         } else if (chance < 85) {
             bagage.add(new StarShard())
-            return `${Color.Blue}${this.name}${Style.Reset} a voler un ${Color.Yellow}Fragement d'étoile${Style.Reset} à ${Color.Red}${target.name}${Style.Reset}.`;
+            return `${Color.Blue}${this.name}${Style.Reset} a voler un ${Color.Yellow}Morceau d'étoile${Style.Reset} à ${Color.Red}${target.name}${Style.Reset}.`;
         } else if (chance < 95) {
             bagage.add(new Ether())
             return `${Color.Blue}${this.name}${Style.Reset} a voler un ${Color.Yellow}Ether${Style.Reset} à ${Color.Red}${target.name}${Style.Reset}.`;
